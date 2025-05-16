@@ -42,8 +42,14 @@ Route::get('/admin/login', function(){
     return view('admin.admin_login');
 })->name('admin_login');
 
+Route::get('/admin/create_admin', function(){
+    return view('admin.create_admin');
+})->name('admin_create');
+
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
+
+Route::post('/admin/create_admin', [AdminController::class, 'register']);
 
 //usr controller
 Route::post("/userRegProcess", [UserController::class, 'register']);
