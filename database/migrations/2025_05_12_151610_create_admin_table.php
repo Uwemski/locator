@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parish', function (Blueprint $table) {
+        Schema::create('admin', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("address");
-            $table->unsignedBigInteger("city_id");
-            $table->foreign("city_id")->references('id')->on('cities')->onDelete('cascade');
-
-            $table->decimal("latitude", 10, 8)->nullable();
-            $table->decimal("longitude", 10, 9)->nullable();
+            $table->string("email");
+            $table->string("password", 35);
+            $table->enum('role', ['superadmin', 'moderator']);
+            //clea$table->dateTime("created_at");
             $table->timestamps();
-            
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parish');
+        Schema::dropIfExists('admin');
     }
 };

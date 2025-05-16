@@ -1,128 +1,124 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pick Your Parish Location</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Parish with Location</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <!-- Leaflet Geosearch CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css" />
-
-  <style>
-    #map {
-      height: 500px;
-      width: 100%;
-      margin-bottom: 1em;
-    }
-
-    .leaflet-control-locate {
-      background: white;
-      padding: 6px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      padding: 1em;
-      max-width: 800px;
-      margin: auto;
-    }
-  </style>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-  <h2>Register Parish Location</h2>
+<h2>Parish Registration</h2>
 
-  <div id="map"></div>
+<div class="container">
+    <h2>Register Parish</h2>
 
-  <button id="locateBtn" class="leaflet-control-locate">📍 Use My Location</button>
+    <form method="POST" action="">
+        @csrf
 
-  <form id="parish-form">
-    <input type="hidden" id="latitude" name="latitude" />
-    <input type="hidden" id="longitude" name="longitude" />
-    <button type="submit">Submit</button>
-  </form>
+        <button type="button" id="getLocationBtn" class="btn btn-primary mb-3">Use My Location</button>
+        <div id="map" style="height: 400px;" class="mb-3"></div>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <input type="hidden" name="Latitude" id="latitude">
+        <input type="hidden" name="Longitude" id="longitude">
 
-  <!-- Leaflet GeoSearch -->
-  <script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="address" id="address" class="form-control" required>
+        </div>
 
-  <script>
-    const defaultLat = 6.5244;
-    const defaultLng = 3.3792;
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" name="city" id="city" class="form-control" required>
+        </div>
 
-    const map = L.map('map').setView([defaultLat, defaultLng], 17); // Start zoomed in
+        <div class="form-group">
+            <label>State</label>
+            <input type="text" name="state" id="state" class="form-control" required>
+        </div>
 
-    // Detailed Map Tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      maxZoom: 20,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" name="country" id="country" class="form-control" required>
+        </div>
 
-    // Draggable Marker
-    const marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+        <!-- Add other fields like name, pastor_name, etc. -->
 
-    const latInput = document.getElementById('latitude');
-    const lngInput = document.getElementById('longitude');
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
 
-    function updateCoords(lat, lng) {
-      latInput.value = lat;
-      lngInput.value = lng;
+<!-- Leaflet & Nominatim scripts -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+let map = L.map('map').setView([0, 0], 2);
+let marker;
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Click to place pin
+map.on('click', function(e) {
+    setMarkerAndReverseGeocode(e.latlng.lat, e.latlng.lng);
+});
+
+document.getElementById('getLocationBtn').addEventListener('click', function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+            setMarkerAndReverseGeocode(lat, lng);
+            map.setView([lat, lng], 18);
+        }, function() {
+            alert("Unable to access your location.");
+        });
+    } else {
+        alert("Geolocation is not supported.");
     }
+});
 
-    // Initial values
-    updateCoords(defaultLat, defaultLng);
+function setMarkerAndReverseGeocode(lat, lng) {
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
+
+    reverseGeocode(lat, lng);
 
     marker.on('dragend', function(e) {
-      const { lat, lng } = marker.getLatLng();
-      updateCoords(lat, lng);
+        let pos = marker.getLatLng();
+        document.getElementById('latitude').value = pos.lat;
+        document.getElementById('longitude').value = pos.lng;
+        reverseGeocode(pos.lat, pos.lng);
     });
+}
 
-    // Locate Button Click
-    document.getElementById('locateBtn').addEventListener('click', function() {
-      map.locate({ setView: true, maxZoom: 19 });
-    });
-
-    map.on('locationfound', function(e) {
-      marker.setLatLng(e.latlng);
-      updateCoords(e.latlng.lat, e.latlng.lng);
-    });
-
-    map.on('locationerror', function() {
-      alert('Location access denied or not available.');
-    });
-
-    // Add search control
-    const provider = new window.GeoSearch.OpenStreetMapProvider();
-
-    const searchControl = new window.GeoSearch.GeoSearchControl({
-      provider: provider,
-      style: 'bar',
-      autoComplete: true,
-      autoCompleteDelay: 250,
-      showMarker: false,
-      retainZoomLevel: false,
-      animateZoom: true,
-      searchLabel: 'Search address...',
-      keepResult: true,
-      updateMap: true
-    });
-
-    map.addControl(searchControl);
-
-    map.on('geosearch/showlocation', function(result) {
-      const { x: lng, y: lat } = result.location;
-      marker.setLatLng([lat, lng]);
-      updateCoords(lat, lng);
-      map.setView([lat, lng], 19);
-    });
-  </script>
+function reverseGeocode(lat, lng) {
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.address) {
+                document.getElementById('address').value = data.address.road || '';
+                document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
+                document.getElementById('state').value = data.address.state || '';
+                document.getElementById('country').value = data.address.country || '';
+            }
+        });
+}
+</script>
 
 </body>
 </html>

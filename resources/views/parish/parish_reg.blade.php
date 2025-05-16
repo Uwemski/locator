@@ -125,4 +125,39 @@ function reverseGeocode(lat, lng) {
 }
 </script>
 </body>
+
+
+<!--
+ php artisan migrate
+
+   INFO  Running migrations.
+
+  2025_04_18_091313_create_parish_table .............................................................................................. 360.53ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decim...' at line 1 (Connection: mysql, SQL: create table `parish` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `address` varchar(255) not null, `city` varchar(255) not null, `state` varchar(255) not null, `pastor_name` varchar(255) null, `email` varchar(255) not null, `contact_no` varchar(255) null, `website` varchar(255) null, `created_at` timestamp(approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decimal(10, 8) null, `longitude` decimal(10, 9) null, `admin_id` bigint unsigned not null, `admin_id` bigint unsigned not null, `approved_at` datetime null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:822
+    818▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    819▕                 );
+    820▕             }
+    821▕
+  ➜ 822▕             throw new QueryException(
+    823▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    824▕             );
+    825▕         }
+    826▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:562
+      PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decim...' at line 1")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:562
+      PDO::prepare("create table `parish` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `address` varchar(255) not null, `city` varchar(255) not null, `state` varchar(255) not null, `pastor_name` varchar(255) null, `email` varchar(255) not null, `contact_no` varchar(255) null, `website` varchar(255) null, `created_at` timestamp(approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decimal(10, 8) null, `longitude` decimal(10, 9) null, `admin_id` bigint unsigned not null, `admin_id` bigint unsigned not null, `approved_at` datetime null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci'")
+
+
+
+
+-->
 </html>
+
