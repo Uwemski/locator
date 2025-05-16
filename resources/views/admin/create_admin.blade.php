@@ -28,6 +28,10 @@
                     <input type="password" name="password" id="pass" class="form-control" placeholder="Choose a strong password" required>
                 </div>
                 <div class="mb-3">
+                    <label for="">Confirm Password</label>
+                    <input type="password" name="confrimPassword" id="cpassword" placeholder="Re-enter your password">
+                </div>
+                <div class="mb-3">
                     <label for="role">Select Role</label>
                     <select name="role" id="role" class="form-select">
                         <option value="">Select Role</option>
@@ -51,9 +55,10 @@
             let name = document.getElementById('name').value.trim();
             let email = document.getElementById('email').value.trim();
             let pass = document.getElementById('pass').value.trim();
+            let cpass = document.getElementById('cpassword').value.trim();
             let role = document.getElementById('role').value;
         
-            if(role === "" || !name || !email || !pass){
+            if(role === "" || !name || !email || !pass || !cpass){
                 alert("All fields are required");
             }else{
                 alert("Submission was completed successfully!");

@@ -37,6 +37,7 @@ class AdminController extends Controller
             'name'=> 'required|min:3',
             'email'=> 'required|min:3',
             'password'=> 'required|min:4|max:255',
+            'confirmPasword' => 'required|min:4|max:255',
             'role'=> 'required'
         ]);
 
@@ -44,9 +45,11 @@ class AdminController extends Controller
         $incomingData['name'] = strip_tags($incomingData['name']);
         $incomingData['email'] = strip_tags($incomingData['email']);
         $incomingData['password'] = strip_tags($incomingData['password']);
+        $incomingData['confirmPassword'] = strip_tags($incomingData['confirmPassword']);
 
-
-        //hash the password
+        //check if the two passwords match
+        if( $incomingData['password'] == $incomingdData['confirmPassword']){
+            //hash the password
         $incomingData['password'] = bcrypt($incomingData['password']);
         // dd($incomingData); debugging checkpoint
 
@@ -59,5 +62,7 @@ class AdminController extends Controller
         }else{
             return redirect()->back()->with("Error", "Error encountered, please try again later");
         }
+        }
+        
     }
 }
