@@ -31,13 +31,13 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    <label for="pass">Password</label>
+                    <input type="password" name="password" id="pass" class="form-control" placeholder="Enter your password" required>
                     @error('password')
                         <small style='color: red'>{{$message}}</small>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Log In</button>
+                <button class="btn btn-primary">Log In</button>
             </form>
         </div>
     </div>

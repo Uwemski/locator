@@ -55,7 +55,7 @@ class AdminController extends Controller
 
 
 
-        // //create the admin
+        //create the admin
         $admin = Admin::create($incomingData);
         if($admin){
             return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");

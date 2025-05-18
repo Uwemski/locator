@@ -49,5 +49,12 @@
       
     </div>
   </div>
+
+
+  <script>
+    //inasmuch as laravel performs validation, don't neglect the frontend
+    //frontend form validation goes here 
+
+  </script>
 </body>
 </html>

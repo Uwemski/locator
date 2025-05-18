@@ -51,5 +51,7 @@ Route::post('/admin/login', [AdminController::class, 'login']);
 
 Route::post('/admin/create_admin', [AdminController::class, 'register']);
 
-//usr controller
-Route::post("/userRegProcess", [UserController::class, 'register']);
+//user controllers
+Route::post('/userRegProcess', [UserController::class, 'register']);
+
+Route::post('/userLogin', [UserController::class, 'login']);

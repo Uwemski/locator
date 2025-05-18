@@ -39,7 +39,7 @@
         <a class="navbar-brand" href="#"><img src="img/logo_resized2.png" alt="" class="img-fluid rccgImageLogo mt-2"></a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active bg-primary" aria-current="page" href="#">Home</a>
+            <a class="nav-link active bg-primary" aria-current="page" href="{{route('homepage')}}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Find a Parish</a>
@@ -51,7 +51,7 @@
             <a class="nav-link active" href="#">About us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Register</a>
+            <a class="nav-link active" href="{{route('userReg')}}">Register</a>
           </li>
         </ul>
         <form class="d-flex" role="search">

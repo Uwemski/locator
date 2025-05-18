@@ -15,21 +15,23 @@
         <h2>User Login</h2><hr>
         <p>Kindly fill in the information required</p>
       </div>
-      <form action="" method="post">
+      <form action="/userLogin" method="post">
+        <!--Stil reminding myself never to forget the csrf-->
+        @csrf
         <div class="mb-3">
           <label for="">Email address</label>
           <input type="text" name="email" id="email" class="form-control">
         </div>
         <div class="mb-3">
           <label for="">Password</label>
-          <input type="text" name="password" class="form-control">
+          <input type="password" name="password" id="pass" class="form-control">
         </div>
         <div class="mb-3 d-flex justify-content-space-between">
           <p style="font-size: 12px; margin-right: 20px">Forgotten password?</p>
           <p class="text-center"><button class="btn btn-primary">Log in</button></p>
         </div>
         <div class="mb-3">
-          Don't have an account? <a href="userReg.html">Register</a>
+          Don't have an account? <a href="{{route('userReg')}}">Register</a>
         </div>
       </form>
     </div>

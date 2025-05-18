@@ -7,11 +7,18 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    //a function to login
+    //a function to logout
+    public function logout(Request $request){
+        Auth::logout();
 
+        return redirect('homepage');
+    }
+
+
+    //a function to login
     public function login(Request $request){
         $data = $request->validate([
-            "email"=> "required|min3",
+            "email"=> "required|min:3",
             "password"=> "required|min:4"
         ]);
 
@@ -45,20 +52,25 @@ class UserController extends Controller
         $incomingData["password"]= strip_tags($incomingData["password"]);
         $incomingData["confirmPassword"]= strip_tags($incomingData["confirmPassword"]);
 
+        //debug checkpoint: no bugs found
+        //dd($incomingData);
+
         //check if passwords match
-        if ($incomingData["password"] == $incomingData["confirmPassword"]){
+        if ($incomingData["password"] === $incomingData["confirmPassword"]){
             $incomingData["password"]= bcrypt($incomingData["password"]);
 
             //create a new user
             $user = User::create($incomingData);
             if($user){
-                return redirect()->route('/userLogin')->with("success", "Account has been created successfully");
+                return redirect()->route('userLogin')->with("success", "Account has been created successfully");
             }else{
                 return redirect()->back()->with("error", "Error was encountered, please try again");
             }
         }else{
             return redirect()->back()->with("Password error", "Passwords do not match");
         }
+
+        
 
     }
 }
