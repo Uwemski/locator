@@ -14,6 +14,13 @@
       <div class="row text-center">
         <h2>User Login</h2><hr>
         <p>Kindly fill in the information required</p>
+        @if ($errors->any()){
+          @foreach ($errors->all() as $err){
+            <p class="alert alert-warning">{{$err}}</p>
+          }
+          @endforeach
+        }
+        @endif
       </div>
       <form action="/userLogin" method="post">
         <!--Stil reminding myself never to forget the csrf-->
@@ -21,10 +28,16 @@
         <div class="mb-3">
           <label for="">Email address</label>
           <input type="text" name="email" id="email" class="form-control">
+          @error('email')
+            <small style="color: red">{{$message}}</small>
+          @enderror
         </div>
         <div class="mb-3">
           <label for="">Password</label>
           <input type="password" name="password" id="pass" class="form-control">
+          @error('password')
+            <small style="color: red">{{$message}}</small>
+          @enderror
         </div>
         <div class="mb-3 d-flex justify-content-space-between">
           <p style="font-size: 12px; margin-right: 20px">Forgotten password?</p>
@@ -36,5 +49,25 @@
       </form>
     </div>
   </div>
+
+  <script>
+    let x = document.querySelector('form')
+
+    x.addEventListent('submit', function(e){
+      e.preventDefault(e);
+
+      let em = document.getElementById("email").value.trim;
+      let pwd = document.getElementById("pass").value.trim;
+
+      if(!em || !pwd ){
+        alert("All fields are required");
+      }else{
+        alert("Log In Successful!");
+        x.submit();
+      }
+
+    })
+    
+  <script>
 </body>
 </html>

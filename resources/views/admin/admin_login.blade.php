@@ -37,9 +37,19 @@
                         <small style='color: red'>{{$message}}</small>
                     @enderror
                 </div>
-                <button class="btn btn-primary">Log In</button>
+                <button type="submit" class="btn btn-primary">Log In</button>
             </form>
         </div>
     </div>
+    <script>
+        let x = document.querySelector('form')
+
+        x.addEventListener('submit', function(e){
+            let em = document.getElementById('email').value.trim();
+            let pwd = documnet.getElementById('password').value.trim();
+
+            if (!em || !pwd) ? alert("Error, All fields are required") : alert("Logging in..."), x.submit();
+        })
+    </script>
 </body>
 </html>

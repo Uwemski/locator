@@ -20,7 +20,7 @@
         <p>Fill out the form carefully for registration</p>
       </div>
       <div class="">
-        <form action="/userRegProcess" method="post" class="p-2">
+        <form action="/userRegProcess" method="POST" class="p-2">
           @csrf
           <div class=" mb-3">
             <label for="fullName">Name<span>*</span></label>
@@ -43,7 +43,7 @@
             <input type="password" name="confirmPassword" id="cpwd" placeholder="Confirm password" class="form-control">
           </div>
           
-          <p class="text-center"> <button class="btn btn-primary">Register</button></p>
+          <p class="text-center"> <button type="submit" class="btn btn-primary">Register</button></p>
         </form>
       </div>
       
@@ -55,6 +55,25 @@
     //inasmuch as laravel performs validation, don't neglect the frontend
     //frontend form validation goes here 
 
+    let myForm = document.querySelector('form');
+
+    myForm.addEventListener('submit', function(e){
+      e.preventDefault(e)
+
+      let fname = document.getElementById("fullName").value.trim()
+      let email = document.getElementById("email").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+
+      let pwd = document.getElementById("password").value.trim();
+      let cpwd = document.getElementById("cpwd").value.trim();
+
+      if(!fname || !email || !phone || !pwd || !cpwd){
+        alert("Error, All fields are required")
+      }else{
+        alert("Registering...Please wait")
+        myForm.submit()
+      }
+    })
   </script>
 </body>
 </html>

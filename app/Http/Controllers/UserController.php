@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,7 +12,7 @@ class UserController extends Controller
     public function logout(Request $request){
         Auth::logout();
 
-        return redirect('homepage');
+        return redirect('/home');
     }
 
 
@@ -27,7 +28,7 @@ class UserController extends Controller
         $data["password"] = strip_tags($data["password"]);
 
         if(auth()->attempt(['email'=> $data["email"], "password"=> $data["password"]])){
-            return redirect('dashboard');
+            return redirect('userDashboard');
         }else{
             return redirect()->back()->with("loginError", "There was an error upon login, please try again");
         }

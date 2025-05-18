@@ -20,9 +20,9 @@ Route::get("/userLogin", function(){
     return view("user.userLogin");
 })->name("userLogin");
 
-Route::get("/dashboard", function(){
+Route::get("/userDashboard", function(){
     return view("user.dashboard");
-})->name('dashboard');
+})->name('userDashboard');
 
 Route::get('/test', function(){
     return view('user.test');
@@ -46,12 +46,26 @@ Route::get('/admin/create_admin', function(){
     return view('admin.create_admin');
 })->name('admin_create');
 
+Route::get('/adminDashboard', function(){
+    return view("admin.admin_dashboard");
+})->name("adminDashboard");
+
+Route::get('/admin/viewUsers', function(){
+    return view('admin.all_users');
+})->name('allUsers');
+
+Route::get('/admin/viewParishes', function(){
+    return view('admin.all_parish');
+})->name('allParishes');
+
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
 
 Route::post('/admin/create_admin', [AdminController::class, 'register']);
 
+Route::post('/adminLogout', [AdminController::class, 'logout']);
+
 //user controllers
 Route::post('/userRegProcess', [UserController::class, 'register']);
-
 Route::post('/userLogin', [UserController::class, 'login']);
+Route::post('/userLogout', [UserController::class, 'logout']);

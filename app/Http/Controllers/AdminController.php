@@ -24,7 +24,7 @@ class AdminController extends Controller
         // Attempt to authenticate using the Admin model
         if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'] ])) {
             //auth()->login($data);
-            return redirect()->route('dashboard');
+            return redirect()->route('adminDashboard');
         } else {
              return redirect()->back()->with("Error", "Invalid details, please confirm and try again.");
         }
@@ -64,5 +64,11 @@ class AdminController extends Controller
         }
         }
         
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        return redirect('/adminLogin'); 
     }
 }
