@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Document</title>
+  <title>Parish Registration</title>
   <style>
     span{
       color: red
@@ -20,12 +20,28 @@
         <p>Fill out the form carefully for registration</p>
       </div>
       <div class="">
-        <form action="" method="post" class="p-2">
+        <form action="/parish_reg" method="POST" class="p-2">
           @csrf
           <div class=" mb-3">
             <label for="name">Name<span>*</span></label>
             <input type="text" name="name" id="name" required placeholder="Enter your Parish Name" class="form-control">
           </div>
+
+          <div class=" mb-3">
+            <label for="email">Email<span>*</span></label>
+            <input type="email" name="email" id="email" required placeholder="Enter your Email" class="form-control">
+          </div>
+
+          <div class=" mb-3">
+            <label for="password">Password<span>*</span></label>
+            <input type="password" name="password" id="pass" required placeholder="Choose a strong password" class="form-control">
+          </div>
+
+          <div class=" mb-3">
+            <label for="password">Confirm Password<span>*</span></label>
+            <input type="password" name="cPassword" id="cpass" required placeholder="Confirm your password" class="form-control">
+          </div>
+
           <button type="button" id="getLocationBtn" class="btn btn-primary mb-3">Use My Location</button>
           <div id="map" style="height: 400px;" class="mb-3"></div>
 
@@ -64,100 +80,85 @@
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<script>
-let map = L.map('map').setView([0, 0], 2);
-let marker;
+  <script>
+  let map = L.map('map').setView([0, 0], 2);
+  let marker;
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
 
-// Click to place pin
-map.on('click', function(e) {
-    setMarkerAndReverseGeocode(e.latlng.lat, e.latlng.lng);
-});
+  // Click to place pin
+  map.on('click', function(e) {
+      setMarkerAndReverseGeocode(e.latlng.lat, e.latlng.lng);
+  });
 
-document.getElementById('getLocationBtn').addEventListener('click', function () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            setMarkerAndReverseGeocode(lat, lng);
-            map.setView([lat, lng], 18);
-        }, function() {
-            alert("Unable to access your location.");
-        });
-    } else {
-        alert("Geolocation is not supported.");
-    }
-});
+  document.getElementById('getLocationBtn').addEventListener('click', function () {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              let lat = position.coords.latitude;
+              let lng = position.coords.longitude;
+              setMarkerAndReverseGeocode(lat, lng);
+              map.setView([lat, lng], 18);
+          }, function() {
+              alert("Unable to access your location.");
+          });
+      } else {
+          alert("Geolocation is not supported.");
+      }
+  });
 
-function setMarkerAndReverseGeocode(lat, lng) {
-    if (marker) map.removeLayer(marker);
-    marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+  function setMarkerAndReverseGeocode(lat, lng) {
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
-    document.getElementById('latitude').value = lat;
-    document.getElementById('longitude').value = lng;
+      document.getElementById('latitude').value = lat;
+      document.getElementById('longitude').value = lng;
 
-    reverseGeocode(lat, lng);
+      reverseGeocode(lat, lng);
 
-    marker.on('dragend', function(e) {
-        let pos = marker.getLatLng();
-        document.getElementById('latitude').value = pos.lat;
-        document.getElementById('longitude').value = pos.lng;
-        reverseGeocode(pos.lat, pos.lng);
-    });
-}
+      marker.on('dragend', function(e) {
+          let pos = marker.getLatLng();
+          document.getElementById('latitude').value = pos.lat;
+          document.getElementById('longitude').value = pos.lng;
+          reverseGeocode(pos.lat, pos.lng);
+      });
+  }
 
-function reverseGeocode(lat, lng) {
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.address) {
-                document.getElementById('address').value = data.address.road || '';
-                document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
-                document.getElementById('state').value = data.address.state || '';
-                document.getElementById('country').value = data.address.country || '';
-            }
-        });
-}
-</script>
+  let myForm = document.querySelector('form');
+  // myForm.addEventListener('submit', function(e){
+  //   e.preventDefault();
+
+  //   let name = document.getElementById('name')
+  //   let lat = document.getElementById('latitude')
+  //   let long = document.getElementById('Longitude')
+  //   let address =  document.getElementById('address')
+  //   let city =  document.getElementById('city')
+  //   let state = document.getElementById('state')
+  //   let country =  document.getElementById('country')
+
+  //   if ()
+
+  // })
+
+  function reverseGeocode(lat, lng) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+          .then(res => res.json())
+          .then(data => {
+              alert(data)
+              console.log(data)
+              if (data.address) {
+                  document.getElementById('address').value = data.address.road || '';
+                  document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
+                  document.getElementById('state').value = data.address.state || '';
+                  document.getElementById('country').value = data.address.country || '';
+              }
+          });
+  }
+
+  //console.log(myForm);
+  </script>
 </body>
-
-
-<!--
- php artisan migrate
-
-   INFO  Running migrations.
-
-  2025_04_18_091313_create_parish_table .............................................................................................. 360.53ms FAIL
-
-   Illuminate\Database\QueryException 
-
-  SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decim...' at line 1 (Connection: mysql, SQL: create table `parish` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `address` varchar(255) not null, `city` varchar(255) not null, `state` varchar(255) not null, `pastor_name` varchar(255) null, `email` varchar(255) not null, `contact_no` varchar(255) null, `website` varchar(255) null, `created_at` timestamp(approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decimal(10, 8) null, `longitude` decimal(10, 9) null, `admin_id` bigint unsigned not null, `admin_id` bigint unsigned not null, `approved_at` datetime null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
-
-  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:822
-    818▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
-    819▕                 );
-    820▕             }
-    821▕
-  ➜ 822▕             throw new QueryException(
-    823▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
-    824▕             );
-    825▕         }
-    826▕     }
-
-  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:562
-      PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decim...' at line 1")
-
-  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:562
-      PDO::prepare("create table `parish` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `address` varchar(255) not null, `city` varchar(255) not null, `state` varchar(255) not null, `pastor_name` varchar(255) null, `email` varchar(255) not null, `contact_no` varchar(255) null, `website` varchar(255) null, `created_at` timestamp(approved_at) null, `updated_at` timestamp(approved_at) null, `latitude` decimal(10, 8) null, `longitude` decimal(10, 9) null, `admin_id` bigint unsigned not null, `admin_id` bigint unsigned not null, `approved_at` datetime null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci'")
-
-
-
-
--->
 </html>
-

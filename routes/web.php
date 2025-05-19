@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ParishController;
+ 
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,6 +14,7 @@ Route::get("/home", function(){
     return view('index');
 })->name("homepage");
 
+//Route views for Users
 Route::get("/userReg", function(){
     return view('user.userReg');
 })->name('userReg');
@@ -28,6 +31,7 @@ Route::get('/test', function(){
     return view('user.test');
 })->name('Testing');
 
+//Route view for parish
 Route::get('/parish_reg', function(){
     return view('parish.parish_reg');
 })->name('parish_reg');
@@ -69,3 +73,6 @@ Route::post('/adminLogout', [AdminController::class, 'logout']);
 Route::post('/userRegProcess', [UserController::class, 'register']);
 Route::post('/userLogin', [UserController::class, 'login']);
 Route::post('/userLogout', [UserController::class, 'logout']);
+
+//Parish Controllers
+Route::post('/parish_reg', [ParishController::class, 'register']);

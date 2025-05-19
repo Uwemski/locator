@@ -9,6 +9,6 @@
     <title>All Parish</title>
 </head>
 <body>
-    
+    <!--Upon parish registration, admin should be able to view it from here-->
 </body>
 </html>
