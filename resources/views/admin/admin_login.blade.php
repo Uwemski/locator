@@ -13,19 +13,17 @@
     <div class="container-fluid">
         <div class="row mt-5">
             
-            @if ($errors->any()){
+            @if ($errors->any())
                 {{-- //loop over the error --}}
                 @foreach ($errors->all() as $err)
                     <small style="color: red">{{$err}}</small>
                 @endforeach
-            }
-                
             @endif
             <form action="/admin/login" method="post">
                 @csrf
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email here" class="form-control" required>
+                    <input type="email" name="email" id="email" placeholder="Enter your email here" class="form-control" required value="{{old('email')}}">
                     @error('email')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -45,8 +43,10 @@
         let x = document.querySelector('form')
 
         x.addEventListener('submit', function(e){
+            e.preventDefault();
+
             let em = document.getElementById('email').value.trim();
-            let pwd = documnet.getElementById('password').value.trim();
+            let pwd = document.getElementById('password').value.trim();
 
             if (!em || !pwd) ? alert("Error, All fields are required") : alert("Logging in..."), x.submit();
         })

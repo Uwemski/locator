@@ -13,15 +13,20 @@
     <div class="container-fluid d-flex justtify-content-center align-items-center">
         <div class="row rounded mt-5 mx-auto w-90 shadow">
             <form action="/admin/create_admin" method="POST">
+                @if($errors->any())
+                    @foreach ($errors->all() as $err)
+                        <p class="alert alert-danger">{{$err}}</p>
+                    @endforeach
+                @endif
                 <!--CSRF is very important, try not to forget it-->
                 @csrf
                 <div class="mb-3">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required value="{{old('name')}}">
                 </div>
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" placehoder="Kindly enter your email" required>
+                    <input type="email" name="email" id="email" class="form-control" placehoder="Kindly enter your email" required value="{{old('email')}}">
                 </div>
                 <div class="mb-3">
                     <label for="pass">Password</label>
@@ -60,6 +65,9 @@
         
             if(role === "" || !name || !email || !pass || !cpass){
                 alert("All fields are required");
+                if(pass !== cpass){
+                    alert("Passwords do not match");
+                }
             }else{
                 alert("Submission was completed successfully!");
                 x.submit();

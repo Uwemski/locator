@@ -27,14 +27,14 @@
         @csrf
         <div class="mb-3">
           <label for="">Email address</label>
-          <input type="text" name="email" id="email" class="form-control">
+          <input type="text" name="email" id="email"placeholder="Enter your email" class="form-control" value="{{old('email')}}">
           @error('email')
             <small style="color: red">{{$message}}</small>
           @enderror
         </div>
         <div class="mb-3">
           <label for="">Password</label>
-          <input type="password" name="password" id="pass" class="form-control">
+          <input type="password" name="password" id="pass" placeholder="Enter your password" class="form-control">
           @error('password')
             <small style="color: red">{{$message}}</small>
           @enderror
@@ -62,7 +62,7 @@
       if(!em || !pwd ){
         alert("All fields are required");
       }else{
-        alert("Log In Successful!");
+        alert("Logging in...");
         x.submit();
       }
 

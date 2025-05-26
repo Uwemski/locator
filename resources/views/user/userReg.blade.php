@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Document</title>
+  <title>User Registration Page</title>
   <style>
     span{
       color: red
@@ -13,6 +13,11 @@
     </style>
 </head>
 <body>
+  @if ($errors->any())
+    @foreach ($errors->all() as $err)
+        <p class="alert alert-danger">{{$err}}</p>
+    @endforeach
+  @endif
   <div class="container-fluid d-flex justify-content-center min-vh-80 align-items-center">
     <div class="col-md-6 col-lg-4  p-4 rounded shadow mt-5" >
      <div class="row text-center">
@@ -24,26 +29,44 @@
           @csrf
           <div class=" mb-3">
             <label for="fullName">Name<span>*</span></label>
-            <input type="text" name="name" id="fullName" required placeholder="Enter your Full Name" class="form-control">
+            <input type="text" name="name" id="fullName"  placeholder="Enter your Full Name" class="form-control" value="{{old('fullName')}}">
+            @error('name')
+              <small style="color:red">{{$message}}</small>
+            @enderror
           </div>
           <div class="mb-3">
             <label for="">Email Address<span>*</span></label>
-            <input type="email" name="email" id="email" required placeholder="Enter your Email" class="form-control">
+            <input type="email" name="email" id="email"  placeholder="Enter your Email" class="form-control" value="{{old('email')}}">
+            @error('email')
+              <small style="color:red">{{$message}}</small>
+            @enderror
           </div>
           <div class="mb-3">
             <label for="phone">Phone Number<span>*</span></label>
-            <input type="text" name="phone" id="phone" required placeholder="Enter your Phone Number" class="form-control">
+            <input type="text" name="phone" id="phone" required placeholder="Enter your Phone Number" class="form-control" value="{{old('phone')}}">
+            @error('phone')
+              <small style="color:red">{{$message}}</small>
+            @enderror
           </div>
           <div class="mb-3">
             <label for="password">Password<span>*</span></label>
             <input type="password" name="password" id="password" placeholder="Password must not be less than 8 characters" class="form-control">
+            @error('password')
+              <small style="color:red">{{$message}}</small>
+            @enderror
           </div>
           <div class="mb-3">
             <label for="cpassword">Confirm Password<span>*</span></label>
             <input type="password" name="confirmPassword" id="cpwd" placeholder="Confirm password" class="form-control">
+            @error('confirmPassword')
+              <small style="color:red">{{$message}}</small>
+            @enderror
           </div>
           
           <p class="text-center"> <button type="submit" class="btn btn-primary">Register</button></p>
+          <div class="mb-3">
+            <p>Already have an account?<a href="/userLogin"><small class="text-danger">Log in</small></a></p>
+          </div>
         </form>
       </div>
       
