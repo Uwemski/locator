@@ -50,18 +50,18 @@ class AdminController extends Controller
         //check if the two passwords match
         if( $incomingData['password'] == $incomingdData['confirmPassword']){
             //hash the password
-        $incomingData['password'] = bcrypt($incomingData['password']);
-        // dd($incomingData); debugging checkpoint
+            $incomingData['password'] = bcrypt($incomingData['password']);
+            // dd($incomingData); debugging checkpoint
 
 
 
-        //create the admin
-        $admin = Admin::create($incomingData);
-        if($admin){
-            return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
-        }else{
-            return redirect()->back()->with("Error", "Error encountered, please try again later");
-        }
+            //create the admin
+            $admin = Admin::create($incomingData);
+            if($admin){
+                return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
+            }else{
+                return redirect()->back()->with("Error", "Error encountered, please try again later");
+            }
         }
         
     }
@@ -69,6 +69,6 @@ class AdminController extends Controller
     public function logout(Request $request){
         Auth::logout();
 
-        return redirect('/adminLogin'); 
+        return redirect()->route('admin_login'); 
     }
 }

@@ -14,6 +14,10 @@ Route::get("/home", function(){
     return view('index');
 })->name("homepage");
 
+Route::get('/about', function(){
+    return view('about');
+})->name('about');
+
 //Route views for Users
 Route::get("/userReg", function(){
     return view('user.userReg');
@@ -36,6 +40,9 @@ Route::get('/parish_reg', function(){
     return view('parish.parish_reg');
 })->name('parish_reg');
 
+Route::get('/reg_test', function(){
+    return view('parish.reg_test');
+})->name('/reg_test');
 
 //routes for admin
 Route::get('/admin/test', function(){
@@ -55,6 +62,7 @@ Route::get('/adminDashboard', function(){
 })->name("adminDashboard");
 
 Route::get('/admin/viewUsers', function(){
+    
     return view('admin.all_users');
 })->name('allUsers');
 

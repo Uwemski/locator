@@ -1,3 +1,7 @@
+<?php
+    use App\Models\Parish;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,5 +14,39 @@
 </head>
 <body>
     <!--Upon parish registration, admin should be able to view it from here-->
+
+    <div class="container">
+        <div class="row">
+            <table border="1" class="table table-hover"> 
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Parish Name</th>
+                        <th>Parish Location</th>
+                        <th>Parish Email</th>
+                        <th>Date Registered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $serialNo = 1 ?>
+                    @foreach (Parish::all() as $p )
+                        
+                        <tr>
+                            <th>{{ $serialNo }}</th>
+                            <th>{{$p->name}}</th>
+                            <th>{{$p->address}}</th>
+                            <th>{{$p->email}}</th>
+                            <th>{{$p->created_at}}</th>
+                        </tr>
+
+                        {{$serialNo++}}
+                    @endforeach
+                </tbody>
+
+
+
+            </table>
+        </div>
+    </div>
 </body>
 </html>

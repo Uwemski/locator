@@ -16,7 +16,7 @@
       }
     </style>
     {{-- Load Google Maps JS API asynchronously with callback --}}
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}&libraries=places"></script>
     
   </head>
 

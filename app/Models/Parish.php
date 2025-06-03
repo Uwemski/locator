@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Parish extends Model
 {
     //
      use HasFactory, Notifiable;
 
-    protected $table ="admin";
+    protected $table ="parish";
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password'
+       'name', 'email', 'password', 'address',
+    'city', 'state', 'country', 'latitude', 'longitude'
     ];
 
     /**

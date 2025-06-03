@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Parish;
 use Illuminate\Http\Request;
 
+
 class ParishController extends Controller
 {
     //a function to andle registration
@@ -16,14 +17,32 @@ class ParishController extends Controller
             "address"=> "required|min:4|max:255",
             "city" => "required|min:4|max:255",
             "state" => "required|min:4|max:255",
-            "country" => "required|min:4|max:255",
+            
+            "longitude" => "required",
+            "latitude" => "required"
         ]);
 
         $data["name"]= strip_tags($data["name"]);
         $data["email"] = strip_tags($data["email"]);
-        $data["address"]= strip_taga($data["address"]);
+        $data["address"]= strip_tags($data["address"]);
         $data["city"]= strip_tags($data["city"]);
         $data["state"] = strip_tags($data["state"]);
-        $data["country"] = strip_tags($data["country"]);
+        //$data["country"] = strip_tags($data["country"]);
+
+        $m = Parish::create($data);
+        // dd($data);
+
+        // if($m){
+        //     return redirect()->route('/userLogin');
+        // }
+
+
+        if ($m) {
+    return redirect()->route('userLogin');
+} else {
+    return back()->with('error', 'Failed to register parish. Try again.');
+}
+
+        // dd($data);
     }
 }

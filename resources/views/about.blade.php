@@ -30,7 +30,7 @@
 
 
   <!-- 2ND NAVBAR STARTS HERE-->
-  @include('partials/navbar2')
+  @include('partials.navbar2')
   <!-- NAVBAR ENDS HERE-->
 
   <!--HEADER-->
