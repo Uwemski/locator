@@ -28,21 +28,28 @@ Route::get("/userLogin", function(){
 })->name("userLogin");
 
 Route::get("/userDashboard", function(){
-    return view("user.dashboard");
+    return view("user.userDashboard");
 })->name('userDashboard');
 
 Route::get('/test', function(){
     return view('user.test');
 })->name('Testing');
 
-//Route view for parish
-Route::get('/parish_reg', function(){
-    return view('parish.parish_reg');
-})->name('parish_reg');
+//ROUTEFOR PARISH
 
+//this is the file that intended to use googlemaps API
+// Route::get('/parish_reg', function(){
+//     return view('parish.parish_reg');
+// })->name('parish_reg'); since there is an invalid map key, let's comment it out
+
+//this route uses openstreetmap
 Route::get('/reg_test', function(){
     return view('parish.reg_test');
-})->name('/reg_test');
+})->name('reg_test');
+
+Route::get('/parish_login', function(){
+    return view('parish.parish_login');
+})->name('parish_login');
 
 //routes for admin
 Route::get('/admin/test', function(){
@@ -84,3 +91,5 @@ Route::post('/userLogout', [UserController::class, 'logout']);
 
 //Parish Controllers
 Route::post('/parish_reg', [ParishController::class, 'register']);
+
+Route::post('/parish_login', [ParishController::class, 'login']);

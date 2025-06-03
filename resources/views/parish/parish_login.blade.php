@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>Parish Login</title>
+</head>
+<body>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-4 rounded shadow p-4">
+      <div class="row text-center">
+        <h2>Parish Login</h2><hr>
+        <p>Kindly fill in the information required</p>
+        @if ($errors->any()){
+          @foreach ($errors->all() as $err){
+            <p class="alert alert-warning">{{$err}}</p>
+          }
+          @endforeach
+        }
+        @endif
+      </div>
+      <form action="/parish_login" method="post">
+        <!--Stil reminding myself never to forget the csrf-->
+        @csrf
+        <div class="mb-3">
+          <label for="email">Email address</label>
+          <input type="text" name="email" id="email" placeholder="Enter your email" class="form-control" value="{{old('email')}}">
+          @error('email')
+            <small style="color: red">{{$message}}</small>
+          @enderror
+        </div>
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="pass" placeholder="Enter your password" class="form-control">
+          @error('password')
+            <small style="color: red">{{$message}}</small>
+          @enderror
+        </div>
+        <div class="mb-3 d-flex justify-content-space-between">
+          <p style="font-size: 12px; margin-right: 20px">Forgotten password?</p>
+          <p class="text-center"><button class="btn btn-primary">Log in</button></p>
+        </div>
+        <div class="mb-3">
+          Don't have an account? <a href="{{route('reg_test')}}">Register</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let x = document.querySelector('form')
+
+    x.addEventListent('submit', function(e){
+      e.preventDefault(e);
+
+      let em = document.getElementById("email").value.trim;
+      let pwd = document.getElementById("pass").value.trim;
+
+      if(!em || !pwd ){
+        alert("All fields are required");
+      }else{
+        alert("Logging in...");
+        x.submit();
+      }
+
+    })
+    
+  <script>
+</body>
+</html>

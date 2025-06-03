@@ -44,6 +44,11 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admin'
+        ],
+
+        'parish' => [
+            'driver' => 'session',
+            'provider' => 'parish'
         ]
     ],
 
@@ -73,8 +78,12 @@ return [
         'admin' => [ 
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
-        ]
+        ],
 
+        'parish' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Parish::class,
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
