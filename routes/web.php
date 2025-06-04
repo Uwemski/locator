@@ -51,6 +51,24 @@ Route::get('/parish_login', function(){
     return view('parish.parish_login');
 })->name('parish_login');
 
+
+Route::middleware(['auth:parish'])->group(function() {
+    Route::get('/parish_dashboard', function () {
+        return view('parish.parish_dashboard');
+    })->name('parish_dashboard');
+    Route::get('/parish/update_profile', function(){
+        return view('parish.update_profile');
+    })->name('update_profile');
+});
+
+// Route::middleware(['auth:parish'])->group(function () {
+//     Route::get('/parish_dashboard', function () {
+//         return view('parish.parish_dashboard');
+//     })->name('parish_dashboard');
+// });
+
+
+
 //routes for admin
 Route::get('/admin/test', function(){
     return view('admin.admin_test');
@@ -93,3 +111,5 @@ Route::post('/userLogout', [UserController::class, 'logout']);
 Route::post('/parish_reg', [ParishController::class, 'register']);
 
 Route::post('/parish_login', [ParishController::class, 'login']);
+
+Route::post('/parish/logout', [ParishController::class, 'logout']);

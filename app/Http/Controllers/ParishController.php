@@ -8,7 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ParishController extends Controller
 {
-     // a function to handle login
+    //a function to logout 
+    public function logout(){
+        Auth::guard('parish')->logout();
+        session()->invalidate();
+    session()->regenerateToken();
+        return redirect('/parish_login');
+    }
+
+
+    // a function to handle login
      public function login(Request $request){
         $data = $request->validate([
             'email' => 'required|min:3|',
@@ -26,16 +35,11 @@ class ParishController extends Controller
         // }
 
         if(Auth::guard('parish')->attempt(['email'=> $data["email"], "password"=> $data["password"]])){
-            return redirect('adminDashboard');
+            return redirect('parish_dashboard');
         }else{
             return redirect()->back()->with("loginError", "There was an error upon login, please try again");
         }
      }
-
-
-
-
-
 
 
     //a function to handle registration
