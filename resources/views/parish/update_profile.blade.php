@@ -128,6 +128,12 @@
                     latitude = document.getElementById('latitude').value.trim();
                     longitude= document.getElementById('longitude').value.trim();
 
+                    if(!(addess) || (pastor-pastor_name) || !(contact_number) || !(latitude) || !(longitude) ){
+                        alert("All fields are required!")
+                    }else{
+                        alert("Submitting form...");
+                        form.submit();
+                    }
                 })
             </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

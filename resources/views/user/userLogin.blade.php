@@ -46,6 +46,7 @@
         <div class="mb-3">
           Don't have an account? <a href="{{route('userReg')}}">Register</a>
         </div>
+        
       </form>
     </div>
   </div>

@@ -9,7 +9,7 @@
           <li class="nav-item">
             <a class="nav-link {{request()->is('home') ? 'bg-warning text-dark' : 'bg-danger text-dark'}}" aria-current="page" href="{{route('homepage')}}">Home</a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="#">Find a Parish</a>
           </li>
           <li class="nav-item">
@@ -17,10 +17,21 @@
           </li>
           <li class="nav-item">
             <a class="nav-link{{ request()->is('about') ? 'bg-warning text-dark' : 'bg-primary text-white'}}" href="#">About us</a>
+          </li> --}}
+          {{-- <li class="nav-item">
+            <a class="nav-link" href="{{route('reg_test')}}">Register</a>
+          </li> --}}
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="registerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Register
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="registerDropdown">
+              <li><a class="dropdown-item" href="{{route('reg_test')}}">Register as Parish</a></li>
+              <li><a class="dropdown-item" href="{{route('userReg')}}">Register as User</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('userReg')}}">Register</a>
-          </li>
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

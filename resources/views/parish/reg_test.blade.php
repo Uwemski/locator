@@ -3,6 +3,7 @@
 <head>
     <title>Location Picker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
@@ -24,25 +25,33 @@
             @endforeach
         </ul>
     </div>
-@endif
-    <form method="POST" action="/parish_reg">
-        @csrf
+    @endif
+    
+    <div class="container-fluid d-flex justify-contents-center vh-90 mt-3"  >
+        <div class="shaded rounded mx-auto border p-5">
+            <form method="POST" action="/parish_reg">
+                @csrf
 
-        <input type="text" name="name" placeholder="Parish Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="address" placeholder="Address" required>
-        <input type="text" name="city" placeholder="City" required>
-        <input type="text" name="state" placeholder="State" required>
-        <input type="text" name="country" placeholder="Country" required>
+                <input type="text" name="name" placeholder="Parish Name" required class="form-control">
+                <input type="email" name="email" placeholder="Email" required class="form-control">
+                <input type="password" name="password" placeholder="Password" required class="form-control">
+                <input type="text" name="address" placeholder="Address" required class="form-control">
+                <input type="text" name="city" placeholder="City" required class="form-control">
+                <input type="text" name="state" placeholder="State" required class="form-control">
+                <input type="text" name="country" placeholder="Country" required class="form-control">
 
 
 
 
-        <input type="text" name="latitude" id="latitude" placeholder="Latitude" readonly>
-        <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly>
-        <button type="submit">Save Location</button>
-    </form>
+                <input type="text" name="latitude" id="latitude" placeholder="Latitude" readonly class="form-control">
+                <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly class="form-control">
+                <button type="submit" class="btn btn-success mt-2">Save Location</button>
+                
+                <p>Already have an account?<a href="/parish_login">Log in </a></p>
+            </form>
+        </div>
+    </div>
+    
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
