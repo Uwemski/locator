@@ -12,7 +12,7 @@ class ParishController extends Controller
     public function logout(){
         Auth::guard('parish')->logout();
         session()->invalidate();
-    session()->regenerateToken();
+        session()->regenerateToken();
         return redirect('/parish_login');
     }
 

@@ -95,12 +95,15 @@ Route::get('/admin/viewParishes', function(){
     return view('admin.all_parish');
 })->name('allParishes');
 
+
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
 
 Route::post('/admin/create_admin', [AdminController::class, 'register']);
 
 Route::post('/adminLogout', [AdminController::class, 'logout']);
+
+Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
 
 //user controllers
 Route::post('/userRegProcess', [UserController::class, 'register']);

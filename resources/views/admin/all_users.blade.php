@@ -87,7 +87,9 @@
                                 <td><?php echo $user->phone?></td>
                                 <td><?php echo $user->created_at?></td>
                                 <td>
-                                    <form action="">
+                                    <form action="{{route('users.destroy', $user->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>

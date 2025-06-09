@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -70,5 +71,14 @@ class AdminController extends Controller
         Auth::logout();
 
         return redirect()->route('admin_login'); 
+    }
+
+    //a method to delete a user
+    public function destroy($id){
+        $user = User::find($id);
+
+        $user->delete();
+
+        return redirect()->back()->with('deletedSuccess', 'User deleted successfully.');
     }
 }

@@ -31,6 +31,7 @@
                     @endif
                     <form action="" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="mb-3">
                             <label for="address">Address</label>
                             <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{old('address')}}">
