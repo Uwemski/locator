@@ -16,7 +16,7 @@
     <!--Upon parish registration, admin should be able to view it from here-->
 
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
             <table border="1" class="table table-hover"> 
                 <thead>
                     <tr>
@@ -25,6 +25,7 @@
                         <th>Parish Location</th>
                         <th>Parish Email</th>
                         <th>Date Registered</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,14 +33,22 @@
                     @foreach (Parish::all() as $p )
                         
                         <tr>
-                            <th>{{ $serialNo }}</th>
-                            <th>{{$p->name}}</th>
-                            <th>{{$p->address}}</th>
-                            <th>{{$p->email}}</th>
-                            <th>{{$p->created_at}}</th>
+                            <td>{{ $serialNo }}</td>
+                            <td>{{$p->name}}</td>
+                            <td>{{$p->address}}</td>
+                            <td>{{$p->email}}</td>
+                            <td>{{$p->created_at}}</td>
+                            <td>
+                                <form action="{{route('parish.destroy', $p->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
 
-                        {{$serialNo++}}
+                        
+                        <?php $serialNo++ ?>
                     @endforeach
                 </tbody>
 

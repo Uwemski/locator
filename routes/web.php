@@ -105,6 +105,8 @@ Route::post('/adminLogout', [AdminController::class, 'logout']);
 
 Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
 
+Route::delete('/parishes/{parish}', [AdminController::class, 'parish_destroy'])->name('parish.destroy');
+
 //user controllers
 Route::post('/userRegProcess', [UserController::class, 'register']);
 Route::post('/userLogin', [UserController::class, 'login']);

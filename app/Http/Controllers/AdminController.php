@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Parish;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -79,6 +80,16 @@ class AdminController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with('deletedSuccess', 'User deleted successfully.');
+        return redirect()->back()->with('deleted_success', 'User deleted successfully.');
+    }
+
+    //a method to delete a parish
+    public function parish_destroy($id){
+        $parish = Parish::find($id);
+
+        $parish->delete();
+
+        return redirect()->back()->with('deleted_success', 'Parish deleted Successfully.');
+
     }
 }
