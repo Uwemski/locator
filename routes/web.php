@@ -49,7 +49,7 @@ Route::get('/reg_test', function(){
 
 Route::get('/parish_login', function(){
     return view('parish.parish_login');
-})->name('parish_login');
+})->name('login');
 
 
 Route::middleware(['auth:parish'])->group(function() {
@@ -82,20 +82,20 @@ Route::get('/admin/create_admin', function(){
     return view('admin.create_admin');
 })->name('admin_create');
 
-Route::get('/adminDashboard', function(){
-    return view("admin.admin_dashboard");
-})->name("adminDashboard");
+//Middlewares for admin
+Route::middleware(['auth:admin'])->group(function(){
+    Route::get('/adminDashboard', function(){
+        return view("admin.admin_dashboard");
+    })->name("adminDashboard");
 
-Route::get('/admin/viewUsers', function(){
-    
-    return view('admin.all_users');
-})->name('allUsers');
+    Route::get('/admin/viewUsers', function(){
+        return view('admin.all_users');
+    })->name('allUsers');
 
-Route::get('/admin/viewParishes', function(){
-    return view('admin.all_parish');
-})->name('allParishes');
-
-
+    Route::get('/admin/viewParishes', function(){
+        return view('admin.all_parish');
+    })->name('allParishes');
+});
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
 
@@ -106,6 +106,8 @@ Route::post('/adminLogout', [AdminController::class, 'logout']);
 Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
 
 Route::delete('/parishes/{parish}', [AdminController::class, 'parish_destroy'])->name('parish.destroy');
+
+Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('parish.update');
 
 //user controllers
 Route::post('/userRegProcess', [UserController::class, 'register']);

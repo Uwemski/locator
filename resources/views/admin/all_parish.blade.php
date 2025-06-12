@@ -25,6 +25,8 @@
                         <th>Parish Location</th>
                         <th>Parish Email</th>
                         <th>Date Registered</th>
+                        <th>Status</th>
+                        <th>Action</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,7 +39,20 @@
                             <td>{{$p->name}}</td>
                             <td>{{$p->address}}</td>
                             <td>{{$p->email}}</td>
-                            <td>{{$p->created_at}}</td>
+                            <td>{{$p->created_at->format('Y-m-d')}}</td>
+                            <td>{{$p->status}}</td>
+                            <td>
+                                <form action="{{route('parish.update', $p->id)}}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="status" class="form-select">
+                                        <option value="pending" {{$p->status == 'pending'? 'selected': ''}}>Pending</option>
+                                        <option value="verified" {{$p->status == 'verified'? 'selected': ''}}>Verify</option>
+                                        <option value="rejected" {{$p->status == 'rejected'? 'selected': ''}}>Rejected</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-warning mt-1">update</button>
+                                </form>
+                            </td>
                             <td>
                                 <form action="{{route('parish.destroy', $p->id)}}" method="POST">
                                     @csrf

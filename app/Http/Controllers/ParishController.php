@@ -61,6 +61,8 @@ class ParishController extends Controller
         $data["address"]= strip_tags($data["address"]);
         $data["city"]= strip_tags($data["city"]);
         $data["state"] = strip_tags($data["state"]);
+        $data["latitude"] = strip_tags($data["latitude"]);
+        $data["longitude"] = strip_tags($data["longitude"]);
         //$data["country"] = strip_tags($data["country"]);
 
         $m = Parish::create($data);

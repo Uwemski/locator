@@ -92,4 +92,23 @@ class AdminController extends Controller
         return redirect()->back()->with('deleted_success', 'Parish deleted Successfully.');
 
     }
+
+    //a method to update
+    public function update(Request $request, $id){
+        $data = $request->validate([
+            'status' => 'required|in:pending,verified,rejected',
+        ]);
+
+        //dd($data);
+        //find the parish
+        $parish = Parish::find($id);
+
+        //update
+        $parish->status = $data['status'];
+        $parish->admin_id = Auth::guard('admin')->id();
+
+        $parish->save();
+
+        return redirect()->back()->with("success", "Status updated successfully");
+    }
 }
