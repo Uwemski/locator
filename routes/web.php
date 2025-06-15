@@ -88,14 +88,18 @@ Route::middleware(['auth:admin'])->group(function(){
         return view("admin.admin_dashboard");
     })->name("adminDashboard");
 
-    Route::get('/admin/viewUsers', function(){
-        return view('admin.all_users');
-    })->name('allUsers');
+    // Route::get('/admin/viewUsers', function(){
+    //     return view('admin.all_users');
+    // })->name('allUsers');
+    Route::get('/admin/viewUsers', [AdminController::class, 'viewAllUsers'])->name('admin.all_users');
 
-    Route::get('/admin/viewParishes', function(){
-        return view('admin.all_parish');
-    })->name('allParishes');
+    // Route::get('/admin/viewParishes', function(){
+    //     return view('admin.all_parish');
+    // })->name('allParishes');
+
+    Route::get('/admin/viewParishes', [AdminController::class, 'viewAllParishes'])->name('admin.all_parish');
 });
+
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
 

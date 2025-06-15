@@ -1,5 +1,5 @@
 <?php
-    use App\Models\Parish;
+    //use App\Models\Parish;
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     <?php $serialNo = 1 ?>
-                    @foreach (Parish::all() as $p )
+                    @foreach ($parishes  as $p )
                         
                         <tr>
                             <td>{{ $serialNo }}</td>

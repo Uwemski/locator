@@ -73,12 +73,28 @@ class ParishController extends Controller
         // }
 
 
-        if ($m) {
-    return redirect()->route('parish_login');
-} else {
-    return back()->with('error', 'Failed to register parish. Try again.');
-}
 
+        if ($m) {
+            return redirect()->route('parish_login');
+        } else {
+            return back()->with('error', 'Failed to register parish. Try again.');
+        }
         // dd($data);
+    }
+
+    //a function for parish to update
+    public function update(Request $request, $id){
+        $data = $request->validate([
+
+        ]);
+
+        //strip data 
+
+        $parish = Parish::findorFail($id);
+
+        //update goes here
+        //$parish->
+        //
+        //$parish->save()
     }
 }

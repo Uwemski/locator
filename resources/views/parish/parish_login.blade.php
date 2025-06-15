@@ -54,7 +54,7 @@
     let x = document.querySelector('form')
 
     x.addEventListent('submit', function(e){
-      e.preventDefault(e);
+      e.preventDefault();
 
       let em = document.getElementById("email").value.trim;
       let pwd = document.getElementById("pass").value.trim;

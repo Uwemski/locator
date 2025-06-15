@@ -70,7 +70,7 @@ class UserController extends Controller
         }else{
             return redirect()->back()->with("Password error", "Passwords do not match");
         }
-
+       
         
 
     }

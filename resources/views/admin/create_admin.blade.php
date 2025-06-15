@@ -23,14 +23,23 @@
                 <div class="mb-3">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required value="{{old('name')}}">
+                    @error('name')
+                        <small style="color:red">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" class="form-control" placehoder="Kindly enter your email" required value="{{old('email')}}">
+                    @error('email')
+                        <small style="color: red">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="pass">Password</label>
                     <input type="password" name="password" id="pass" class="form-control" placeholder="Choose a strong password" required>
+                    @error('password')
+                        <small style="color: red">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="">Confirm Password</label>

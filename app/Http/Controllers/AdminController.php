@@ -10,6 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    //public function to vew parishes
+    public function viewAllParishes(){
+        $parishes = Parish::all();
+        return view('admin.all_parish', compact('parishes'));
+    }
+
+    //public function to view users
+    public function viewAllUsers(){
+
+        //fetch all from DB
+        $users = User::all();
+        return view('admin.all_users', compact('users'));
+    }
+
+
     // Admin login function
     public function login(Request $request)
     {
@@ -18,6 +33,7 @@ class AdminController extends Controller
             'password' => 'required|min:3',
         ]);
 
+        //strip tags for bad input
         $data['email'] = strip_tags($data['email']);
         $data['password'] = strip_tags($data['password']);
 
@@ -32,7 +48,7 @@ class AdminController extends Controller
         }
     }
 
-    //fucntion for admin to register
+    //function for admin to register
     public function register(Request $request){
         //validate
         $incomingData = $request->validate([
@@ -69,7 +85,7 @@ class AdminController extends Controller
     }
 
     public function logout(Request $request){
-        Auth::logout();
+        Auth::guard('admin')->logout();
 
         return redirect()->route('admin_login'); 
     }
