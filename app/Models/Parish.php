@@ -19,8 +19,18 @@ class Parish extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-       'name', 'email', 'password', 'address',
-    'city', 'state', 'country', 'latitude', 'longitude'
+        'name',
+        'email',
+        'password',
+        'address',
+        'pastor_name',
+        'city',
+        'state',
+        'website',
+        'contact_no',
+        'country',
+        'latitude',
+        'longitude'
     ];
 
     /**

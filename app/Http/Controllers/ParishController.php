@@ -75,7 +75,7 @@ class ParishController extends Controller
 
 
         if ($m) {
-            return redirect()->route('parish_login');
+            return redirect()->route('login');
         } else {
             return back()->with('error', 'Failed to register parish. Try again.');
         }
@@ -83,18 +83,59 @@ class ParishController extends Controller
     }
 
     //a function for parish to update
-    public function update(Request $request, $id){
-        $data = $request->validate([
+    public function update_self(Request $request){
+        
+        $parish = Auth::guard('parish')->user();
 
+        $data = $request->validate([
+            "address" => 'required|min:5',
+            "pastor_name" => "required|min:5",
+            "contact_no" => "required|min:10",
+            "website" => "required|min:4",
+            "latitude" => "required|min:3",
+            "longitude" => "required|min:3",
         ]);
 
+        //debug checkpoint
+        //dd($data);
+
         //strip data 
+        // $data['address'] = strip_tags($data['address']);
+        // $data['pastor_name'] = strip_tags($data['pastor_name']);
+        // $data['contact_no'] = strip_tags($data['contact_no']);
+        // $data['website'] = strip_tags($data['website']);
+        // $data['latitude'] = strip_tags($data['latitude']);
+        // $data['longitude'] = strip_tags($data['longitude']);
 
-        $parish = Parish::findorFail($id);
-
+        //shorter way to achieve the above 
+        foreach($data as $key => $value){
+            $data[$key] = strip_tags($value);
+        }
+        
         //update goes here
-        //$parish->
-        //
-        //$parish->save()
+        $parish->update($data);
+        //dd($parish);
+
+        return redirect()->back()->with('success', 'Information updated successfully');
+
+    }
+
+    //a function to manage location 
+    public function manage_location(Request $request){
+        $parish = Auth::guard('parish')->user();
+        
+        //validate
+        $data = $request->validate([
+            'latitude' => 'required|min:3',
+            'longitude' => 'required|min:3'
+        ]);
+        //strip tags
+        foreach($data as $d => $k){
+            $data[$d] = strip_tags($data[$k]);
+        }
+        //update 
+        $parish->update($data);
+        //redirect
+        return redirect()->back()->with('success', 'Information updated successfully');
     }
 }

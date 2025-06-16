@@ -60,10 +60,15 @@ class AdminController extends Controller
         ]);
 
         //strip tags
-        $incomingData['name'] = strip_tags($incomingData['name']);
+        /*$incomingData['name'] = strip_tags($incomingData['name']);
         $incomingData['email'] = strip_tags($incomingData['email']);
         $incomingData['password'] = strip_tags($incomingData['password']);
-        $incomingData['confirmPassword'] = strip_tags($incomingData['confirmPassword']);
+        $incomingData['confirmPassword'] = strip_tags($incomingData['confirmPassword']);*/
+
+        //still stripping, just in a shorter way
+        foreach($incomingData as $key => $value){
+            $data[$key] = $data[$value];
+        }
 
         //check if the two passwords match
         if( $incomingData['password'] == $incomingdData['confirmPassword']){

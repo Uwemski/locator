@@ -35,7 +35,7 @@ Route::get('/test', function(){
     return view('user.test');
 })->name('Testing');
 
-//ROUTEFOR PARISH
+//ROUTES FOR PARISH
 
 //this is the file that intended to use googlemaps API
 // Route::get('/parish_reg', function(){
@@ -56,9 +56,18 @@ Route::middleware(['auth:parish'])->group(function() {
     Route::get('/parish_dashboard', function () {
         return view('parish.parish_dashboard');
     })->name('parish_dashboard');
+
     Route::get('/parish/update_profile', function(){
         return view('parish.update_profile');
     })->name('update_profile');
+    
+    Route::get('/parish/manage_location', function(){
+        return view('parish.manage_location');
+    })->name('manage_location');
+
+
+    Route::put('/parish/manage_location', [ParishController::class, 'manage_location']);
+    Route::put('/parish/update_profile', [ParishController::class,  'update_self']);
 });
 
 // Route::middleware(['auth:parish'])->group(function () {
