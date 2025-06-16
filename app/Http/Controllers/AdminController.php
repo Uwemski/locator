@@ -117,7 +117,7 @@ class AdminController extends Controller
     //a method to update
     public function update(Request $request, $id){
         $data = $request->validate([
-            'status' => 'required|in:pending,verified,rejected',
+            'status' => 'required|in:pending,verified,suspended',
         ]);
 
         //dd($data);
@@ -131,5 +131,21 @@ class AdminController extends Controller
         $parish->save();
 
         return redirect()->back()->with("success", "Status updated successfully");
+    }
+
+    //a method to show activeUsers
+    public function showActiveParishes(){
+        //get verified parish
+        $activeParish = Parish::where('status', 'verified')->get();  
+    
+        return view('admin.active_parish', compact('activeParish'));
+    }
+
+    //a method to show unverified and pending parishes
+    public function showUnverifiedParishes(){
+        //conn
+        $unverified = Parish::whereIn('status', ['pending', 'suspended'])->get();
+
+        return view('admin.unverified', compact('unverified'));
     }
 }

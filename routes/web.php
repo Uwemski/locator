@@ -71,7 +71,6 @@ Route::middleware(['auth:parish'])->group(function() {
 
     //Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish.profile');
     Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish_dashboard');
-
 });
 
 // Route::middleware(['auth:parish'])->group(function () {
@@ -101,6 +100,11 @@ Route::middleware(['auth:admin'])->group(function(){
         return view("admin.admin_dashboard");
     })->name("adminDashboard");
 
+    // Route::get('/parish/active', function(){
+    //     return view('admin.active_parish');
+    // });
+
+
     // Route::get('/admin/viewUsers', function(){
     //     return view('admin.all_users');
     // })->name('allUsers');
@@ -111,6 +115,10 @@ Route::middleware(['auth:admin'])->group(function(){
     // })->name('allParishes');
 
     Route::get('/admin/viewParishes', [AdminController::class, 'viewAllParishes'])->name('admin.all_parish');
+
+    Route::get('/admin/active', [AdminController::class, 'showActiveParishes'])->name('admin.active_parish');
+
+    Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.unverified');
 });
 
 //admin controllers

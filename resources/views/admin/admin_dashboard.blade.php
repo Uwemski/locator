@@ -47,16 +47,22 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="{{route('admin.active_parish')}}" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                            View Feedbacks
+                            Verifed Parishes
+                            </a>
+                        </li>
+                         <li>
+                            <a href="{{route('admin.unverified')}}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                            Un-verifed Parishes
                             </a>
                         </li>
                         <li>
                             <form action="/adminLogout" method="post">
                                 <!--I keep forgetting to put csrf, nna ehn!-->
                                 @csrf
-                                <button class="btn btn-danger">Log Out</button>
+                                <button class="btn btn-danger ml-3">Log Out</button>
                             </form>
                         </li>
                         
@@ -74,7 +80,8 @@
                 </div>
    
 
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

@@ -48,7 +48,7 @@
                                     <select name="status" class="form-select">
                                         <option value="pending" {{$p->status == 'pending'? 'selected': ''}}>Pending</option>
                                         <option value="verified" {{$p->status == 'verified'? 'selected': ''}}>Verify</option>
-                                        <option value="rejected" {{$p->status == 'rejected'? 'selected': ''}}>Rejected</option>
+                                        <option value="suspended" {{$p->status == 'suspended'? 'selected': ''}}>Suspended</option>
                                     </select>
                                     <button type="submit" class="btn btn-warning mt-1">update</button>
                                 </form>
