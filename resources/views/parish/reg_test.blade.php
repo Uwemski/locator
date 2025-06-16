@@ -47,7 +47,7 @@
                 <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly class="form-control">
                 <button type="submit" class="btn btn-success mt-2">Save Location</button>
                 
-                <p>Already have an account?<a href="">Log in </a></p>
+                <p>Already have an account?<a href="{{route('login')}}">Log in </a></p>
             </form>
         </div>
     </div>

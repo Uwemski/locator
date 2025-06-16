@@ -138,4 +138,14 @@ class ParishController extends Controller
         //redirect
         return redirect()->back()->with('success', 'Information updated successfully');
     }
+
+
+    //public function for parish to view
+    public function index(){
+        //fetch
+        $parish = Auth::guard('parish')->user();
+
+        //send
+        return view('parish.parish_dashboard', compact('parish'));
+    }
 }

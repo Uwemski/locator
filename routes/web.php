@@ -68,6 +68,10 @@ Route::middleware(['auth:parish'])->group(function() {
 
     Route::put('/parish/manage_location', [ParishController::class, 'manage_location']);
     Route::put('/parish/update_profile', [ParishController::class,  'update_self']);
+
+    //Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish.profile');
+    Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish_dashboard');
+
 });
 
 // Route::middleware(['auth:parish'])->group(function () {
