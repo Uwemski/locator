@@ -148,4 +148,24 @@ class AdminController extends Controller
 
         return view('admin.unverified', compact('unverified'));
     }
+
+    //a method to search
+    public function search(Request $request){
+        //conn
+        $incomingData = $request->validate([
+            'name' => 'required|min:3'
+        ]);
+
+        $incomingData['name'] = strip_tags($incomingData['name']);
+
+        $parishes = Parish::where('name', $incomingData['name'])->get();
+
+        if($parishes->isNotEmpty()){
+            return view('admin.search', compact('parishes'));
+        }else{
+            return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
+        }
+
+    }
+
 }

@@ -73,13 +73,29 @@
             <div class="col-md-9">
                 <h2>Welcome to your dashboard <?php //it will be sexy if you can echo the customer's fullname on his dahsboard ?></h2>
                 
+                @if(session('error'))
+                    <div class="alert alert-danger">{{session('error')}}</div>
+                @endif
+                
+                @if ($errors->any())
+                    @foreach ($errors->all() as $err )
+                        <div class="alert-warning">{{$err}}</div>
+                    @endforeach
+                @endif
                 <div class="col-md-5 info pt-3">
-                    <h4 >Name: Sule </h4>
-                    <h4>Telephone: </h4>
-                    <h4>Account:</h4>
+                    <form action="/admin/search" method="GET">
+                        @csrf
+                        <label>Enter name of parish</label>
+                        <input type='text' name='name' id='name' required placeholder='Enter name of parish here' class='form-control mt-2' value={{old('name')}}>
+                        @error('name')
+                            <small class="alert alert-warning">{{$message}}</small>
+                        @enderror
+
+                        <button class='btn btn-primary mt-2'>Search</button>
+                    </form>
                 </div>
    
-
+                
             </div>
         </div>
     </div>

@@ -119,6 +119,8 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::get('/admin/active', [AdminController::class, 'showActiveParishes'])->name('admin.active_parish');
 
     Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.unverified');
+
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 });
 
 //admin controllers
