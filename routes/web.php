@@ -147,3 +147,10 @@ Route::post('/parish_reg', [ParishController::class, 'register']);
 Route::post('/parish_login', [ParishController::class, 'login']);
 
 Route::post('/parish/logout', [ParishController::class, 'logout']);
+
+Route::get('/map/parish', function(){
+    return view('map');
+})->name('superPower');
+
+Route::get('/map/parish', [AdminController::class, 'showVerifiedParishes'])->name('superPower');
+Route::get('/nearest-parish', [AdminController::class, 'getNearest']);

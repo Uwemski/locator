@@ -10,6 +10,37 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    //nearest parish 
+    public function getNearest(Request $request)
+{
+    $userLat = $request->query('lat');
+    $userLng = $request->query('lng');
+
+    $nearest = Parish::where('status', 'verified')
+        ->get()
+        ->map(function ($parish) use ($userLat, $userLng) {
+            $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
+            return $parish;
+        })
+        ->sortBy('distance')
+        ->first();
+
+    return response()->json([
+        'name' => $nearest->name,
+        'lat' => $nearest->latitude,
+        'lng' => $nearest->longitude
+    ]);
+}
+
+
+
+    //a public function to show verified parishes 
+    public function showVerifiedParishes(){
+        $verifiedParish = Parish::where('status', 'verified')->get();
+
+        return view('map', compact('verifiedParish'));
+    }
+
     //public function to vew parishes
     public function viewAllParishes(){
         $parishes = Parish::all();

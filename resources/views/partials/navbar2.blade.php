@@ -9,6 +9,9 @@
           <li class="nav-item">
             <a class="nav-link {{request()->is('home') ? 'bg-warning text-dark' : 'bg-danger text-dark'}}" aria-current="page" href="{{route('homepage')}}">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{request()->routeIs('superPower') ? 'bg-warning text-dark' : 'bg-primary text-dark'}}" aria-current="page" href="{{route('superPower')}}">Find Parish</a>
+          </li>
           {{-- <li class="nav-item">
             <a class="nav-link" href="#">Find a Parish</a>
           </li>
