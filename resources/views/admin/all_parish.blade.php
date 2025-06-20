@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     <?php $serialNo = 1 ?>
-                    @foreach ($parishes  as $p )
+                    @foreach ($parishes  as $p)
                         
                         <tr>
                             <td>{{ $serialNo }}</td>

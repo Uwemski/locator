@@ -189,14 +189,15 @@ class AdminController extends Controller
 
         $incomingData['name'] = strip_tags($incomingData['name']);
 
-        $parishes = Parish::where('name', $incomingData['name'])->get();
+        $parishes = Parish::where("name", "like", "%{$incomingData['name']}%")
+                        ->orWhere("city", "like", "%{$incomingData['name']}%")
+                        ->orWhere("state", "like", "{$incomingData['name']}%")
+                        ->get();
 
         if($parishes->isNotEmpty()){
             return view('admin.search', compact('parishes'));
         }else{
             return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
         }
-
     }
-
 }

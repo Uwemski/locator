@@ -42,6 +42,7 @@
     <script>
         let x = document.querySelector('form')
 
+        //instead of repeating this for the 3 login pages I have. There should be a way to use one for all three
         x.addEventListener('submit', function(e){
             e.preventDefault();
 

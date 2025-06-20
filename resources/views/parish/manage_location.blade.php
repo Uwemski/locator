@@ -89,6 +89,7 @@
                 const map = L.map('map').setView([6.5244, 3.3792], 13); // Default to Lagos, Nigeria
 
                 // Add OpenStreetMap tiles
+                //if open street map takes too long to load. Use this temporary layer: https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '©️ OpenStreetMap contributors'
                 }).addTo(map);
@@ -117,7 +118,7 @@
                 sidebar.classList.toggle('show');
                 }
 
-                let form = querySelector('form');
+                let form = document.querySelector('form');
                 
                 // form.addEventListener('submit', function(e){
                 //     e.preventDefault();

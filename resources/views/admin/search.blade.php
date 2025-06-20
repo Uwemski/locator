@@ -16,7 +16,7 @@
     <!--Upon parish registration, admin should be able to view it from here-->
 
     <div class="container mb-5">
-        <pre>{{ print_r(session()->all(), true) }}</pre>
+        {{-- <pre>{{ print_r(session()->all(), true) }}</pre> command to check all in session--}}
 
         <div class="row mt-5">
             
@@ -28,9 +28,11 @@
                 <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>Parish Name</th>
-                        <th>Parish Location</th>
-                        <th>Parish Email</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>State</th>
                         <th>Date Registered</th>
                         <th>Status</th>
                         
@@ -46,6 +48,8 @@
                             <td>{{$p->name}}</td>
                             <td>{{$p->address}}</td>
                             <td>{{$p->email}}</td>
+                            <td>{{$p->city}}</td>
+                            <td>{{$p->state}}</td>
                             <td>{{$p->created_at->format('Y-m-d')}}</td>
                             <td>{{$p->status}}</td>
                             {{-- <td>

@@ -27,7 +27,12 @@ class ParishController extends Controller
         $data['email']= strip_tags($data['email']);
         $data['password']= strip_tags($data['password']);
 
+        foreach($data as $key => $value){
+            $data[$key] = strip_tags($value);
+        }
         // dd($data); form data shows here
+        
+        //this woudve been the way if II wasn't using a guard
         // if(auth()->attempt(['email'=> $data['email'], 'password'=> $data['password']]) ){
         //     return redirect()->route('userDashboard')->with('LoginSuccess', 'welcome to your dashbaord');
         // }else{
@@ -56,22 +61,14 @@ class ParishController extends Controller
             "latitude" => "required"
         ]);
 
-        $data["name"]= strip_tags($data["name"]);
-        $data["email"] = strip_tags($data["email"]);
-        $data["address"]= strip_tags($data["address"]);
-        $data["city"]= strip_tags($data["city"]);
-        $data["state"] = strip_tags($data["state"]);
-        $data["latitude"] = strip_tags($data["latitude"]);
-        $data["longitude"] = strip_tags($data["longitude"]);
-        //$data["country"] = strip_tags($data["country"]);
+        //save your self stress by doing this
+        foreach($data as $key => $value){
+            $data[$key] = strip_tags($value);
+        }
 
+        //creat a record
         $m = Parish::create($data);
         // dd($data);
-
-        // if($m){
-        //     return redirect()->route('/userLogin');
-        // }
-
 
 
         if ($m) {
