@@ -145,4 +145,28 @@ class ParishController extends Controller
         //send
         return view('parish.parish_dashboard', compact('parish'));
     }
+
+    //a method to search for a parish
+    public function searchForVisitors(Request $request){
+        $data = $request->validate([
+            'name'=> 'required|min:3|max:25'
+        ]);
+
+        $data['name'] = strip_tags($data['name']);
+        // $parishes = Parish::where("status", "verified")->orWhere("name", "like", "%{$data['name']}%")->orWhere("city", "like", "%{$data['name']}%")->orWhere("state", "like", "%{$data['name']}%");
+
+        $parishes = Parish::where("status", "verified")
+                        ->where(function($query) use ($data){
+                            $query->where("name", "like", "%{$data['name']}%")
+                            ->orWhere("city", "like", "%{$data['name']}%")
+                            ->orWhere("state", "like", "%{$data['name']}%");
+                        })->get();
+        
+        if($parishes){
+            return view('visitors_search', compact('parishes'));
+        }else{
+            return redirect()->back()->with("error", "Search request does not found, try again later");
+        }
+        
+    }
 }

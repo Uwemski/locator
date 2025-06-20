@@ -12,27 +12,8 @@
   </style>
 </head>
 <body>
-  <div class="row d-flex justify-content-right align-items-right mt-4 mb-5">
-    <div class="col-md-7">
-      @if ($errors->any())
-        @foreach ($errors->all() as $err )
-            <div class="alert alert-primary">{{$err}}</div>
-        @endforeach
-      @endif
-      <form action="{{route('find.parish')}}" method='GET'>
-        @csrf
-        <input type="text" name="name" class="form-control" placeholder="Search by name, city, state" required value={{old('name')}}>
-        @error('name')
-          <small style='color: red'>{{$message}}</small>
-        @enderror
-        <button class="btn btn-primary mt-3">Search</button>
-      </form>
-      
-    </div>
 
-  </div>
-
-  <h2>All Parishes Map</h2>
+  <h2>Parishes Map</h2>
 
   <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
 
@@ -43,7 +24,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      console.log('JAvascript is running!');
       const map = L.map('map').setView([6.5244, 3.3792], 10); // Lagos coords
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -52,8 +32,8 @@
 
       const parishMarkers = [];
 
-      @foreach ($verifiedParish as $parish)
-        marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
+      @foreach ($parishes as $parish)
+        const marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
           .addTo(map)
           .bindPopup(`<b>{{ $parish->name }}</b><br>{{ $parish->address ?? '' }}`);
         parishMarkers.push({ 

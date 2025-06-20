@@ -148,6 +148,8 @@ Route::post('/parish_login', [ParishController::class, 'login']);
 
 Route::post('/parish/logout', [ParishController::class, 'logout']);
 
+Route::get('visitor/search', [ParishController::class, 'searchForVisitors'])->name('find.parish');
+
 Route::get('/map/parish', function(){
     return view('map');
 })->name('superPower');
