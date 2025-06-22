@@ -60,20 +60,6 @@
                                 <small style="color: red">{{$message}}</small>
                             @enderror
                         </div>
-                        {{-- <div class="mb-3">
-                            <label for="latitude">Latitude</label>
-                            <input type="text" name="latitude" id="latitude" class="form-control" placeholder="latitude" readonly value="{{old('latitude')}}">
-                            @error("latitude")
-                                <small style="color: red">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="longitude">Longitude</label>
-                            <input type="text" name="longitude" id="longitude" class="form-control" placeholder="longitude" readonly value="{{old('longitude')}}">
-                            @error("longitude")
-                                <small style="color: red">{{$message}}</small>
-                            @enderror
-                        </div> --}}
                         <p class="text-center">
                             <button type="submit" class="btn btn-success">Update Profile</button>
                         </p>

@@ -12,7 +12,7 @@
   </style>
 </head>
 <body>
-  <div class="row d-flex justify-content-right align-items-right mt-4 mb-5">
+  <div class="row d-flex justify-content-right align-items-right mt-4 mb-5"> 
     <div class="col-md-7">
       @if ($errors->any())
         @foreach ($errors->all() as $err )

@@ -32,34 +32,7 @@
                     <form action="" method="post">
                         @csrf
                         @method('PUT')
-                        {{-- <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{old('address')}}">
-                           @error('address')
-                            <small style='color: red'>{{$message}}</small>
-                           @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Pastor's Name</label>
-                            <input type="text" name="pastor_name" id="p-name" class="form-control" required placeholder="Pastor in charge?" value="{{old('pastor_name')}}">
-                            @error("pastor_name")
-                                <small style="color:red">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="contact">Contact Number</label>
-                            <input type="text" name="contact_number" id="contact" class="form-control" placeholder="Contact number" value="{{old('contact_number')}}">
-                            @error("contact_number")
-                                <small style="color: red">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="wewbsite">Website</label>
-                            <input type="text" name="website_url" id="website" class="form-control" placeholder="website address(optional)" value="{{old('website_url')}}">
-                            @error("website_url")
-                                <small style="color: red">{{$message}}</small>
-                            @enderror
-                        </div> --}}
+                        
                         <div class="mb-3">
                             <label for="latitude">Latitude</label>
                             <input type="text" name="latitude" id="latitude" class="form-control" placeholder="latitude" readonly value="{{old('latitude')}}">
