@@ -153,7 +153,10 @@ class ParishController extends Controller
         ]);
 
         $data['name'] = strip_tags($data['name']);
-        // $parishes = Parish::where("status", "verified")->orWhere("name", "like", "%{$data['name']}%")->orWhere("city", "like", "%{$data['name']}%")->orWhere("state", "like", "%{$data['name']}%");
+        // $parishes = Parish::where("status", "verified")
+        //              ->orWhere("name", "like", "%{$data['name']}%")
+        //              ->orWhere("city", "like", "%{$data['name']}%")
+        //              ->orWhere("state", "like", "%{$data['name']}%");
 
         $parishes = Parish::where("status", "verified")
                         ->where(function($query) use ($data){

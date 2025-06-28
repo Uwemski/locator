@@ -17,6 +17,12 @@
 
   <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
 
+  <div class="col-md-6">
+      @if(session('error'))
+        <div class="alert alert-warning">{{session('error')}}</div>
+      @endif
+  </div>
+
   <div id="map"></div>
 
   <div id="nearest-parish"></div> <!-- FIXED: Correct ID -->
