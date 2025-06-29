@@ -19,6 +19,12 @@ Route::get('/about', function(){
 })->name('about');
 
 //Route views for Users
+Route::middleware(['auth:user'])->group(function(){
+    Route::get("/userDashboard", function(){
+        return view("user.userDashboard");
+    })->name('userDashboard');
+
+});
 Route::get("/userReg", function(){
     return view('user.userReg');
 })->name('userReg');
@@ -27,9 +33,6 @@ Route::get("/userLogin", function(){
     return view("user.userLogin");
 })->name("userLogin");
 
-Route::get("/userDashboard", function(){
-    return view("user.userDashboard");
-})->name('userDashboard');
 
 Route::get('/test', function(){
     return view('user.test');
@@ -90,9 +93,7 @@ Route::get('/admin/login', function(){
     return view('admin.admin_login');
 })->name('admin_login');
 
-Route::get('/admin/create_admin', function(){
-    return view('admin.create_admin');
-})->name('admin_create');
+
 
 //Middlewares for admin
 Route::middleware(['auth:admin'])->group(function(){
@@ -121,20 +122,33 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.unverified');
 
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
+    Route::post('/admin/create_admin', [AdminController::class, 'register']);
+    Route::delete('/parishes/{parish}', [AdminController::class, 'parish_destroy'])->name('parish.destroy');
+
+    Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('parish.update');
+    Route::get('/map/parish', [AdminController::class, 'showVerifiedParishes'])->name('superPower');
+
+    Route::get('/admin/create_admin', function(){
+        return view('admin.create_admin');
+    })->name('admin_create');
+
+    Route::post('/adminLogout', [AdminController::class, 'logout']);
+    
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+    //controller method for number of parishes
+    Route::get('/adminDashboard', [AdminController::class, 'numberOfParishesUsers'])->name('parish.count');
+
+    //number of users
+    //Route::get('/adminDashboard', [AdminController::class, 'numberOfUsers'])->name('users.count');
 });
+
 
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
 
-Route::post('/admin/create_admin', [AdminController::class, 'register']);
 
-Route::post('/adminLogout', [AdminController::class, 'logout']);
-
-Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
-
-Route::delete('/parishes/{parish}', [AdminController::class, 'parish_destroy'])->name('parish.destroy');
-
-Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('parish.update');
 
 //user controllers
 Route::post('/userRegProcess', [UserController::class, 'register']);
@@ -154,5 +168,4 @@ Route::get('/map/parish', function(){
     return view('map');
 })->name('superPower');
 
-Route::get('/map/parish', [AdminController::class, 'showVerifiedParishes'])->name('superPower');
 Route::get('/nearest-parish', [AdminController::class, 'getNearest']);

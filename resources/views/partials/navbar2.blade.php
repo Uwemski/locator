@@ -22,7 +22,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="https://flatimes.com">
+            <a class="nav-link" target="_blank" href="https://flatimes.com">
               Open Heaves
             </a>
           </li>

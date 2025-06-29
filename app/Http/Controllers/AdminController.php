@@ -31,8 +31,25 @@ class AdminController extends Controller
         'lng' => $nearest->longitude
     ]);
 }
+    //a public function to count total number of parishes
+    public function numberOfParishesUsers(){
+        Auth::guard('admin')->user();
 
+        //$parishes = Parish::where('status', 'pending')->count();
 
+        $parishes = Parish::count();
+        $users = User::count();
+        return view('admin.admin_dashboard', compact('parishes', 'users') );
+    }
+
+    //a public function to count all registered users
+    // public function numberOfUsers(){
+    //     Auth::guard('admin')->user();
+
+    //     $users = User::count();
+
+    //     return view('admin.admin_dashboard', compact('users'));
+    // }
 
     //a public function to show verified parishes 
     public function showVerifiedParishes(){

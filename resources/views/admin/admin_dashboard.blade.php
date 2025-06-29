@@ -72,7 +72,31 @@
             </div>
             <div class="col-md-9">
                 <h2>Welcome to your dashboard <?php //it will be sexy if you can echo the customer's fullname on his dahsboard ?></h2>
-                
+                {{-- @foreach ($parishes as $parish)
+                    
+                @endforeach --}}
+                <div class="card mt-5 bg-success" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Number Of Registerd Parishes</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text text-center" style="font-size: 3rem">{{$parishes}}</p>
+                        {{-- <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a> --}}
+                    </div>
+                </div>
+
+                <div class="card mt-5 bg-success" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Number Of Registerd Users</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text text-center" style="font-size: 3rem">{{$users}}</p>
+                        {{-- <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a> --}}
+                    </div>
+                </div>
+
+
+
                 @if(session('error'))
                     <div class="alert alert-danger">{{session('error')}}</div>
                 @endif
