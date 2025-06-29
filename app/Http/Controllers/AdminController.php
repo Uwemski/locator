@@ -39,7 +39,10 @@ class AdminController extends Controller
 
         $parishes = Parish::count();
         $users = User::count();
-        return view('admin.admin_dashboard', compact('parishes', 'users') );
+
+        $verifiedParish = Parish::where('status', 'verified')->count();
+
+        return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParish') );
     }
 
     //a public function to count all registered users
