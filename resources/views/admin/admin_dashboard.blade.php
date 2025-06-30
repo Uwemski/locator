@@ -77,28 +77,28 @@
                 @endforeach --}}
 
                 <div class="d-flex d-flex-row justify-content-center">
-                    <div class="card mt-5 bg-success mx-1" style="width: 18rem;">
+                    <div class="card mt-3 bg-success mx-1" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Number Of Registerd Parishes</h5>
-                            <p class="card-text text-center" style="font-size: 3rem">{{$parishes}}</p>
+                            <p class="card-text text-center" style="font-size: 3rem; font-weight: 700">{{$parishes}}</p>
                             {{-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> --}}
                         </div>
                     </div>
 
-                    <div class="card mt-5 bg-primary mx-1" style="width: 18rem;">
+                    <div class="card mt-4 bg-primary mx-1" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Number Of Registerd Users</h5>
-                            <p class="card-text text-center" style="font-size: 3rem">{{$users}}</p>
+                            <p class="card-text text-center" style="font-size: 3rem; font-weight: 700">{{$users}}</p>
                             {{-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> --}}
                         </div>
                     </div>
 
-                    <div class="card mt-5 bg-warning mx-1" style="width: 18rem;">
+                    <div class="card mt-5 bg-secondary mx-1" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Number Of Verified Parishes</h5>
-                            <p class="card-text text-center" style="font-size: 3rem">{{$verifiedParish}}</p>
+                            <p class="card-text text-center" style="font-size: 3rem;  font-weight: 700">{{$verifiedParish}}</p>
                             {{-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> --}}
                         </div>
@@ -128,8 +128,6 @@
                         <button class='btn btn-primary mt-2'>Search</button>
                     </form>
                 </div>
-   
-                
             </div>
         </div>
     </div>
