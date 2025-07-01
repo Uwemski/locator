@@ -95,54 +95,29 @@ Route::get('/admin/login', function(){
 
 //Middlewares for admin
 Route::middleware(['auth:admin'])->group(function(){
-    //Route::get('/adminDashboard', function(){
-    //    return view("admin.admin_dashboard");
-    //})->name("adminDashboard");
-
-    // Route::get('/parish/active', function(){
-    //     return view('admin.active_parish');
-    // });
-
-
-    // Route::get('/admin/viewUsers', function(){
-    //     return view('admin.all_users');
-    // })->name('allUsers');
+    
     Route::get('/admin/viewUsers', [AdminController::class, 'viewAllUsers'])->name('admin.all_users');
-
-    // Route::get('/admin/viewParishes', function(){
-    //     return view('admin.all_parish');
-    // })->name('allParishes');
-
     Route::get('/admin/viewParishes', [AdminController::class, 'viewAllParishes'])->name('admin.all_parish');
-
     Route::get('/admin/active', [AdminController::class, 'showActiveParishes'])->name('admin.active_parish');
-
     Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.unverified');
-
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
-
     Route::post('/admin/create_admin', [AdminController::class, 'register']);
     Route::delete('/parishes/{parish}', [AdminController::class, 'parish_destroy'])->name('parish.destroy');
-
     Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('parish.update');
-    Route::get('/map/parish', [AdminController::class, 'showVerifiedParishes'])->name('superPower');
-
     Route::get('/admin/create_admin', function(){
         return view('admin.create_admin');
     })->name('admin_create');
-
     Route::post('/adminLogout', [AdminController::class, 'logout']);
-    
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
-
     Route::get('admin/suspended_parish', [AdminController::class, 'showSuspendedParish'])->name('admin.suspended');
     //controller method for number of parishes
     Route::get('/adminDashboard', [AdminController::class, 'numberOfParishesUsers'])->name('adminDashboard');
-
     //number of users
     //Route::get('/adminDashboard', [AdminController::class, 'numberOfUsers'])->name('users.count');
 });
 
+//this Route should not be in middleware because visitors are gonna use it
+Route::get('/map/parish', [AdminController::class, 'showVerifiedParishes'])->name('superPower');
 
 //admin controllers
 Route::post('/admin/login', [AdminController::class, 'login']);
@@ -163,8 +138,9 @@ Route::post('/parish/logout', [ParishController::class, 'logout']);
 
 Route::get('visitor/search', [ParishController::class, 'searchForVisitors'])->name('find.parish');
 
-Route::get('/map/parish', function(){
-    return view('map');
-})->name('superPower');
+//this route below jammed the original route in line 120
+// Route::get('/map/parish', function(){
+//     return view('map');
+// })->name('superPower');
 
 Route::get('/nearest-parish', [AdminController::class, 'getNearest']);

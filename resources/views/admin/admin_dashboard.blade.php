@@ -104,7 +104,7 @@
                     <div class="card mt-5 bg-secondary mx-1" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Number Of Verified Parishes</h5>
-                            <p class="card-text text-center" style="font-size: 3rem;  font-weight: 700">{{$verifiedParish}}</p>
+                            <p class="card-text text-center" style="font-size: 3rem;  font-weight: 700">{{$verifiedParishes}}</p>
                             {{-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> --}}
                         </div>

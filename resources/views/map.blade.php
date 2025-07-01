@@ -1,4 +1,4 @@
-<!-- resources/views/parish/map.blade.php -->
+
 <!DOCTYPE html>
 <html>
 <head>

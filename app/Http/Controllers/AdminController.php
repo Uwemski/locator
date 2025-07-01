@@ -41,22 +41,14 @@ class AdminController extends Controller
         $parishes = Parish::count();
         $users = User::count();
 
-        $verifiedParish = Parish::where('status', 'verified')->count();
+        $verifiedParishes = Parish::where('status', 'verified')->count();
 
-        return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParish') );
+        return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParishes') );
     }
-
-    //a public function to count all registered users
-    // public function numberOfUsers(){
-    //     Auth::guard('admin')->user();
-
-    //     $users = User::count();
-
-    //     return view('admin.admin_dashboard', compact('users'));
-    // }
 
     //a public function to show verified parishes 
     public function showVerifiedParishes(){
+        //dd('controller is working!');
         $verifiedParish = Parish::where('status', 'verified')->get();
 
         return view('map', compact('verifiedParish'));
@@ -135,6 +127,7 @@ class AdminController extends Controller
         
     }
 
+    //method to log out
     public function logout(Request $request){
         Auth::guard('admin')->logout();
 
@@ -217,7 +210,7 @@ class AdminController extends Controller
 
         $parishes = Parish::where("name", "like", "%{$incomingData['name']}%")
                         ->orWhere("city", "like", "%{$incomingData['name']}%")
-                        ->orWhere("state", "like", "{$incomingData['name']}%")
+                        ->orWhere("state", "like", "%{$incomingData['name']}%")
                         ->get();
 
         if($parishes->isNotEmpty()){
