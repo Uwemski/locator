@@ -31,7 +31,8 @@ class AdminController extends Controller
         'lng' => $nearest->longitude
     ]);
 }
-    //a public function to count total number of parishes
+    //a public function to count total number of parishes and users
+    //I created seperate methods for both but l;ater realised you can do something like below.note:they are being used on the same page
     public function numberOfParishesUsers(){
         Auth::guard('admin')->user();
 
@@ -109,12 +110,6 @@ class AdminController extends Controller
             'confirmPasword' => 'required|min:4|max:255',
             'role'=> 'required'
         ]);
-
-        //strip tags
-        /*$incomingData['name'] = strip_tags($incomingData['name']);
-        $incomingData['email'] = strip_tags($incomingData['email']);
-        $incomingData['password'] = strip_tags($incomingData['password']);
-        $incomingData['confirmPassword'] = strip_tags($incomingData['confirmPassword']);*/
 
         //still stripping, just in a shorter way
         foreach($incomingData as $key => $value){
@@ -200,6 +195,17 @@ class AdminController extends Controller
         return view('admin.unverified', compact('unverified'));
     }
 
+    //a method to show suspended parishes
+    public function showSuspendedParish(){
+        $admin = Auth::guard('admin')->user();
+
+        if($admin){
+            $suspended = Parish::where('status', 'suspended')->get();
+
+            return view('admin.suspended_parish', compact('suspended'));
+        }
+    }
+
     //a method to search
     public function search(Request $request){
         //conn
@@ -220,4 +226,5 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
         }
     }
+    
 }

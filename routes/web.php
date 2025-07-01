@@ -93,8 +93,6 @@ Route::get('/admin/login', function(){
     return view('admin.admin_login');
 })->name('admin_login');
 
-
-
 //Middlewares for admin
 Route::middleware(['auth:admin'])->group(function(){
     //Route::get('/adminDashboard', function(){
@@ -137,6 +135,7 @@ Route::middleware(['auth:admin'])->group(function(){
     
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('admin/suspended_parish', [AdminController::class, 'showSuspendedParish'])->name('admin.suspended');
     //controller method for number of parishes
     Route::get('/adminDashboard', [AdminController::class, 'numberOfParishesUsers'])->name('adminDashboard');
 

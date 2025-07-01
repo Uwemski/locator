@@ -40,10 +40,16 @@
                             Verifed Parishes
                             </a>
                         </li>
-                         <li>
+                        <li>
                             <a href="{{route('admin.unverified')}}" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                             Un-verifed Parishes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.suspended')}}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                            Suspended Parishes
                             </a>
                         </li>
                         <li>
@@ -85,7 +91,18 @@
                             <td>{{$p->email}}</td>
                             <td>{{$p->created_at->format('Y-m-d')}}</td>
                             <td>{{$p->status}}</td>
-                            
+                            <td>
+                                <form action="{{route('parish.update', $p->id)}}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="status" class="form-select">
+                                        <option value="pending" {{$p->status == 'pending' ? 'selected': ''}}>Pending</option>
+                                        <option value="verified" {{$p->status == 'verify' ? 'selected': '' }}>Verify</option>
+                                        <option value="suspended" {{$p->status == 'suspended' ? 'selected': ''}}>Suspend</option>
+                                    </select>
+                                    <button class="btn btn-success">Verify</button>
+                                </form>
+                            </td>
                         </tr>
 
                         

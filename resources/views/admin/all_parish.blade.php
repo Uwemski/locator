@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="row mt-4">
-            <table border="1" class="table table-hover"> 
+            <table border=1 class="table table-hover"> 
                 <thead>
                     <tr>
                         <th>S/N</th>
