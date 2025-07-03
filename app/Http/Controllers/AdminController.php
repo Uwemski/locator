@@ -104,8 +104,9 @@ class AdminController extends Controller
         ]);
 
         //still stripping, just in a shorter way
+        //i think this is wrong: no stripping done(nyash is opens)
         foreach($incomingData as $key => $value){
-            $data[$key] = $data[$value];
+            $incomingData[$key] = $incomingData[$value];
         }
 
         //check if the two passwords match

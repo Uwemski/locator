@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParishController;
- 
+use App\Http\Controllers\ServicesController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,7 +55,7 @@ Route::get('/parish_login', function(){
     return view('parish.parish_login');
 })->name('login');
 
-
+//middleware for parish
 Route::middleware(['auth:parish'])->group(function() {
     Route::get('/parish_dashboard', function () {
         return view('parish.parish_dashboard');
@@ -74,6 +75,11 @@ Route::middleware(['auth:parish'])->group(function() {
 
     //Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish.profile');
     Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish_dashboard');
+
+    Route::get('/parish/service', function(){
+        return view('parish.service');
+    } );
+    Route::post('/parish/create_service', [ServicesController::class, 'create'])->name('services.create');
 });
 
 // Route::middleware(['auth:parish'])->group(function () {

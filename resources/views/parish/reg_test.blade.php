@@ -16,6 +16,9 @@
     <h2>Select a location on the map</h2>
     <div id="map"></div>
 
+    @if(session('error'))
+        <div class="alert alert-warning">{{session('error')}}</div>
+    @endif
 
     @if ($errors->any())
     <div style="color:red;">
@@ -32,19 +35,40 @@
             <form method="POST" action="/parish_reg">
                 @csrf
 
-                <input type="text" name="name" placeholder="Parish Name" required class="form-control">
-                <input type="email" name="email" placeholder="Email" required class="form-control">
+                <input type="text" name="name" placeholder="Parish Name" required class="form-control" value={{old('name')}}>
+                @error('name')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
+                <input type="email" name="email" placeholder="Email" required class="form-control" value={{old('email')}}>
+                @error('email')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
                 <input type="password" name="password" placeholder="Password" required class="form-control">
-                <input type="text" name="address" placeholder="Address" required class="form-control">
-                <input type="text" name="city" placeholder="City" required class="form-control">
-                <input type="text" name="state" placeholder="State" required class="form-control">
-                <input type="text" name="country" placeholder="Country" required class="form-control">
+                <input type="text" name="address" placeholder="Address" required class="form-control" value={{old('address')}}>
+                @error('address')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
+                <input type="text" name="city" placeholder="City" required class="form-control" value={{old('city')}}>
+                @error('city')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
+                <input type="text" name="state" placeholder="State" required class="form-control" value={{old('state')}}>
+                @error('state')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
+                <input type="text" name="country" placeholder="Country" required class="form-control" value={{old('country')}}>
+                @error('country')
+                    <small style='color:red'>{{$message}}</small>
+                @enderror
 
-
-
-
-                <input type="text" name="latitude" id="latitude" placeholder="Latitude" readonly class="form-control">
-                <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly class="form-control">
+                <input type="text" name="latitude" id="latitude" placeholder="Latitude" readonly class="form-control" value={{old('latitude')}}>
+                @error('latitude')
+                    <small style="color:red">{{$message}}</small>
+                @enderror
+                <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly class="form-control" value={{old('longitude')}}>
+                @error('longitude')
+                    <small style="color: red">{{$message}}</small>
+                @enderror
                 <button type="submit" class="btn btn-success mt-2">Save Location</button>
                 
                 <p>Already have an account?<a href="{{route('login')}}">Log in </a></p>
@@ -52,7 +76,6 @@
         </div>
     </div>
     
-
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>

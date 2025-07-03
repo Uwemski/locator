@@ -9,6 +9,7 @@
     <style>
         body {
             background-color: #f4faf2;
+            overflow-x: hidden;
         }
         .sidebar {
             min-height: 100vh;

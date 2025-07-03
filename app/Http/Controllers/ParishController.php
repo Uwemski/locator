@@ -54,8 +54,8 @@ class ParishController extends Controller
             "email" => "required|min:4|max:255",
             "password" => "required|min:5|max:255",
             "address"=> "required|min:4|max:255",
-            "city" => "required|min:4|max:255",
-            "state" => "required|min:4|max:255",
+            "city" => "required|min:3|max:255",
+            "state" => "required|min:2|max:255",
             
             "longitude" => "required",
             "latitude" => "required"
@@ -165,7 +165,7 @@ class ParishController extends Controller
                             ->orWhere("state", "like", "%{$data['name']}%");
                         })->get();
         
-        if($parishes){
+        if($parishes->isNotEmpty() ){
             return view('visitors_search', compact('parishes'));
         }else{
             return redirect()->back()->with("error", "Search request does not found, try again later");

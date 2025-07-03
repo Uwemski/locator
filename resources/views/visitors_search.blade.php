@@ -7,21 +7,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <style>
+    body{
+
+    }
     #map { height: 500px; width: 100%; }
     #nearest-parish { margin-top: 1em; font-weight: bold; }
   </style>
 </head>
 <body>
-
-  <h2>Parishes Map</h2>
-
-  <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
-
   <div class="col-md-6">
       @if(session('error'))
         <div class="alert alert-warning">{{session('error')}}</div>
       @endif
   </div>
+
+  <h2>Parishes Map</h2>
+
+  <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
 
   <div id="map"></div>
 

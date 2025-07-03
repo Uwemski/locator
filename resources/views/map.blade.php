@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <style>
+    body{
+      padding: 1rem;
+    }
     #map { height: 500px; width: 100%; }
     #nearest-parish { margin-top: 1em; font-weight: bold; }
   </style>
@@ -14,6 +17,10 @@
 <body>
   <div class="row d-flex justify-content-right align-items-right mt-4 mb-5"> 
     <div class="col-md-7">
+      @if (session('error'))
+        <div class="alert alert-warning">{{session('error')}}</div>
+      @endif
+
       @if ($errors->any())
         @foreach ($errors->all() as $err )
             <div class="alert alert-primary">{{$err}}</div>
