@@ -32,7 +32,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map('map').setView([6.5244, 3.3792], 10); // Lagos coords
+      const map = L.map('map').setView([9.0820, 8.6753], 10); // Lagos coords
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
