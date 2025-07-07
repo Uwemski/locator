@@ -119,7 +119,7 @@
                 
                 @if ($errors->any())
                     @foreach ($errors->all() as $err )
-                        <div class="alert-warning">{{$err}}</div>
+                        <div class="alert-warning mt-3">{{$err}}</div>
                     @endforeach
                 @endif
                 <div class="col-md-5 info pt-3">

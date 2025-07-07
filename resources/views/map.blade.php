@@ -51,7 +51,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       console.log('JAvascript is running!');
-      const map = L.map('map').setView([6.5244, 3.3792], 10); // Lagos coords
+      const map = L.map('map').setView([9.0820, 8.6753], 10); // Lagos coords
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -62,7 +62,11 @@
       @foreach ($verifiedParish as $parish)
         marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
           .addTo(map)
-          .bindPopup(`<b>{{ $parish->name }}</b><br>{{ $parish->address ?? '' }}`);
+          .bindPopup(`
+            <b>{{ $parish->name }}</b><br>
+            {{ $parish->address ?? '' }}<br>
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a>
+          `);
         parishMarkers.push({ 
           lat: {{ $parish->latitude }},
           lng: {{ $parish->longitude }},

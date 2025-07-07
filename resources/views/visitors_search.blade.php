@@ -32,7 +32,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map('map').setView([9.0820, 8.6753], 10); // Lagos coords
+      const map = L.map('map').setView([9.0820, 8.6753], 6); //Abuja coords to center Nigeira
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -43,7 +43,11 @@
       @foreach ($parishes as $parish)
         const marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
           .addTo(map)
-          .bindPopup(`<b>{{ $parish->name }}</b><br>{{ $parish->address ?? '' }}`);
+          .bindPopup(`
+            <b>{{ $parish->name }}</b><br>
+            {{ $parish->address ?? '' }}<br>
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a>
+          `);
         parishMarkers.push({ 
           lat: {{ $parish->latitude }},
           lng: {{ $parish->longitude }},

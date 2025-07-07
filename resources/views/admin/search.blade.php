@@ -21,7 +21,7 @@
         <div class="row mt-5">
             
             @if (session('error'))
-                <div class="alert alert-danger">{{session('error')}}</div>
+                <div class="alert alert-danger mt-2">{{session('error')}}</div>
             @endif
 
             <table border="1" class="table table-hover"> 
