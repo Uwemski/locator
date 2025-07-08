@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Parish;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -49,7 +50,7 @@ class AdminController extends Controller
     //a public function to show verified parishes 
     public function showVerifiedParishes(){
         //dd('controller is working!');
-        $verifiedParish = Parish::where('status', 'verified')->get();
+        $verifiedParish = Parish::with('services')->where('status', 'verified')->get();
 
         return view('map', compact('verifiedParish'));
     }
@@ -62,7 +63,6 @@ class AdminController extends Controller
 
     //public function to view users
     public function viewAllUsers(){
-
         //fetch all from DB
         $users = User::all();
         return view('admin.all_users', compact('users'));

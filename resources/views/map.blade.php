@@ -75,6 +75,15 @@
           .bindPopup(`
             <b>{{ $parish->name }}</b><br>
             {{ $parish->address ?? '' }}<br>
+              @if ($parish->services)
+                @foreach ($parish->services as $service)
+                  <ul>
+                    <li>Service:{{$service->name}}: {{$service->time}} Day:{{$service->day}}</li>
+                  </ul>
+                @endforeach
+              @else
+                <small class='text-muted'>No services listed yet</small>
+              @endif
             <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a>
           `);
         parishMarkers.push({ 
