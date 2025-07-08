@@ -6,21 +6,13 @@
   <title>Parish Locator | Home Page</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="{{asste('style.css')}}" />
+  <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon"/>
 </head>
 <body>
 
   <!-- SOCIAL NAVBAR -->
-  <nav class="navbar bg-dark">
-    <div class="container justify-content-end">
-      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-instagram mx-2"></i></a>
-      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-twitter mx-2"></i></a>
-      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-spotify mx-2"></i></a>
-      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-facebook mx-2"></i></a>
-    </div>
-  </nav>
-
+  @include('partials.navbar1')
   <!-- MAIN NAVBAR -->
   @include('partials.navbar2') 
 

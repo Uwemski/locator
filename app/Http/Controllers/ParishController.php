@@ -128,7 +128,7 @@ class ParishController extends Controller
         ]);
         //strip tags
         foreach($data as $d => $k){
-            $data[$d] = strip_tags($data[$k]);
+            $data[$d] = strip_tags($k);
         }
         //update 
         $parish->update($data);

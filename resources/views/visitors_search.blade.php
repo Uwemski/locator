@@ -5,16 +5,26 @@
   <title>Parish Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="{{asset('style.css')}}" />
+  <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
 
   <style>
     body{
-
+      padding: .5rem;
     }
+
     #map { height: 500px; width: 100%; }
     #nearest-parish { margin-top: 1em; font-weight: bold; }
   </style>
 </head>
 <body>
+
+  {{-- SOCIAL NAVBAR--}}
+  @include('partials.navbar1')
+  <!-- MAIN NAVBAR -->
+  @include('partials.navbar2') 
+  
   <div class="col-md-6">
       @if(session('error'))
         <div class="alert alert-warning">{{session('error')}}</div>

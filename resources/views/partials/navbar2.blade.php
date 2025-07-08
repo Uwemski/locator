@@ -1,7 +1,7 @@
   <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="img/logo_resized2.png" alt="RCCG Logo" class="img-fluid" style="height: 50px;" />
+        <img src="{{asset('img/logo_resized2.png')}}" alt="RCCG Logo" class="img-fluid" style="height: 50px;" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
         aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
