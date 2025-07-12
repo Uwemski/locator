@@ -164,10 +164,10 @@ Route::get('testing-api', function(){
 })->name('testing-api');
 
 Route::get('/debug-log', function () {
-    $logFile = storage_path('logs/laravel.log');
-    if (file_exists($logFile)) {
-        return response()->file($logFile);
-    } else {
-        return 'Log file not found.';
+     try {
+        \Log::info('Laravel is running');
+        return 'Laravel booted successfully.';
+    } catch (\Throwable $e) {
+        return 'Laravel crashed during boot: ' . $e->getMessage();
     }
 });
