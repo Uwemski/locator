@@ -24,15 +24,31 @@ Route::middleware(['auth:user'])->group(function(){
     Route::get("/userDashboard", function(){
         return view("user.userDashboard");
     })->name('userDashboard');
-
 });
+
+
+//guest middleware
+Route::middleware('guest')->group(function(){
+    Route::get("/userLogin", function(){
+        return view("user.userLogin");
+    })->name("userLogin");
+
+    Route::get('/reg_test', function(){
+        return view('parish.reg_test');
+    })->name('reg_test');
+
+    Route::get('/parish_login', function(){
+        return view('parish.parish_login');
+    })->name('login');
+
+    Route::post('/parish_reg', [ParishController::class, 'register']);
+
+    Route::post('/parish_login', [ParishController::class, 'login']);
+});
+
 Route::get("/userReg", function(){
     return view('user.userReg');
 })->name('userReg');
-
-Route::get("/userLogin", function(){
-    return view("user.userLogin");
-})->name("userLogin");
 
 
 Route::get('/test', function(){
@@ -47,13 +63,6 @@ Route::get('/test', function(){
 // })->name('parish_reg'); since there is an invalid map key, let's comment it out
 
 //this route uses openstreetmap
-Route::get('/reg_test', function(){
-    return view('parish.reg_test');
-})->name('reg_test');
-
-Route::get('/parish_login', function(){
-    return view('parish.parish_login');
-})->name('login');
 
 //middleware for parish
 Route::middleware(['auth:parish'])->group(function() {
@@ -136,9 +145,6 @@ Route::post('/userLogin', [UserController::class, 'login']);
 Route::post('/userLogout', [UserController::class, 'logout']);
 
 //Parish Controllers
-Route::post('/parish_reg', [ParishController::class, 'register']);
-
-Route::post('/parish_login', [ParishController::class, 'login']);
 
 Route::post('/parish/logout', [ParishController::class, 'logout']);
 
@@ -150,3 +156,18 @@ Route::get('visitor/search', [ParishController::class, 'searchForVisitors'])->na
 // })->name('superPower');
 
 Route::get('/nearest-parish', [AdminController::class, 'getNearest']);
+
+
+//test
+Route::get('testing-api', function(){
+    return view('testApi');
+})->name('testing-api');
+
+Route::get('/debug-log', function () {
+    $logFile = storage_path('logs/laravel.log');
+    if (file_exists($logFile)) {
+        return response()->file($logFile);
+    } else {
+        return 'Log file not found.';
+    }
+});
