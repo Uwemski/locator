@@ -14,7 +14,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chmod -R 755 storage bootstrap/cache
 
-ENV PORT=8080
-EXPOSE 8080
+ENV PORT=3306
+EXPOSE 3306
 
 CMD php -S 0.0.0.0:${PORT} -t public
