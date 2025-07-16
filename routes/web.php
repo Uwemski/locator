@@ -51,9 +51,9 @@ Route::get("/userReg", function(){
 })->name('userReg');
 
 
-Route::get('/test', function(){
-    return view('user.test');
-})->name('Testing');
+// Route::get('/test', function(){
+//     return view('user.test');
+// })->name('Testing');
 
 //ROUTES FOR PARISH
 
@@ -100,9 +100,7 @@ Route::middleware(['auth:parish'])->group(function() {
 
 
 //routes for admin
-Route::get('/admin/test', function(){
-    return view('admin.admin_test');
-})->name('admin_test');
+
 
 Route::get('/admin/login', function(){
     return view('admin.admin_login');
@@ -170,4 +168,8 @@ Route::get('/debug-log', function () {
     } catch (\Throwable $e) {
         return 'Laravel crashed during boot: ' . $e->getMessage();
     }
+});
+
+Route::get('/test', function(){
+    return view('admin.test');
 });

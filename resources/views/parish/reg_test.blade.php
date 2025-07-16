@@ -14,6 +14,8 @@
 <body>
 
     <h2>Select a location on the map</h2>
+    <button id="auto-locate" class="btn btn-primary mb-2">📍 Use My Location</button>
+    <div id="geo-error" class="text-danger mb-2"></div>
     <div id="map"></div>
 
     @if(session('error'))
@@ -61,11 +63,11 @@
                     <small style='color:red'>{{$message}}</small>
                 @enderror
 
-                <input type="text" name="latitude" id="latitude" placeholder="Latitude" readonly class="form-control" value={{old('latitude')}}>
+                <input type="text" name="latitude" id="latitude" readonly placeholder="Latitude" readonly class="form-control" value={{old('latitude')}}>
                 @error('latitude')
                     <small style="color:red">{{$message}}</small>
                 @enderror
-                <input type="text" name="longitude" id="longitude" placeholder="Longitude" readonly class="form-control" value={{old('longitude')}}>
+                <input type="text" name="longitude" id="longitude" readonly placeholder="Longitude" readonly class="form-control" value={{old('longitude')}}>
                 @error('longitude')
                     <small style="color: red">{{$message}}</small>
                 @enderror
@@ -103,6 +105,34 @@
             // Fill form inputs
             document.getElementById('latitude').value = lat.toFixed(6);
             document.getElementById('longitude').value = lng.toFixed(6);
+        });
+
+         // Handle "Use My Location" button
+        document.getElementById('auto-locate').addEventListener('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    if (marker) map.removeLayer(marker);
+                    marker = L.marker([lat, lng]).addTo(map);
+
+                    map.setView([lat, lng], 15);
+
+                    document.getElementById('latitude').value = lat.toFixed(6);
+                    document.getElementById('longitude').value = lng.toFixed(6);
+                    document.getElementById('geo-error').textContent = "";
+                }, function(error) {
+                    //document.getElementById('geo-error').textContent = "Unable to retrieve your location.";
+                    alert("Error: "+ error.message);
+                },
+                {
+                    enableHighAccuracy: true,timeout: 10000
+                }
+            );
+            } else {
+                document.getElementById('geo-error').textContent = "Geolocation is not supported by this browser.";
+            }
         });
     </script>
 </body>

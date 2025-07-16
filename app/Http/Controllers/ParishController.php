@@ -24,8 +24,8 @@ class ParishController extends Controller
             'password' => 'required|min:5'
         ]);
 
-        $data['email']= strip_tags($data['email']);
-        $data['password']= strip_tags($data['password']);
+        // $data['email']= strip_tags($data['email']);
+        // $data['password']= strip_tags($data['password']);
 
         foreach($data as $key => $value){
             $data[$key] = strip_tags($value);
@@ -89,8 +89,6 @@ class ParishController extends Controller
             "pastor_name" => "required|min:5",
             "contact_no" => "required|min:10",
             "website" => "required|min:4",
-            "latitude" => "required|min:3",
-            "longitude" => "required|min:3",
         ]);
 
         //debug checkpoint
@@ -133,7 +131,7 @@ class ParishController extends Controller
         //update 
         $parish->update($data);
         //redirect
-        return redirect()->back()->with('success', 'Information updated successfully');
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
 

@@ -34,7 +34,7 @@
                 <div class="alert alert-warning">{{$err}}</div>
             @endforeach
         @endif
-            <form action="{{route('services.create')}}" method="post">
+            <form action="{{route('services.create')}}" method="post" class="p-3">
                 @csrf {{-- I forgot this again. 30pushups--}}
                 <div class="mb-3">
                     <label for="name">Service Name</label>

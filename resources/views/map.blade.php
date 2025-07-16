@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>Parish Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
   <link rel="stylesheet" href="{{asset('style.css')}}" />
   <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
@@ -82,7 +82,7 @@
                   </ul>
                 @endforeach
               @else
-                <small class='text-muted'>No services listed yet</small>
+                <p class='text-muted'>No services listed yet</p>
               @endif
             <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a>
           `);

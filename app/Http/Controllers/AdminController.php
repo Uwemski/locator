@@ -8,43 +8,48 @@ use App\Models\User;
 use App\Models\Parish;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+//testing
+//use Illuminate\Support\Facades\Http;
+
 
 class AdminController extends Controller
 {
     //nearest parish 
     public function getNearest(Request $request)
-{
-    $userLat = $request->query('lat');
-    $userLng = $request->query('lng');
+    {
+        $userLat = $request->query('lat');
+        $userLng = $request->query('lng');
 
-    $nearest = Parish::where('status', 'verified')
-        ->get()
-        ->map(function ($parish) use ($userLat, $userLng) {
-            $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
-            return $parish;
-        })
-        ->sortBy('distance')
-        ->first();
+        $nearest = Parish::where('status', 'verified')
+            ->get()
+            ->map(function ($parish) use ($userLat, $userLng) {
+                $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
+                return $parish;
+            })
+            ->sortBy('distance')
+            ->first();
 
-    return response()->json([
-        'name' => $nearest->name,
-        'lat' => $nearest->latitude,
-        'lng' => $nearest->longitude
-    ]);
-}
+        return response()->json([
+            'name' => $nearest->name,
+            'lat' => $nearest->latitude,
+            'lng' => $nearest->longitude
+        ]);
+    }
     //a public function to count total number of parishes and users
     //I created seperate methods for both but l;ater realised you can do something like below.note:they are being used on the same page
     public function numberOfParishesUsers(){
-        Auth::guard('admin')->user();
+        $admin = Auth::guard('admin')->user();
 
-        //$parishes = Parish::where('status', 'pending')->count();
+        //if the above results
+        if($admin){
+            $parishes = Parish::count();
+            $users = User::count();
 
-        $parishes = Parish::count();
-        $users = User::count();
+            $verifiedParishes = Parish::where('status', 'verified')->count();
 
-        $verifiedParishes = Parish::where('status', 'verified')->count();
-
-        return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParishes') );
+            return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParishes') );
+        }
+        //$parishes = Parish::where('status', 'pending')->count();        
     }
 
     //a public function to show verified parishes 
@@ -83,7 +88,7 @@ class AdminController extends Controller
 
         //dd($data);
         
-        // Attempt to authenticate using the Admin model
+        
         if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'] ])) {
             //auth()->login($data);
             return redirect()->route('adminDashboard');
@@ -220,5 +225,10 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
         }
     }
-    
+ 
+    public function testing(){
+        $ip = request()->ip();                // something like 127.0.0.1
+$url = "http://ip-api.com/" . $ip;    // http://ip-api.com/127.0.0.1
+$data = Http::get($url);   
+    }
 }

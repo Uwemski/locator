@@ -23,7 +23,12 @@
                     {{-- <h2>Select a location on the map</h2>
                     <div id="map"></div> --}}
 
+                    @if(session('success'))
+                        <div class="alert alert-success">{{session('success')}}</div>
 
+                    @if(session('error'))
+                        <div class="alert alert-warning">{{session('error')}}</div>
+                        
                     @if ($errors->any())
                         @foreach ($errors->all() as $err)
                             <div class="alert alert-warning">{{$err}}</div>
