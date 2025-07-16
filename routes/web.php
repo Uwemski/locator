@@ -167,3 +167,10 @@ Route::get('/debug-log', function () {
         return 'Laravel crashed during boot: ' . $e->getMessage();
     }
 });
+
+//routes for events
+Route::get('/events', function(){
+    return view('parish.events');
+})->name('events');
+
+Route::post('/events/create', [SeviceController::class, 'create'])->name('event.create');
