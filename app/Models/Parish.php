@@ -62,4 +62,8 @@ class Parish extends Authenticatable
     public function services(){
         return $this->hasMany(Service::class);
     }
+
+    public function events(){
+        return $this->hasMany(Event::class);
+    }
 }
