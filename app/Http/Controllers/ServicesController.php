@@ -50,4 +50,18 @@ class ServicesController extends Controller
         //dd($services);
         return view('parish.manage_service', compact('services'));
     }
+
+    //a function to delete service
+    public function delete($id){
+        //get the record
+        $service = Service::find($id);
+
+        //delete
+        $yes = $service->delete();
+
+        if($yes){
+            return redirect()->back()->with('success', 'service has been deleted successfully');
+        }
+       
+    }
 }

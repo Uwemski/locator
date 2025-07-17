@@ -176,4 +176,5 @@ Route::get('/events', function(){
 
 Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
 
-Route::get('/events/show', [ServicesController::class, 'show'])->name('service.show');
+Route::get('/service/show', [ServicesController::class, 'show'])->name('service.show');
+Route::delete('/service/delete/{service}', [ServicesController::class, 'delete'])->name('service.delete');

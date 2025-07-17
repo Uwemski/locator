@@ -48,20 +48,22 @@
                         </thead>
 
                         <tbody>
+                            <?php $serialNo=1?>
                             @foreach ($services as $service)
                                 <tr>
-                                    <td>S/N</td>
+                                    <td>{{$serialNo}}</td>
                                     <td>{{$service->name}}</td>
                                     <td>{{$service->time}}</td>
                                     <td>{{$service->day}}</td>
                                     <td>
-                                        <form action="" method="post">
+                                        <form action="{{route('service.delete', $service->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button>Delete</button>
+                                            <button  onclick="verifyDelete()" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
+                                {{$serialNo++}}
                             @endforeach
                         </tbody>
                     </table>
@@ -70,5 +72,6 @@
         </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>
