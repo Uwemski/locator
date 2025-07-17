@@ -91,6 +91,7 @@
                             $serialNo = 1    
                         ?>
 
+        
                         @foreach (User::all() as $user)
                             <tr>
                                 <td><?php echo $serialNo++?></td>

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable; //I'm not sure if I'll use this, make we dey see
 
-class Event extends Model
+
+class Event extends Authenticatable
 {
-
     use HasFactory, Notifiable;
     //
     /**

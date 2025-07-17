@@ -21,16 +21,16 @@
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success">{{session('success')}}</div>
+            <div class="alert alert-success p-2">{{session('success')}}</div>
         @endif
 
         @if(session('error'))
-            <div class="alert alert-warning">{{session('error')}}</div>
+            <div class="alert alert-warning p-2">{{session('error')}}</div>
         @endif
 
        <div class="col-md-9">
         @if($errors->any())
-            @foreach ($errors as $err)
+            @foreach ($errors->all() as $err)
                 <div class="alert alert-warning">{{$err}}</div>
             @endforeach
         @endif
@@ -52,7 +52,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="day">Day</label>
-                    <input type="text" name="day" id="day" class="form-control" required placeholder="Day of the week" value="{{old('day')}}">
+                    <select name="day" id="" class="form-select">
+                        <option value="">Select a day</option>
+                        <option value="Sunday">Sunday</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                    </select>
                     @error('day')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -70,14 +79,14 @@
         sidebar.classList.toggle('show');
     }
 
-    let form = querySelector('form');
+    // let form = querySelector('form');
     
-    form.addEventListener('submit', function(e){
-        e.preventDefault(e);
+    // form.addEventListener('submit', function(e){
+    //     e.preventDefault(e);
 
-        alert("Are you sure you want to logout?");
+    //     alert("Are you sure you want to logout?");
 
-    })
+    // })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

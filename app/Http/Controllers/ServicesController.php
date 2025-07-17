@@ -14,7 +14,7 @@ class ServicesController extends Controller
         $data = $request->validate([
             'name' => 'required|min:2',
             'time' => 'required|min:3',
-            'day' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday',
+            'day' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
         ]);
 
         //strip-tags
@@ -26,6 +26,7 @@ class ServicesController extends Controller
 
         $data['parish_id'] = Auth::guard('parish')->id();
 
+        //dd($data);
         if(!empty($data['parish_id']) ){//hope this works, if it doesn't we still move
             $service = Service::create($data);
             if($service){
@@ -34,6 +35,19 @@ class ServicesController extends Controller
                 return redirect()->back()->with('error', 'Unable to create, Please try again!');
             }
         }
+    }
 
+    public function show(){
+        //this function should aloow parish to view their seervices
+        //is the [parish autenticated]?
+        $parish_id = Auth::guard('parish')->id();
+
+        //join bothh tables
+        $parish = Parish::with('services')->find($parish_id);
+
+        $services = $parish->services;
+
+        //dd($services);
+        return view('parish.manage_service', compact('services'));
     }
 }

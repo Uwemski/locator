@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\EventController;
 
 
 Route::get('/', function () {
@@ -173,4 +174,6 @@ Route::get('/events', function(){
     return view('parish.events');
 })->name('events');
 
-Route::post('/events/create', [SeviceController::class, 'create'])->name('event.create');
+Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
+
+Route::get('/events/show', [ServicesController::class, 'show'])->name('service.show');

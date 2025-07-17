@@ -21,7 +21,7 @@ class Service extends Authenticatable
     protected $fillable = [
         'name',
         'time',
-        'Day',
+        'day',
         'parish_id'
     ];
 

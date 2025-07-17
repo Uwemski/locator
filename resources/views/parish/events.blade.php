@@ -28,7 +28,7 @@
         @if(session('error'))
             <div class="alert alert-danger">{{session('error')}}</div>
         @endif
-        
+
         @if($errors->any())
             @foreach ($errors->all() as $err)
                 <div class="alert alert-warning">{{$err}}</div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="time">Event date</label>
-                    <input type="text" name="event_date" class="form-control" value="{{old('event_date')}}">
+                    <input type="text" name="event_date" class="form-control" value="{{old('event_date')}}" placeholder="Format: Y-m-d">
                     @error('event_date')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -81,19 +81,22 @@
 </div>
 
 <script>
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('show');
-    }
 
-    let form = querySelector('form');
+    //what is this doing here?
+
+    // function toggleSidebar() {
+    //     const sidebar = document.getElementById('sidebar');
+    //     sidebar.classList.toggle('show');
+    // }
+
+    // let form = querySelector('form');
     
-    form.addEventListener('submit', function(e){
-        e.preventDefault(e);
+    // form.addEventListener('submit', function(e){
+    //     e.preventDefault(e);
 
-        alert("Are you sure you want to logout?");
+    //     alert("Are you sure you want to logout?");
 
-    })
+    // })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

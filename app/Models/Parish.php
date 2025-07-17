@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Service;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
