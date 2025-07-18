@@ -175,6 +175,9 @@ Route::get('/events', function(){
 })->name('events');
 
 Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
+Route::get('/event/parish/{id}', [EventController::class, 'visitor_search_event'])->name('event.find');
 
 Route::get('/service/show', [ServicesController::class, 'show'])->name('service.show');
 Route::delete('/service/delete/{service}', [ServicesController::class, 'delete'])->name('service.delete');
+
+Route::get('/admin/parish/{id}', [ServicesController::class, 'find_service_by_parish'])->name('service.find');

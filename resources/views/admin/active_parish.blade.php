@@ -86,7 +86,7 @@
                             <td>{{$p->email}}</td>
                             <td>{{$p->created_at->format('Y-m-d')}}</td>
                             <td>{{$p->status}}</td>
-                            
+                            <td><a href="{{route('service.find', $p->id)}}">View service</a></td>
                         </tr>
 
                         

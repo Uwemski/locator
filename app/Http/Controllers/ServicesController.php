@@ -64,4 +64,20 @@ class ServicesController extends Controller
         }
        
     }
+
+    //a function to get service by id
+    public function find_service_by_parish($id){
+        //find by id
+        $parish = Parish::with('services')->find($id);
+
+        $service = $parish->services;
+
+        if(!empty($service)){
+            return view('admin.parish_service', compact('service', 'parish'));
+        }else{
+            return redirect()->back()->with('error', 'parish does not have service stored');
+        }
+    }
+
+    
 }

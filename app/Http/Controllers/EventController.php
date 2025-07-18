@@ -39,4 +39,22 @@ class EventController extends Controller
         }    
     }
 
+    //for visitors
+    public function visitor_search_event($id){
+        //find by id
+        $parish = Parish::with('events')->find($id);
+
+        //if(!$parish){
+        //     return redirect
+        //}
+        
+        $event = $parish->events;
+        //dd($event);
+        if(!empty($event)){
+            return view('user.parish_event', compact('event'));
+        }else{
+            return redirect()->back()->with('error', 'error');
+        }
+        
+    }
 }
