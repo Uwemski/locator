@@ -25,10 +25,10 @@
 
                     @if(session('success'))
                         <div class="alert alert-success">{{session('success')}}</div>
-
+                    @endif
                     @if(session('error'))
                         <div class="alert alert-warning">{{session('error')}}</div>
-                        
+                    @endif   
                     @if ($errors->any())
                         @foreach ($errors->all() as $err)
                             <div class="alert alert-warning">{{$err}}</div>
@@ -77,35 +77,9 @@
         <!-- Leaflet JS -->
             {{-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> --}}
             <script>
-                const map = L.map('map').setView([6.5244, 3.3792], 13); // Default to Lagos, Nigeria
-
-                // Add OpenStreetMap tiles
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '©️ OpenStreetMap contributors'
-                }).addTo(map);
-
-                let marker;
-
-                // Handle map click
-                map.on('click', function(e) {
-                    const { lat, lng } = e.latlng;
-
-                    // Remove previous marker
-                    if (marker) {
-                        map.removeLayer(marker);
-                    }
-
-                    // Add new marker
-                    marker = L.marker([lat, lng]).addTo(map);
-
-                    // Fill form inputs
-                    document.getElementById('latitude').value = lat.toFixed(6);
-                    document.getElementById('longitude').value = lng.toFixed(6);
-                });
-
                 function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('show');
+                    const sidebar = document.getElementById('sidebar');
+                    sidebar.classList.toggle('show');
                 }
 
                 let form = querySelector('form');
@@ -120,7 +94,7 @@
                     latitude = document.getElementById('latitude').value.trim();
                     longitude= document.getElementById('longitude').value.trim();
 
-                    if(!(addess) || !(pastor_name) || !(contact_no) || !(latitude) || !(longitude) ){
+                    if(!(address) || !(pastor_name) || !(contact_no) || !(latitude) || !(longitude) ){
                         alert("All fields are required!")
                     }else{
                         alert("Submitting form...");
@@ -128,6 +102,7 @@
                     }
                 })
             </script>
+            
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

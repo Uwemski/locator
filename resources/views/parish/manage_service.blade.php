@@ -63,7 +63,8 @@
                                         </form>
                                     </td>
                                 </tr>
-                                {{$serialNo++}}
+                                <?php $serialNo++?>
+                                {{--$serialNo++--}}
                             @endforeach
                         </tbody>
                     </table>

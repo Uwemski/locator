@@ -50,7 +50,7 @@
                                         <option value="verified" {{$p->status == 'verified'? 'selected': ''}}>Verify</option>
                                         <option value="suspended" {{$p->status == 'suspended'? 'selected': ''}}>Suspended</option>
                                     </select>
-                                    <button type="submit" class="btn btn-warning mt-1">update</button>
+                                    <button type="submit" class="btn btn-success mt-1">update</button>
                                 </form>
                             </td>
                             <td>
