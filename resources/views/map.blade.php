@@ -86,15 +86,16 @@
               @endif
             <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a> 
             @if ($parish->events)
-                  <ul>
-                    @foreach ($parish->events as $p)
-                      <p>This parish has {{$p::count()}} upcoming events: <a href="{{route('event.find', $p->id)}}">View</a></p>
-                    @endforeach
-                  </ul>
+              <ul>
+                @foreach ($parish->events as $p)
+                  <p>This parish has upcoming event(s): <a href="{{route('event.find', $p->id)}}">View</a></p>
+                @endforeach
+              </ul>
             @else
-                  <p>PArish does'nt have any event coming up</p>
+                <p>Parish doesn't have any event coming up</p>
             @endif
           `);
+          
         parishMarkers.push({ 
           lat: {{ $parish->latitude }},
           lng: {{ $parish->longitude }},

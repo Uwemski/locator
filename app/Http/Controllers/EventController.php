@@ -57,4 +57,66 @@ class EventController extends Controller
         }
         
     }
+
+    //for parish
+    public function view_events_for_parish(){
+
+        //find by id
+        $id = Auth::guard('parish')->id();
+        //send to blade
+        $parish = Parish::find($id);
+
+        if($parish){
+            $events = $parish->events;
+            if($events->isNotEmpty()){
+                return view('parish.manage_events', compact('events'));
+            }else{
+                return redirect()->back()->with('empty', 'There are no events for your parish yet');
+            }
+        }else{
+            return redirect()->back()->with('error', 'Parish does not exist');
+        }
+    }
+
+    //route to edit
+    public function edit($id){
+        $event = Event::findOrFail($id);
+
+        if(Auth::guard('parish')->id() !== $event->parish_id ){
+            abort(404);  
+        }else{
+            return view('parish.update_event', compact('event'));
+        }
+    }
+
+    //to update event by parish
+    public function update(Request $request, $id){
+        //find
+        $event = Event::find($id);
+        //validate
+        $data = $request->validate([
+            "title" => "required|min:3",
+            "description" => "required|min:5",
+            "event_date" => "required|min:3",
+            "location" => "required|min:3",
+        ]);
+        //strip tags
+        foreach($data as $d => $k){
+            $data[$d] = strip_tags($k);
+        }
+        //verify
+        $parish_id = Auth::guard('parish')->id();
+        
+        if($event){
+            if($parish_id){
+                //update
+                $event->update($data);
+                //save
+                $event->save();
+                return redirect()->back()->with("success", "Event record updated successfully");
+            }else{
+                return redirect()->back()->with("Illegal access", "You don't have authorization to perform thuis action");
+            }
+        }
+    }
 }

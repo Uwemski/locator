@@ -109,9 +109,8 @@ class AdminController extends Controller
         ]);
 
         //still stripping, just in a shorter way
-        //i think this is wrong: no stripping done(nyash is opens)
         foreach($incomingData as $key => $value){
-            $incomingData[$key] = $incomingData[$value];
+            $incomingData[$key] = strip_tags($value);
         }
 
         //check if the two passwords match
@@ -119,9 +118,6 @@ class AdminController extends Controller
             //hash the password
             $incomingData['password'] = bcrypt($incomingData['password']);
             // dd($incomingData); debugging checkpoint
-
-
-
             //create the admin
             $admin = Admin::create($incomingData);
             if($admin){
@@ -149,6 +145,7 @@ class AdminController extends Controller
         return redirect()->back()->with('deleted_success', 'User deleted successfully.');
     }
 
+    //what if the deleting fails, How do your users know?
     //a method to delete a parish
     public function parish_destroy($id){
         $parish = Parish::find($id);
@@ -228,7 +225,7 @@ class AdminController extends Controller
  
     public function testing(){
         $ip = request()->ip();                // something like 127.0.0.1
-$url = "http://ip-api.com/" . $ip;    // http://ip-api.com/127.0.0.1
-$data = Http::get($url);   
+        $url = "http://ip-api.com/" . $ip;    // http://ip-api.com/127.0.0.1
+        $data = Http::get($url);   
     }
 }

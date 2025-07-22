@@ -5,8 +5,9 @@
             <li class="nav-item"><a class="nav-link {{request()->routeIs('update_profile') ? 'bg-warning text-dark' : '.bg-green-custom'}}" href="{{route('update_profile')}}">Edit Profile</a></li>
             <li class="nav-item {{request()->routeIs('manage_location') ? 'bg-warning text-dark': '.bg-green-custom'}}"><a class="nav-link" href="{{route('manage_location')}}">Manage Location</a></li>
             <li class="nav-item"><a class="nav-link" href="/parish/service">Service Schedule</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{route('events')}}">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="{{route('service.show')}}">Manage services</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route('events')}}">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route('event.show')}}">Manage events</a></li>
             <li class="nav-item">
                 <form action="/parish/logout" method="post">
                     @csrf

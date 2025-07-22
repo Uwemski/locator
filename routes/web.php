@@ -7,7 +7,6 @@ use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\EventController;
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,8 +41,9 @@ Route::middleware('guest')->group(function(){
         return view('parish.parish_login');
     })->name('login');
 
+    //create
     Route::post('/parish_reg', [ParishController::class, 'register']);
-
+    //login
     Route::post('/parish_login', [ParishController::class, 'login']);
 });
 
@@ -51,17 +51,6 @@ Route::get("/userReg", function(){
     return view('user.userReg');
 })->name('userReg');
 
-
-// Route::get('/test', function(){
-//     return view('user.test');
-// })->name('Testing');
-
-//ROUTES FOR PARISH
-
-//this is the file that intended to use googlemaps API
-// Route::get('/parish_reg', function(){
-//     return view('parish.parish_reg');
-// })->name('parish_reg'); since there is an invalid map key, let's comment it out
 
 //this route uses openstreetmap
 
@@ -79,7 +68,7 @@ Route::middleware(['auth:parish'])->group(function() {
         return view('parish.manage_location');
     })->name('manage_location');
 
-
+    //update
     Route::put('/parish/manage_location', [ParishController::class, 'manage_location']);
     Route::put('/parish/update_profile', [ParishController::class,  'update_self']);
 
@@ -89,7 +78,25 @@ Route::middleware(['auth:parish'])->group(function() {
     Route::get('/parish/service', function(){
         return view('parish.service');
     } );
+    //create
     Route::post('/parish/create_service', [ServicesController::class, 'create'])->name('services.create');
+    Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
+    //view
+    Route::get('/service/show', [ServicesController::class, 'show'])->name('service.show');
+    //delete
+    Route::delete('/service/delete/{service}', [ServicesController::class, 'delete'])->name('service.delete');
+
+
+    Route::get('/event', [EventController::class, 'view_events_for_parish'])->name('event.show');
+
+    Route::get('parish/event/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+    
+    // Route::get('parish/event/{id}/edit', function(){
+    //     return view('parish.update_event');
+    //});
+
+    Route::put('parish/event/{id}/update', [EventController::class, 'update'])->name('events.update');
+    //Route::patch('/event/{id}', [EventController::class, 'update']);
 });
 
 // Route::middleware(['auth:parish'])->group(function () {
@@ -174,10 +181,8 @@ Route::get('/events', function(){
     return view('parish.events');
 })->name('events');
 
-Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
+// this is for sitevisitor 
 Route::get('/event/parish/{id}', [EventController::class, 'visitor_search_event'])->name('event.find');
 
-Route::get('/service/show', [ServicesController::class, 'show'])->name('service.show');
-Route::delete('/service/delete/{service}', [ServicesController::class, 'delete'])->name('service.delete');
-
 Route::get('/admin/parish/{id}', [ServicesController::class, 'find_service_by_parish'])->name('service.find');
+//view_events_for_parish
