@@ -17,6 +17,7 @@ class EventController extends Controller
             'event_date' => 'required|min:3',
         ]);
 
+        //authenticate 
         $data['parish_id'] = Auth::guard('parish')->id();
 
         //strip tags
@@ -64,7 +65,7 @@ class EventController extends Controller
         //find by id
         $id = Auth::guard('parish')->id();
         //send to blade
-        $parish = Parish::find($id);
+        $parish = Parish::findOrFail($id);
 
         if($parish){
             $events = $parish->events;
@@ -92,7 +93,7 @@ class EventController extends Controller
     //to update event by parish
     public function update(Request $request, $id){
         //find
-        $event = Event::find($id);
+        $event = Event::findOrFail($id);
         //validate
         $data = $request->validate([
             "title" => "required|min:3",

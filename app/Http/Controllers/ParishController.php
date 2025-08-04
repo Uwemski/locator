@@ -94,14 +94,6 @@ class ParishController extends Controller
         //debug checkpoint
         //dd($data);
 
-        //strip data 
-        // $data['address'] = strip_tags($data['address']);
-        // $data['pastor_name'] = strip_tags($data['pastor_name']);
-        // $data['contact_no'] = strip_tags($data['contact_no']);
-        // $data['website'] = strip_tags($data['website']);
-        // $data['latitude'] = strip_tags($data['latitude']);
-        // $data['longitude'] = strip_tags($data['longitude']);
-
         //shorter way to achieve the above 
         foreach($data as $key => $value){
             $data[$key] = strip_tags($value);

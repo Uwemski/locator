@@ -9,7 +9,7 @@ use App\Models\Parish;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 //testing
-//use Illuminate\Support\Facades\Http;
+//use Illuminate\Support\Facades\Http; This is to learn API 
 
 
 class AdminController extends Controller
@@ -36,7 +36,7 @@ class AdminController extends Controller
         ]);
     }
     //a public function to count total number of parishes and users
-    //I created seperate methods for both but l;ater realised you can do something like below.note:they are being used on the same page
+    //I created seperate methods for both but later realised you can do something like below.note:they are being used on the same page
     public function numberOfParishesUsers(){
         $admin = Auth::guard('admin')->user();
 
@@ -125,7 +125,9 @@ class AdminController extends Controller
             }else{
                 return redirect()->back()->with("Error", "Error encountered, please try again later");
             }
-        }
+        }else{
+                return redirect()->back()->with("Error", "Error encountered, passwords do not match");
+            }
         
     }
 
