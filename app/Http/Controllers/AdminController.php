@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Parish;
 use App\Models\Service;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 //testing
 //use Illuminate\Support\Facades\Http; This is to learn API 
@@ -102,9 +103,9 @@ class AdminController extends Controller
         //validate
         $incomingData = $request->validate([
             'name'=> 'required|min:3',
-            'email'=> 'required|min:3',
+            'email'=> 'required|min:3|email|unique:admin,email',
             'password'=> 'required|min:4|max:255',
-            'confirmPasword' => 'required|min:4|max:255',
+            'confirmPassword' => 'required|min:4|max:255',
             'role'=> 'required'
         ]);
 
@@ -114,21 +115,40 @@ class AdminController extends Controller
         }
 
         //check if the two passwords match
-        if( $incomingData['password'] == $incomingdData['confirmPassword']){
-            //hash the password
-            $incomingData['password'] = bcrypt($incomingData['password']);
-            // dd($incomingData); debugging checkpoint
-            //create the admin
+        // if( $incomingData['password'] == $incomingdData['confirmPassword']){
+        //     //hash the password
+        //     $incomingData['password'] = bcrypt($incomingData['password']);
+        //     // dd($incomingData); debugging checkpoint
+        //     //create the admin
+        //     $admin = Admin::create($incomingData);
+        //     if($admin){
+        //         return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
+        //     }else{
+        //         return redirect()->back()->with("Error", "Error encountered, please try again later");
+        //     }
+        // }else{
+        //         return redirect()->back()->with("Error", "Error encountered, passwords do not match");
+        //     }
+
+
+         // check if the two passwords match
+        if ($incomingData['password'] !== $incomingData['confirmPassword']) {
+            return redirect()->back()->with("Error", "Error encountered, passwords do not match");
+        }
+
+        // hash password & unset confirmPassword
+        $incomingData['password'] = bcrypt($incomingData['password']);
+        unset($incomingData['confirmPassword']);
+
+        try {
             $admin = Admin::create($incomingData);
-            if($admin){
-                return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
-            }else{
-                return redirect()->back()->with("Error", "Error encountered, please try again later");
+            return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
+        } catch (QueryException $e) {
+            if ($e->getCode() == "23000") {
+                return redirect()->back()->with("Error", "Email already in use, please register with another email");
             }
-        }else{
-                return redirect()->back()->with("Error", "Error encountered, passwords do not match");
-            }
-        
+            return redirect()->back()->with("Error", "An unexpected error occurred, please try again later");
+        }
     }
 
     //method to log out

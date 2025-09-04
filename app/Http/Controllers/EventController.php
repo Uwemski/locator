@@ -45,10 +45,6 @@ class EventController extends Controller
         //find by id
         $parish = Parish::with('events')->find($id);
 
-        //if(!$parish){
-        //     return redirect
-        //}
-        
         $event = $parish->events;
         //dd($event);
         if(!empty($event)){

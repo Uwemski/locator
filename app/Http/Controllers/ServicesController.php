@@ -17,9 +17,9 @@ class ServicesController extends Controller
             'day' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
         ]);
 
-        //strip-tags
-        $data['name'] = strip_tags($data['name']);
-        //still stripping
+        // //strip-tags
+        // $data['name'] = strip_tags($data['name']);
+        // //still stripping
         foreach($data as $key => $value){
             $data[$key] = strip_tags($value);
         }

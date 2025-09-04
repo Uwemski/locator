@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Parish;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 
 class ParishController extends Controller
@@ -20,7 +21,7 @@ class ParishController extends Controller
     // a function to handle login
      public function login(Request $request){
         $data = $request->validate([
-            'email' => 'required|min:3|',
+            'email' => 'required|min:3|email',
             'password' => 'required|min:5'
         ]);
 
@@ -51,14 +52,14 @@ class ParishController extends Controller
     public function register(Request $request){
         $data = $request->validate([
             "name" => "required|min:4",
-            "email" => "required|min:4|max:255",
+            "email" => "required|min:4|max:255|email|unique:parish,email",
             "password" => "required|min:5|max:255",
             "address"=> "required|min:4|max:255",
             "city" => "required|min:3|max:255",
             "state" => "required|min:2|max:255",
             
-            "longitude" => "required",
-            "latitude" => "required"
+            "longitude" => "required|numeric",
+            "latitude" => "required|numeric"
         ]);
 
         //save your self stress by doing this
@@ -66,17 +67,18 @@ class ParishController extends Controller
             $data[$key] = strip_tags($value);
         }
 
-        //creat a record
-        $m = Parish::create($data);
-        // dd($data);
-
-
-        if ($m) {
-            return redirect()->route('login');
-        } else {
+        //try-catch
+        try{
+            //create a record
+            $m = Parish::create($data);            
+            return redirect()->route('login')->with('success', 'Parish registered successfully. Please log in.');
+        }catch(QueryException $e){
+            //query exception 23000
+            if($e->getCode() == "23000"){
+                return redirect()->back()->with("error", "Email already exist, please use another one ");
+            }
             return back()->with('error', 'Failed to register parish. Try again.');
         }
-        // dd($data);
     }
 
     //a function for parish to update
