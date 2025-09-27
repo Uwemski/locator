@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="time">Time</label>
-                    <input type="text" name="time" id="time" class="form-control" required placeholder="Time..." value="{{old('time')}}">
+                    <input type="time" name="time" id="time" class="form-control" required placeholder="Time..." value="{{old('time')}}">
                     @error('time')
                         <small style="color:red">{{$message}}</small>
                     @enderror
