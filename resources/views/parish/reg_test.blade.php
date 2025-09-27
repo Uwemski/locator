@@ -50,12 +50,20 @@
                 @error('address')
                     <small style='color:red'>{{$message}}</small>
                 @enderror
-                <input type="text" name="city" placeholder="City" required class="form-control" value={{old('city')}}>
-                @error('city')
+                <!-- <input type="text" name="city" placeholder="City" required class="form-control" value={{old('city')}}> -->
+                 <label for="state">State</label>
+                 <select name="state" id="state" class="form-select">
+                    <option value=""><!----></option>
+                 </select>
+                @error('state')
                     <small style='color:red'>{{$message}}</small>
                 @enderror
-                <input type="text" name="state" placeholder="State" required class="form-control" value={{old('state')}}>
-                @error('state')
+                <!-- <input type="text" name="state" placeholder="State" required class="form-control" value={{old('state')}}> -->
+                 <label for="lga">City</label>
+                 <select name="city" id="lga" class="form-select">
+                    <option value=""><!--selected city--></option>
+                 </select>
+                @error('city')
                     <small style='color:red'>{{$message}}</small>
                 @enderror
                 <input type="text" name="country" placeholder="Country" required class="form-control" value={{old('country')}}>
@@ -134,6 +142,43 @@
                 document.getElementById('geo-error').textContent = "Geolocation is not supported by this browser.";
             }
         });
+
+        // load states (on DOMContentLoaded)
+        fetch('/locations/states')
+        .then(res => res.json())
+        .then(states => {
+            let stateSelect = document.getElementById('state');
+            states.forEach(state => {
+                let option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        })
+        .catch(err => console.log(err));
+
+    // When user selects a state, fetch LGAs
+    document.getElementById('state').addEventListener('change', function() {
+        let state = this.value;
+        let lgaSelect = document.getElementById('lga');
+
+        // reset LGAs
+        lgaSelect.innerHTML = '<option value="">-- Select LGA --</option>';
+
+        if (state) {
+            fetch(`/locations/lgas/${encodeURIComponent(state)}`)
+                .then(res => res.json())
+                .then(lgas => {
+                    lgas.forEach(lga => {
+                        let option = document.createElement('option');
+                        option.value = lga;
+                        option.textContent = lga;
+                        lgaSelect.appendChild(option);
+                    });
+                })
+                .catch(err => console.error(err));
+        }
+    });
     </script>
 </body>
 </html>

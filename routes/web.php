@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\LocationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,6 +51,7 @@ Route::middleware('guest')->group(function(){
 Route::get("/userReg", function(){
     return view('user.userReg');
 })->name('userReg');
+
 
 
 //this route uses openstreetmap
@@ -186,3 +188,7 @@ Route::get('/event/parish/{id}', [EventController::class, 'visitor_search_event'
 
 Route::get('/admin/parish/{id}', [ServicesController::class, 'find_service_by_parish'])->name('service.find');
 //view_events_for_parish
+
+//routes for loaction controller
+Route::get('/locations/states', [LocationController::class, 'getStates']);
+Route::get('/locations/lgas/{state}', [LocationController::class, 'getLgas']);

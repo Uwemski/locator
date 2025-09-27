@@ -45,11 +45,17 @@
       </div>
       <div class="mb-2">
         <label for="city" class="form-label">City</label>
-        <input type="text" name="city" id="city" class="form-control" required/>
+        <!-- <input type="text" name="city" id="city" class="form-control" required/> -->
+         <select name="city" id="city">
+          <option value=""><!--Select state--></option>  
+         </select>
       </div>
       <div class="mb-2">
         <label for="state" class="form-label">State</label>
-        <input type="text"name="state" id="state" class="form-control" required/>
+        <!-- <input type="text"name="state" id="state" class="form-control" required/> -->
+         <select name="state" id="state">
+          <option value=""><!-- Select state--></option>
+         </select>
       </div>
       <div class="mb-4">
         <label for="country" class="form-label">Country</label>
@@ -60,9 +66,9 @@
     </form>
 
 
-    {{-- Load Google Maps JS API asynchronously with callback --}}
+    <!-- {{-- Load Google Maps JS API asynchronously with callback --}}
     {{-- <script
-      async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}}
+      async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}} commented out because it didn't work-->
     <script>
       let map, marker, autocomplete;
 
@@ -142,6 +148,21 @@
           document.getElementById("country").value = comps.country;
         }
       }
+
+      // load states (on DOMContentLoaded)
+      fetch('/locations/states')
+        .then(r => r.json())
+        .then(states => {
+          states.forEach(s => /* append <option> to #state */);
+        });
+
+      // when user selects state
+      const state = /* selected state */;
+      fetch(`/locations/lgas/${encodeURIComponent(state)}`)
+        .then(r => r.json())
+        .then(lgas => {
+          // clear #city and append options from lgas array (strings)
+        });
     </script>
   </body>
 </html>
