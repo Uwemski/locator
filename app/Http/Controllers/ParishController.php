@@ -122,10 +122,15 @@ class ParishController extends Controller
         foreach($data as $d => $k){
             $data[$d] = strip_tags($k);
         }
-        //update 
-        $parish->update($data);
-        //redirect
-        return redirect()->back()->with('success', 'Profile updated successfully');
+
+        if($parish){
+            //update 
+            $parish->update($data);
+            //redirect
+            return redirect()->back()->with('success', 'Profile updated successfully');
+        }else {
+            return redirect()->back()->with("error", "unauthorized access to perform such activity!");
+        }
     }
 
 

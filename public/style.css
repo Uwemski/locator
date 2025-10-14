@@ -24,3 +24,20 @@
   font-size: 1.2rem;
   color: #ffffff;
 }
+
+.nav-special a:hover{
+  color: #fcb900;
+}
+
+nav {
+  font-family: Montserrat, sans-serif;
+      
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  /* #fad03b */
+}
+    
+a:hover {
+  color: #fcb900;
+}

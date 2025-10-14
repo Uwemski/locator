@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="{{asset('img/logo_resized2.png')}}" alt="RCCG Logo" class="img-fluid" style="height: 50px;" />
@@ -11,18 +11,18 @@
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link {{ request()->is('home') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('homepage') }}">
+            <a class=" nav-special nav-link {{ request()->is('home') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('homepage') }}">
               Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('superPower') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('superPower') }}">
+            <a class="nav-special nav-link {{ request()->routeIs('superPower') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('superPower') }}">
               Find Parish
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" target="_blank" href="https://flatimes.com">
+            <a class="nav-special nav-link" target="_blank" href="https://flatimes.com">
               Open Heaves
             </a>
           </li>
@@ -37,7 +37,7 @@
           -->
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="registerDropdown" role="button"
+            <a class="nav-special nav-link dropdown-toggle text-white" href="#" id="registerDropdown" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
               Register
             </a>
@@ -49,10 +49,16 @@
         </ul>
 
         <!-- Search form -->
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
+        <ul class="d-flex">
+          <li class="d-flex" role="search">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> -->
+            <button class="btn btn-outline-light" type="submit">Search</button>
+          </li>
+          <li>
+
+          </li>
+        </ul>
+       
       </div>
     </div>
   </nav>

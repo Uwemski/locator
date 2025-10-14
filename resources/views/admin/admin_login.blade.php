@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mt-5">
             @if (session('Error'))
-                <div class="alert-warning">{{session('Error')}}</div>    
+                <div class="alert alert-warning">{{session('Error')}}</div>    
             @endif
             
             @if ($errors->any())
