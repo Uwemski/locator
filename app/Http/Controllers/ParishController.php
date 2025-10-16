@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\ParishRegistered;
 use App\Models\Parish;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +71,9 @@ class ParishController extends Controller
         //try-catch
         try{
             //create a record
-            $m = Parish::create($data);            
+            $m = Parish::create($data);
+            event(new ParishRegistered($m));
+
             return redirect()->route('login')->with('success', 'Parish registered successfully. Please log in.');
         }catch(QueryException $e){
             //query exception 23000
