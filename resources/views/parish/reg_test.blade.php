@@ -34,7 +34,7 @@
     
     <div class="container-fluid d-flex justify-contents-center vh-90 mt-3"  >
         <div class="shaded rounded mx-auto border p-5">
-            <form method="POST" action="/parish_reg">
+            <form method="POST" action="/parish_reg" enctype="multipart/form-data">
                 @csrf
 
                 <input type="text" name="name" placeholder="Parish Name" required class="form-control" value={{old('name')}}>
@@ -50,7 +50,6 @@
                 @error('address')
                     <small style='color:red'>{{$message}}</small>
                 @enderror
-                <!-- <input type="text" name="city" placeholder="City" required class="form-control" value={{old('city')}}> -->
                  <label for="state">State</label>
                  <select name="state" id="state" class="form-select">
                     <option value=""><!----></option>
@@ -58,7 +57,7 @@
                 @error('state')
                     <small style='color:red'>{{$message}}</small>
                 @enderror
-                <!-- <input type="text" name="state" placeholder="State" required class="form-control" value={{old('state')}}> -->
+               
                  <label for="lga">City</label>
                  <select name="city" id="lga" class="form-select">
                     <option value=""><!--selected city--></option>
