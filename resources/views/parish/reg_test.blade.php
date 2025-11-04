@@ -78,6 +78,10 @@
                 @error('longitude')
                     <small style="color: red">{{$message}}</small>
                 @enderror
+                
+                <small style="color:red">Adding a parish photo helps members recognize your church faster.Accepted formats: png,jpg,webp, jpeg. Max:10mb</small><br>
+                <label for="file">Parish Image(optional)</label>
+                <input type="file" name="photo" id="file" class='form-control'>
                 <button type="submit" class="btn btn-success mt-2">Save Location</button>
                 
                 <p>Already have an account?<a href="{{route('login')}}">Log in </a></p>

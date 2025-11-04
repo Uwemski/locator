@@ -36,9 +36,12 @@
 
   <!-- HEADER SECTION -->
   <header id="mainHeader" class="p-5 text-center text-light bg-secondary text-dark mb-5">
-    <h1 class="mt-5">Welcome to RCCG Parish Locator</h1>
-    <p class="lead text-dark">Find a parish near you with ease and convenience.</p>
-    <a href="{{route('superPower')}}" class="btn btn-primary">Find a Parish</a>
+    <div style="margin-top: 8rem">
+      <h1 class="mt-5">Welcome to RCCG Parish Locator</h1>
+      <p class="lead text-dark">Find a parish near you with ease and convenience.</p>
+      <a href="{{route('superPower')}}" class="btn btn-primary">Find a Parish</a>
+
+    </div>
   </header>
 
   <!-- BOOTSTRAP JS -->

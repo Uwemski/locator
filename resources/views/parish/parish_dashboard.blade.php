@@ -21,6 +21,10 @@
         </div>
 
         <div class="card p-4 mb-4">
+            <img src="{{asset('storage/'. $parish->photo)}}" alt="churchPhoto">
+        </div>
+
+        <div class="card p-4 mb-4">
             <h4>Parish Details</h4>
             <p><strong>Pastor:</strong> {{ $parish->pastor_name ?? 'Not Provided' }}</p>
             <p><strong>Address:</strong> {{ $parish->address }}</p>

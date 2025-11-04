@@ -58,7 +58,7 @@ class ParishController extends Controller
             "address"=> "required|min:4|max:255",
             "city" => "required|min:3|max:255",
             "state" => "required|min:2|max:255",
-            
+            "photo" => "nullable|image|mimes:png,jpeg,jpg,webp|max:10024",
             "longitude" => "required|numeric",
             "latitude" => "required|numeric"
         ]);
@@ -71,6 +71,11 @@ class ParishController extends Controller
         //try-catch
         try{
             //create a record
+            if($request->hasFile('photo')){
+                $path= $request->file('photo')->store('uploads', 'public');
+            
+                $data['image'] = $path;
+            }
             $m = Parish::create($data);
             event(new ParishRegistered($m));
 
