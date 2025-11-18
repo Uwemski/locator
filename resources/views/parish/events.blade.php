@@ -62,7 +62,7 @@
 
                 <div class="mb-3">
                     <label for="">Location (optional)</label>
-                    <input type="text" name="location" id="location" class="form-control" value={{old('location')}}>
+                    <input type="text" name="location" id="location" class="form-control" value="{{old('location')}}">
                     @error('location')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -72,7 +72,7 @@
                     <label for="">Picture</label>
                 </div>
                 <p class="text-center">
-                    <button class="btn btn-primary ">Create</button>
+                    <button class="btn btn-primary">Create</button>
                 </p>
 
             </form>

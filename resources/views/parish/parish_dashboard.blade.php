@@ -21,7 +21,7 @@
         </div>
 
         <div class="card p-4 mb-4">
-            <img src="{{asset('storage/'. $parish->photo)}}" alt="churchPhoto">
+            <img src="{{asset('storage/'. $parish->photo)}}" alt="churchPhoto" class="img-fluid">
         </div>
 
         <div class="card p-4 mb-4">

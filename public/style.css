@@ -1,43 +1,97 @@
-
+/* Reset */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  
 }
 
-.rccgImageLogo {
-  max-width: 100px !important;
-  height: auto
+/* Fonts */
+body, nav, a, h1, h2, h5, p {
+  font-family: 'Montserrat', sans-serif;
 }
 
+/* HERO SECTION */
 #mainHeader {
-  height: 90vh;
-  background-image: url("img/pngwing.com.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 85vh;           /* Adjust for navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #003399; /* RCCG blue */
+  color: white;
+  text-align: center;
+  padding: 0 20px;
 }
 
-.navbar-brand {
-  display: block;
-  font-size: 1.2rem;
-  color: #ffffff;
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 
-.nav-special a:hover{
-  color: #fcb900;
+.hero-subtitle {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 20px;
 }
 
+/* CTA button hover */
+.btn-warning:hover {
+  background-color: #fcb900;
+  color: #003399;
+  transition: 0.3s ease;
+}
+
+/* MAIN NAVBAR */
 nav {
-  font-family: Montserrat, sans-serif;
-      
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  /* #fad03b */
 }
-    
-a:hover {
+
+.nav-special a:hover {
   color: #fcb900;
+  transition: 0.3s;
+}
+
+/* NAVBAR brand image */
+.rccgImageLogo {
+  max-width: 100px !important;
+  height: auto;
+}
+
+/* SECTION SPACING */
+.section {
+  padding: 60px 0;
+}
+
+/* Feature Cards */
+.feature-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.feature-card i {
+  color: #61bb43; /* RCCG green accent */
+}
+
+/* FOOTER */
+.footer {
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE TEXT */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
 }

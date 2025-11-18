@@ -156,7 +156,7 @@ Route::post('/parish/logout', [ParishController::class, 'logout']);
 
 Route::get('visitor/search', [ParishController::class, 'searchForVisitors'])->name('find.parish');
 
-//this route below jammed the original route in line 120
+//this route below jammed the original route in line 141
 // Route::get('/map/parish', function(){
 //     return view('map');
 // })->name('superPower');

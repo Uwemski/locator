@@ -12,11 +12,40 @@
   <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
 
   <style>
-    body{
-      padding: .5rem;
+     body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f9f9f9;
     }
 
-    #map { height: 500px; width: 100%; }
+    .map-page-container {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .search-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #map { 
+      height: 600px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 4rem;
+    }
+
+    
     #nearest-parish { margin-top: 1em; font-weight: bold; }
   </style>
 </head>
@@ -27,33 +56,33 @@
   <!-- MAIN NAVBAR -->
   @include('partials.navbar2') 
 
-  <div class="row d-flex justify-content-right align-items-right mt-4 mb-5"> 
-    <div class="col-md-7">
+  <div class="map-page-container"> 
+    <!-- Search Form -->
+    <div class="search-card">
+      <form action="{{route('find.parish')}}" method='GET' class="d-flex flex-column flex-md-row gap-2 align-items-start align-items-md-center">
+        @csrf
+        <input type="text" name="name" class="form-control flex-grow-1" placeholder="Search by name, city, state" required value="{{ old('name') }}">
+        <button class="btn btn-primary mt-2 mt-md-0">Search</button>
+      </form>
+
       @if (session('error'))
-        <div class="alert alert-warning">{{session('error')}}</div>
+        <div class="alert alert-warning mt-3">{{ session('error') }}</div>
       @endif
 
       @if ($errors->any())
         @foreach ($errors->all() as $err )
-            <div class="alert alert-primary">{{$err}}</div>
+          <div class="alert alert-danger mt-2">{{ $err }}</div>
         @endforeach
       @endif
-      <form action="{{route('find.parish')}}" method='GET'>
-        @csrf
-        <input type="text" name="name" class="form-control" placeholder="Search by name, city, state" required value={{old('name')}}>
-        @error('name')
-          <small style='color: red'>{{$message}}</small>
-        @enderror
-        <button class="btn btn-primary mt-3">Search</button>
-      </form>
-      
     </div>
 
   </div>
 
   <h2>All Parishes Map</h2>
 
-  <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
+  <div class="d-flex justify-content-center mb-3">
+    <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
+  </div>
 
   <div id="map"></div>
 
@@ -80,7 +109,13 @@
               @if ($parish->services)
                 @foreach ($parish->services as $service)
                   <ul>
-                    <li>Service:{{$service->name}}: {{$service->time}} Day:{{$service->day}}</li>
+                    <li>Service:<strong>{{$service->name}}</strong>: 
+                      <ul>
+                        <li>{{$service->time}} </li>
+                        <li>Day:{{$service->day}}</li>
+                      </ul>
+                    </li>
+                    
                   </ul>
                 @endforeach
               @else

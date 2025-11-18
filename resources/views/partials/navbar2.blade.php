@@ -9,7 +9,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
             <a class=" nav-special nav-link {{ request()->is('home') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('homepage') }}">
               Home
@@ -48,16 +48,7 @@
           </li>
         </ul>
 
-        <!-- Search form -->
-        <ul class="d-flex">
-          <li class="d-flex" role="search">
-            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> -->
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </li>
-          <li>
-
-          </li>
-        </ul>
+      
        
       </div>
     </div>
