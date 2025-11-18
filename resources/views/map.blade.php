@@ -111,8 +111,8 @@
                   <ul>
                     <li>Service:<strong>{{$service->name}}</strong>: 
                       <ul>
-                        <li>{{$service->time}} </li>
-                        <li>Day:{{$service->day}}</li>
+                        <li><strong>Time </strong>:{{$service->time}}</li>
+                        <li><strong>Day </strong>:{{$service->day}}</li>
                       </ul>
                     </li>
                     

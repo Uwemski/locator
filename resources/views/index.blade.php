@@ -70,8 +70,20 @@
 
   <!-- FOOTER -->
   <footer class="footer py-3 bg-dark text-light text-center">
-    <div class="container">
+    <div class="img-container align-center mt-4 mb-4">
+        <img src="{{asset('img/logo_resized2.png')}}" alt="RCCG Logo" class="img-fluid" style="height: 65px; max-width: 100px" />
+
+    </div>
+
+    <div class="container mb-4">
       © {{ date('Y') }} RCCG Parish Locator. All Rights Reserved. Designed and devloped by Uffort Uwem Paul
+    </div>
+
+    <div class="media-links">
+      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-instagram mx-2"></i></a>
+      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-twitter mx-2"></i></a>
+      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-spotify mx-2"></i></a>
+      <a class="navbar-brand text-light" href="https://rccg.org"><i class="bi bi-facebook mx-2"></i></a>
     </div>
   </footer>
 
