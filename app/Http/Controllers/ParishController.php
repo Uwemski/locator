@@ -26,9 +26,6 @@ class ParishController extends Controller
             'password' => 'required|min:5'
         ]);
 
-        // $data['email']= strip_tags($data['email']);
-        // $data['password']= strip_tags($data['password']);
-
         foreach($data as $key => $value){
             $data[$key] = strip_tags($value);
         }
