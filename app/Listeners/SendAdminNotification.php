@@ -21,6 +21,6 @@ class SendAdminNotification
     public function handle(ParishRegistered $event): void
     {
         //
-        Mail::to('iconuwemfrank@gmail.com')->send(New NewParishNotification($event->parish));
+        Mail::to('iconuwemfrank@gmail.com')->send(new NewParishNotification($event->parish));
     }
 }

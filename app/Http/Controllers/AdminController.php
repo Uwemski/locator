@@ -9,6 +9,7 @@ use App\Models\Parish;
 use App\Models\Service;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 //testing
 //use Illuminate\Support\Facades\Http; This is to learn API 
 
@@ -63,14 +64,14 @@ class AdminController extends Controller
 
     //public function to vew parishes
     public function viewAllParishes(){
-        $parishes = Parish::all();
+        $parishes = Parish::cursorPaginate(7);
         return view('admin.all_parish', compact('parishes'));
     }
 
     //public function to view users
     public function viewAllUsers(){
         //fetch all from DB
-        $users = User::all();
+        $users = User::simplePaginate(10);
         return view('admin.all_users', compact('users'));
     }
 
@@ -113,23 +114,6 @@ class AdminController extends Controller
         foreach($incomingData as $key => $value){
             $incomingData[$key] = strip_tags($value);
         }
-
-        //check if the two passwords match
-        // if( $incomingData['password'] == $incomingdData['confirmPassword']){
-        //     //hash the password
-        //     $incomingData['password'] = bcrypt($incomingData['password']);
-        //     // dd($incomingData); debugging checkpoint
-        //     //create the admin
-        //     $admin = Admin::create($incomingData);
-        //     if($admin){
-        //         return redirect()->route('admin_login')->with("Successfull", "Admin has been created successfully");
-        //     }else{
-        //         return redirect()->back()->with("Error", "Error encountered, please try again later");
-        //     }
-        // }else{
-        //         return redirect()->back()->with("Error", "Error encountered, passwords do not match");
-        //     }
-
 
          // check if the two passwords match
         if ($incomingData['password'] !== $incomingData['confirmPassword']) {
@@ -200,7 +184,7 @@ class AdminController extends Controller
     //a method to show activeUsers
     public function showActiveParishes(){
         //get verified parish
-        $activeParish = Parish::where('status', 'verified')->get();  
+        $activeParish = Parish::where('status', 'verified')->simplePaginate(5);  
     
         return view('admin.active_parish', compact('activeParish'));
     }

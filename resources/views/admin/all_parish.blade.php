@@ -66,11 +66,9 @@
                         <?php $serialNo++ ?>
                     @endforeach
                 </tbody>
-
-
-
             </table>
         </div>
+        {{ $parishes->links()}}
     </div>
 </body>
 </html>

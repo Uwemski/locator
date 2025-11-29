@@ -14,6 +14,6 @@
         <li><strong>created:</strong> {{$parish->created_at}}</li>
     </ul>
 
-    <p>Please review their details if necessary</p>
+    <p>Please review their details if necessary, thank you!</p>
 </body>
 </html>
