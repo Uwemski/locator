@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\models\User;
+use App\models\Parish;
+use App\models\Admin;
+use App\models\PasswordResetToken;
 use Illuminate\Suport\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -21,16 +23,18 @@ class ResetPasswordController extends Controller
         ]);
 
         //check db for user
-        $user = User::where('email', $data['email'])->first();
-        if(!$user){
+        $parish = Parish::where('email', $data['email'])->first();
+        if(!$parish){
             return response()->json(['error'=> 'Email not found'], 404);
         }
 
         $otp = rand(1000, 9999);
-        $user->update(['token' => $otp]);
+        $parish = PasswordResetToken::updateOrCreate(
+            ['email' => $data['email'] ],
+            ['token' => $otp]);
         $subject = "OTP for Password Reset";
 
-        Mail::to($user->email)->send(new OTPMail($otp));
+        Mail::to($parish->email)->send(new OTPMail($otp));
 
         return response()->json(['message' => 'OTP sent to your email'], 404);
     }
