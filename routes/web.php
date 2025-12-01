@@ -7,6 +7,7 @@ use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -192,3 +193,8 @@ Route::get('/admin/parish/{id}', [ServicesController::class, 'find_service_by_pa
 //routes for loaction controller
 Route::get('/locations/states', [LocationController::class, 'getStates']);
 Route::get('/locations/lgas/{state}', [LocationController::class, 'getLgas']);
+
+//routes to reset password
+Route::get('/forget-password', [ResetPasswordController::class, 'index'])->name('auth.forget-password.index');
+
+Route::post('/forget-password', [ResetPasswordController::class, 'forgetPassword'])->name('auth.forget-password');
