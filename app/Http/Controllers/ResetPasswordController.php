@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\User;
 use Illuminate\Suport\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
@@ -19,7 +20,7 @@ class ResetPasswordController extends Controller
             'email' => 'required|email|min:3'
         ]);
 
-        $user = User::where('email', $dat['email'])->first();
+        $user = User::where('email', $data['email'])->first();
         if(!$user){
             return response()->json(['error'=> 'Email not found'], 404);
         }
