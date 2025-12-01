@@ -20,6 +20,7 @@ class ResetPasswordController extends Controller
             'email' => 'required|email|min:3'
         ]);
 
+        //check db for user
         $user = User::where('email', $data['email'])->first();
         if(!$user){
             return response()->json(['error'=> 'Email not found'], 404);

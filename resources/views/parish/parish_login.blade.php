@@ -40,7 +40,7 @@
           @enderror
         </div>
         <div class="mb-3 d-flex justify-content-space-between">
-          <p style="font-size: 12px; margin-right: 20px">Forgotten password?</p>
+          <p style="font-size: 12px; margin-right: 20px"><a href="{{route('auth.forget-password.index')}}">Forgotten password?</a></p>
           <p class="text-center"><button class="btn btn-primary">Log in</button></p>
         </div>
         <div class="mb-3">
