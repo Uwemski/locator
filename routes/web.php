@@ -198,3 +198,4 @@ Route::get('/locations/lgas/{state}', [LocationController::class, 'getLgas']);
 Route::get('/forget-password', [ResetPasswordController::class, 'index'])->name('auth.forget-password.index');
 
 Route::post('/forget-password', [ResetPasswordController::class, 'forgetPassword'])->name('auth.forget-password');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('auth.reset-password');
