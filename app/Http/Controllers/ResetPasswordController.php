@@ -8,6 +8,7 @@ use App\models\PasswordResetToken;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewOtp;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
@@ -44,6 +45,11 @@ class ResetPasswordController extends Controller
         return response()->json(['message' => 'OTP sent to your email'], 404);
     }
 
+    public function resetPasswordIndex() {
+        return view('auth.reset-password');
+    }
+
+
     public function resetPassword(Request $request) {
         $data = $request->validate([
             'email' => 'required|email',
@@ -64,7 +70,7 @@ class ResetPasswordController extends Controller
             return response()->json(['Error'=> 'Record does not exist']);
         }
 
-        $parish = Parish::where('email', $data['email']);
+        $parish = Parish::where('email', $data['email'])->first();
         //question: is it good to check a condition on the basis that the above returns false or null. Remember we checked this in the previous method that led to this
 
         $parish->password = hash::make($data['password']);
@@ -72,5 +78,8 @@ class ResetPasswordController extends Controller
 
         //delete otprecord
         $otpRecord->delete();
+
+        //redirect back to login
+        return redirect()->route('/parish_login');
     }
 }
