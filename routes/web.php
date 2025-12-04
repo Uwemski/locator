@@ -9,11 +9,11 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ResetPasswordController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get("/home", function(){
+Route::get("/", function(){
     return view('index');
 })->name("homepage");
 
@@ -83,7 +83,6 @@ Route::middleware(['auth:parish'])->group(function() {
     } );
     //create
     Route::post('/parish/create_service', [ServicesController::class, 'create'])->name('services.create');
-    Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
     //view
     Route::get('/service/show', [ServicesController::class, 'show'])->name('service.show');
     //delete
@@ -91,7 +90,7 @@ Route::middleware(['auth:parish'])->group(function() {
 
 
     Route::get('/event', [EventController::class, 'view_events_for_parish'])->name('event.show');
-
+    Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
     Route::get('parish/event/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     
     // Route::get('parish/event/{id}/edit', function(){

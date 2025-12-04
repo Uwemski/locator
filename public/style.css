@@ -12,19 +12,30 @@ body, nav, a, h1, h2, h5, p {
 
 /* HERO SECTION */
 #mainHeader {
-  height: 85vh;           /* Adjust for navbar */
+  min-height: 85vh;
+  min-height: 85dvh;     /* Dynamic viewport height - better for mobile */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #003399; /* RCCG blue */
+  background-color: #003399;
+  background: #003399;   /* Fallback */
   color: white;
   text-align: center;
-  padding: 0 20px;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+  
+  /* Mobile browser fixes */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
+
 
 .hero-title {
   font-size: 3rem;
   font-weight: 700;
+  margin-top:1rem;
   margin-bottom: 15px;
 }
 
@@ -90,8 +101,16 @@ nav {
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2rem;
+    color: #fff;
   }
   .hero-subtitle {
     font-size: 1rem;
+    color: #fff;
+  }
+  #mainHeader {
+    min-height: 85vh;   /* Full height on mobile */
+    padding: 80px 20px 60px;
+    color: #fff;
   }
 }
+

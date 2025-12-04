@@ -38,7 +38,6 @@ class ResetPasswordController extends Controller
         $parish = PasswordResetToken::updateOrCreate(
             ['email' => $data['email'] ],
             ['token' => $otp]);
-        $subject = "OTP for Password Reset";
 
         Mail::to($parish->email)->send(new NewOtp($otp));
 

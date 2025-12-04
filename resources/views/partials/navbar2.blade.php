@@ -1,6 +1,6 @@
   <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{{route('homepage')}}">
         <img src="{{asset('img/logo_resized2.png')}}" alt="RCCG Logo" class="img-fluid" style="height: 50px;" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"

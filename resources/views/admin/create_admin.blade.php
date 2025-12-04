@@ -43,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Confirm Password</label>
-                    <input type="password" name="confirmPassword" id="cpassword" placeholder="Re-enter your password">
+                    <input type="password" name="password_confirmation" id="cpassword" placeholder="Re-enter your password">
                 </div>
                 <div class="mb-3">
                     <label for="role">Select Role</label>

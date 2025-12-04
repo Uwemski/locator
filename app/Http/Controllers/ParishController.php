@@ -95,7 +95,6 @@ class ParishController extends Controller
             "address" => 'required|min:5',
             "pastor_name" => "required|min:5",
             "contact_no" => "required|min:10",
-            "website" => "required|min:4",
         ]);
 
         //debug checkpoint

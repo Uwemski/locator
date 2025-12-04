@@ -47,6 +47,51 @@
 
     
     #nearest-parish { margin-top: 1em; font-weight: bold; }
+
+    /* ============================
+   MOBILE RESPONSIVE FIXES
+   ============================ */
+  @media (max-width: 767px) {
+
+    .map-page-container {
+      padding: 1rem 0.7rem;
+    }
+
+    .search-card {
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    #map {
+      height: 350px !important; /* Smaller map height for mobile */
+      margin-bottom: 2rem;
+    }
+
+    #nearest-btn {
+      width: 100%; /* full-width button on mobile */
+    }
+
+    form.d-flex {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+  }
+
+  /* Extra-small screens (older devices, small Android phones) */
+  @media (max-width: 480px) {
+    #map {
+      height: 300px !important;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
   </style>
 </head>
 <body>

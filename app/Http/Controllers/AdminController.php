@@ -57,7 +57,7 @@ class AdminController extends Controller
     //a public function to show verified parishes 
     public function showVerifiedParishes(){
         //dd('controller is working!');
-        $verifiedParish = Parish::with('services')->where('status', 'verified')->get();
+        $verifiedParish = Parish::with('services')->where('status', 'verified')->simplePaginate(10);
 
         return view('map', compact('verifiedParish'));
     }
@@ -105,8 +105,7 @@ class AdminController extends Controller
         $incomingData = $request->validate([
             'name'=> 'required|min:3',
             'email'=> 'required|min:3|email|unique:admin,email',
-            'password'=> 'required|min:4|max:255',
-            'confirmPassword' => 'required|min:4|max:255',
+            'password'=> 'required|min:4|max:255|confirmed',
             'role'=> 'required'
         ]);
 
@@ -116,13 +115,12 @@ class AdminController extends Controller
         }
 
          // check if the two passwords match
-        if ($incomingData['password'] !== $incomingData['confirmPassword']) {
-            return redirect()->back()->with("Error", "Error encountered, passwords do not match");
-        }
+        // if ($incomingData['password'] !== $incomingData['confirmPassword']) {
+        //     return redirect()->back()->with("Error", "Error encountered, passwords do not match");
+        // }//there is a shorter way to do this with confirmed validation rule
 
         // hash password & unset confirmPassword
         $incomingData['password'] = bcrypt($incomingData['password']);
-        unset($incomingData['confirmPassword']);
 
         try {
             $admin = Admin::create($incomingData);
@@ -184,17 +182,17 @@ class AdminController extends Controller
     //a method to show activeUsers
     public function showActiveParishes(){
         //get verified parish
-        $activeParish = Parish::where('status', 'verified')->simplePaginate(5);  
+        $parishes = Parish::where('status', 'verified')->simplePaginate(5);  
     
-        return view('admin.active_parish', compact('activeParish'));
+        return view('admin.active_parish', compact('parishes'));
     }
 
     //a method to show unverified and pending parishes
     public function showUnverifiedParishes(){
         //conn
-        $unverified = Parish::whereIn('status', ['pending', 'suspended'])->get();
+        $parishes = Parish::whereIn('status', ['pending', 'suspended'])->latest()->simplePaginate(10);
 
-        return view('admin.unverified', compact('unverified'));
+        return view('admin.unverified', compact('parishes'));
     }
 
     //a method to show suspended parishes
@@ -202,9 +200,9 @@ class AdminController extends Controller
         $admin = Auth::guard('admin')->user();
 
         if($admin){
-            $suspended = Parish::where('status', 'suspended')->get();
+            $parishes = Parish::where('status', 'suspended')->latest()->simplePaginate(10);
 
-            return view('admin.suspended_parish', compact('suspended'));
+            return view('admin.suspended_parish', compact('parishes'));
         }
     }
 
@@ -212,21 +210,55 @@ class AdminController extends Controller
     public function search(Request $request){
         //conn
         $incomingData = $request->validate([
-            'name' => 'required|min:3'
+            'search' => 'required|string|max:50',
+            'status' => 'nullable|in:verified,suspended,pending,all'
         ]);
 
-        $incomingData['name'] = strip_tags($incomingData['name']);
+        $search = $incomingData['search'];
+        $status = $incomingData['status'];
 
-        $parishes = Parish::where("name", "like", "%{$incomingData['name']}%")
-                        ->orWhere("city", "like", "%{$incomingData['name']}%")
-                        ->orWhere("state", "like", "%{$incomingData['name']}%")
-                        ->get();
+        //start a query
+        $query = Parish::query();
+        $search = strip_tags($search);
 
-        if($parishes->isNotEmpty()){
-            return view('admin.search', compact('parishes'));
-        }else{
-            return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
+        //filter by status
+        if($status == 'verified'){
+            $query->where('status', 'verified');
+        }else if($status == 'suspended'){
+            $query->where('status', 'suspended');
         }
+
+        if($search){
+            $query->where(function ($q) use ($search) {
+                $q->where('name','like', "%{$search}")
+                    ->orWhere("city", "like", "%{$incomingData['name']}%")
+                    ->orWhere("state", "like", "%{$incomingData['name']}%")
+                    ->latest()
+                    ->simplePaginate(10);
+            });
+        }
+        // $parishes = Parish::where("name", "like", "%{$incomingData['name']}%")
+        //                 ->orWhere("city", "like", "%{$incomingData['name']}%")
+        //                 ->orWhere("state", "like", "%{$incomingData['name']}%")
+        //                 ->latest()
+        //                 ->simplePaginate(10);
+
+        //fetch results
+        $parishes = $query->get();
+
+        //return view
+        if($status == 'verified') {
+            return view('admin.active_parish', compact('parishes'));
+        } else if($status == 'unverified') {
+            return view('admin.suspended_parish', compact('parishes'));
+        } else {
+            return view('admin.all_parish', compact('parishes') );
+        }
+        // if($parishes->isNotEmpty()){
+        //     return view('admin.search', compact('parishes'));
+        // }else{
+        //     return redirect()->back()->with('error', 'Requested name does not exist, try again later!');
+        // }
     }
  
     public function testing(){

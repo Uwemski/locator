@@ -31,7 +31,7 @@ class NewOtp extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Otp',
+            subject: 'OTP for Password Reset',
         );
     }
 

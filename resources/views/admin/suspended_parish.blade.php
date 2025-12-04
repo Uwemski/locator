@@ -17,19 +17,6 @@
 </head>
 <body>
     <div class="container-fluid">
-
-   
-    <!-- <div class="container"> -->
-        <!-- <div class="row">
-            <div class="col-md-3 mt-4 mb-3"><a href="products.php" class=>View products</a></div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-3"><a href="customers.php">View Customers</a></div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-3"><a href="waste.php">View Wastes</a></div>
-        </div> -->
-        
         <div class="row">
             <div class="col-md-3">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;height: 100vh;">
@@ -79,6 +66,22 @@
             <div class="col-md-9">
                 <h2 class="mt-4">All Suspended Parishes</h2>
                 
+                <div class="">
+                        <form action="{{route('admin.search')}} " method="GET">
+                            @csrf
+                            <div class="mb-3">
+                                <input type="hidden" name="status" value="suspended" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="search" class="form-control">
+                            </div>
+                            <button class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+
+
+
+
                 <table border='1' class='table table-hover'>
                     <thead>
                         <tr>
@@ -89,14 +92,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($suspended as $sus)
-                            <?php $serialNo = 1 ?>
+                        <?php $serialNo = 1 ?>
+                        @foreach ($parishes as $parish)
                             <tr>
                                 <td>{{$serialNo++}}</td>
-                                <td>{{$sus->name}}</td>
-                                <td>{{$sus->email}}</td>
-                                <td>{{$sus->status}}</td>
+                                <td>{{$parish->name}}</td>
+                                <td>{{$parish->email}}</td>
+                                <td>{{$parish->status}}</td>
                             </tr>
+                            <?php $serialNo ++ ?>
                         @endforeach
                         
                     </tbody>
