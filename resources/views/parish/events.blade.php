@@ -1,19 +1,6 @@
-<!--Header starts here-->
-@include('partials.parish_header')
-<!--Header ends here-->
-<body>
-<div class="d-flex">
-    <!-- Sidebar -->
-    @include('partials.parish_sidebar')
-    <!--SIDEBAR ENDS HERE-->
+<x-client-layout>
 
-    <!-- Main Content -->
     <div class="flex-grow-1">
-        <nav class="navbar navbar-expand-lg header px-3">
-            <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
-            <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
-        </nav>
-
         <div class="container mt-4">
             <!-- Dynamic content goes here -->
             <h2 class="mb-3">Dashboard</h2>
@@ -36,7 +23,8 @@
 
         @endif
         <div class="p-4 mb-4">
-            <form action="{{route('event.create')}}" method="post">
+            <div id="messageDiv"></div>
+            <form action="{{route('event.create')}}" method="post" id="eventForm">
                 @csrf
                 <div class="mb-3">
                     <label for="title">Event Title</label>
@@ -46,15 +34,15 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="desc">Description</label>
-                    <textarea name="description" id="desc" cols="20" rows="5" class="form-control">{{old('description')}}</textarea>
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="20" rows="5" class="form-control">{{old('description')}}</textarea>
                     @error('description')
                         <small style="color:red">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="time">Event date</label>
-                    <input type="text" name="event_date" class="form-control" value="{{old('event_date')}}" placeholder="Format: Y-m-d">
+                    <input type="datetime-local" name="event_date" id="event_date" class="form-control" value="{{old('event_date')}}">
                     @error('event_date')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -78,26 +66,41 @@
             </form>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
 
-    //what is this doing here?
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    // function toggleSidebar() {
-    //     const sidebar = document.getElementById('sidebar');
-    //     sidebar.classList.toggle('show');
-    // }
+        const title = document.getElementById('title').value
+        const description = document.getElementById('description').value
+        const event_date = document.getElementById('event_date').value
+        const messageDiv = document.getElementById('messageDiv')
 
-    // let form = querySelector('form');
+        fetch("{{route('event.create')}}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}",
+                'Accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({title: title, description: description, event_date: event_date})
+        })
+        .then( res => res.json() )
+        .then(data => {
+            if(data.success){
+                messageDiv.innerHTML = `<p class='alert alert-success'>${data.message}</p>` 
+                document.getElementById('eventForm').reset();
+            }else{
+                messageDiv.InnerHTML = `<p class='alert alert-warning'>${data.error}</p>`
+            }
+        })
+        .catch(error => {
+            messageDiv.innerHTML = `<p class='alert alert-warning'>Something went wrong, try again later!</p>`
+            console.log(error);
+        })
+    })
     
-    // form.addEventListener('submit', function(e){
-    //     e.preventDefault(e);
+    </script>
 
-    //     alert("Are you sure you want to logout?");
-
-    // })
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</x-client-layout>
