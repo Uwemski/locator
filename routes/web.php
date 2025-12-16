@@ -80,7 +80,7 @@ Route::middleware(['auth:parish'])->group(function() {
 
     Route::get('/parish/service', function(){
         return view('parish.service');
-    } );
+    } )->name('service.create.index');
     //create
     Route::post('/parish/create_service', [ServicesController::class, 'create'])->name('services.create');
     //view
@@ -92,22 +92,11 @@ Route::middleware(['auth:parish'])->group(function() {
     Route::get('/event', [EventController::class, 'view_events_for_parish'])->name('event.show');
     Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
     Route::get('parish/event/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
-    
-    // Route::get('parish/event/{id}/edit', function(){
-    //     return view('parish.update_event');
-    //});
 
     Route::put('parish/event/{id}/update', [EventController::class, 'update'])->name('events.update');
     //Route::patch('/event/{id}', [EventController::class, 'update']);
+    Route::delete('parish/event/delete/{event}', [ParishController::class, 'delete'])->name('event.remove');
 });
-
-// Route::middleware(['auth:parish'])->group(function () {
-//     Route::get('/parish_dashboard', function () {
-//         return view('parish.parish_dashboard');
-//     })->name('parish_dashboard');
-// });
-
-
 
 //routes for admin
 Route::get('/admin/login', function(){
@@ -128,7 +117,7 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::get('/admin/create_admin', function(){
         return view('admin.create_admin');
     })->name('admin_create');
-    Route::post('/adminLogout', [AdminController::class, 'logout']);
+    Route::post('/adminLogout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
     Route::get('admin/suspended_parish', [AdminController::class, 'showSuspendedParish'])->name('admin.suspended');
     //controller method for number of parishes
@@ -156,13 +145,7 @@ Route::post('/parish/logout', [ParishController::class, 'logout']);
 
 Route::get('visitor/search', [ParishController::class, 'searchForVisitors'])->name('find.parish');
 
-//this route below jammed the original route in line 141
-// Route::get('/map/parish', function(){
-//     return view('map');
-// })->name('superPower');
-
 Route::get('/nearest-parish', [AdminController::class, 'getNearest']);
-
 
 //test
 Route::get('testing-api', function(){

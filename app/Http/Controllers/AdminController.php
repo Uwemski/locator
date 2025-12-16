@@ -54,17 +54,16 @@ class AdminController extends Controller
         //$parishes = Parish::where('status', 'pending')->count();        
     }
 
-    //a public function to show verified parishes 
+    //a public function to show verified parishes on map
     public function showVerifiedParishes(){
-        //dd('controller is working!');
-        $verifiedParish = Parish::with('services')->where('status', 'verified')->simplePaginate(10);
+        $verifiedParish = Parish::with('services')->where('status', 'verified')->simplePaginate(7);
 
         return view('map', compact('verifiedParish'));
     }
 
     //public function to vew parishes
     public function viewAllParishes(){
-        $parishes = Parish::cursorPaginate(7);
+        $parishes = Parish::simplePaginate(7);
         return view('admin.all_parish', compact('parishes'));
     }
 
@@ -114,11 +113,6 @@ class AdminController extends Controller
             $incomingData[$key] = strip_tags($value);
         }
 
-         // check if the two passwords match
-        // if ($incomingData['password'] !== $incomingData['confirmPassword']) {
-        //     return redirect()->back()->with("Error", "Error encountered, passwords do not match");
-        // }//there is a shorter way to do this with confirmed validation rule
-
         // hash password & unset confirmPassword
         $incomingData['password'] = bcrypt($incomingData['password']);
 
@@ -136,7 +130,8 @@ class AdminController extends Controller
     //method to log out
     public function logout(Request $request){
         Auth::guard('admin')->logout();
-
+        $request->session()->invalidate();
+        $request->session()->regenerate();
         return redirect()->route('admin_login'); 
     }
 
@@ -190,7 +185,7 @@ class AdminController extends Controller
     //a method to show unverified and pending parishes
     public function showUnverifiedParishes(){
         //conn
-        $parishes = Parish::whereIn('status', ['pending', 'suspended'])->latest()->simplePaginate(10);
+        $parishes = Parish::where('status', 'pending')->latest()->simplePaginate(10);
 
         return view('admin.unverified', compact('parishes'));
     }
@@ -226,15 +221,17 @@ class AdminController extends Controller
             $query->where('status', 'verified');
         }else if($status == 'suspended'){
             $query->where('status', 'suspended');
+        }else if($status == 'pending') {
+            $query->where('status', 'pending');
         }
 
         if($search){
             $query->where(function ($q) use ($search) {
-                $q->where('name','like', "%{$search}")
-                    ->orWhere("city", "like", "%{$incomingData['name']}%")
-                    ->orWhere("state", "like", "%{$incomingData['name']}%")
+                $q->where("name", "like" , "%{$search}")
+                    ->orWhere("city", "like", "%{$search}%")
+                    ->orWhere("state", "like", "%{$search}%")
                     ->latest()
-                    ->simplePaginate(10);
+                    ->get();
             });
         }
         // $parishes = Parish::where("name", "like", "%{$incomingData['name']}%")
@@ -244,12 +241,14 @@ class AdminController extends Controller
         //                 ->simplePaginate(10);
 
         //fetch results
-        $parishes = $query->get();
+        $parishes = $query->simplePaginate(10);
 
         //return view
         if($status == 'verified') {
             return view('admin.active_parish', compact('parishes'));
-        } else if($status == 'unverified') {
+        } else if($status == 'pending') {
+            return view('admin.unverified', compact('parishes'));
+        } else if($status == 'suspended') {
             return view('admin.suspended_parish', compact('parishes'));
         } else {
             return view('admin.all_parish', compact('parishes') );

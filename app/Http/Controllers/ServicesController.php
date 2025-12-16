@@ -30,10 +30,20 @@ class ServicesController extends Controller
         if(!empty($data['parish_id']) ){//hope this works, if it doesn't we still move
             $service = Service::create($data);
             if($service){
-                return redirect()->back()->with('success', 'Service created successfully');
+                //return redirect()->back()->with('success', 'Service created successfully');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Service created successfully',
+                    'data' => $service,
+                ]);
             }else{
-                return redirect()->back()->with('error', 'Unable to create, Please try again!');
+                return response()->json([
+                    'error' => 'Something went wrong',
+                ]);
+                //return redirect()->back()->with('error', 'Unable to create, Please try again!');
             }
+        }else{
+            return redirect()->back()->with('error', 'Unauthorized!,Login to enable access');
         }
     }
 
@@ -77,7 +87,5 @@ class ServicesController extends Controller
         }else{
             return redirect()->back()->with('error', 'parish does not have service stored');
         }
-    }
-
-    
+    }    
 }

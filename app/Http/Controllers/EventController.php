@@ -14,7 +14,7 @@ class EventController extends Controller
         $data = $request->validate([
             'title' => 'required|min:4',
             'description' => 'required|min:5',
-            'event_date' => 'required|min:3',
+            'event_date' => 'required',
         ]);
 
         //authenticate 
@@ -24,16 +24,24 @@ class EventController extends Controller
         foreach($data as $key => $value){
             $data['key'] = strip_tags($value);
         }
-        
-        //dd($data);//data is been seen
 
         //create if parish_id is present   
         if(!empty($data['parish_id'])){
             $event = Event::create($data);
             if($event){
-                return redirect()->back()->with('success', 'event created successfully');
+                // return redirect()->back()->with('success', 'event created successfully');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Event created successfully',
+                    'data' => $event,
+                ]);
             }else{
-                return redirect()->back()->with('error', 'event not created successfully');
+                //return redirect()->back()->with('error', 'event not created successfully');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error, please try again later',
+                    'data' => $event
+                ]);
             }
         }else{ 
             return redirect()->back()->with('error', 'parish Id missing, You are a criminal!!');
