@@ -149,34 +149,46 @@
         marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
           .addTo(map)
           .bindPopup(`
-            <b>{{ $parish->name }}</b><br>
-            {{ $parish->address ?? '' }}<br>
+            <div style="min-width: 200px; max-width: 280px; font-size: 14px;">
+              <b style="font-size: 16px;">{{ $parish->name }}</b><br>
+              <span style="font-size: 13px;">{{ $parish->address ?? '' }}</span><br><br>
+              
               @if ($parish->services)
                 @foreach ($parish->services as $service)
-                  <ul>
-                    <li>Service:<strong>{{$service->name}}</strong>: 
-                      <ul>
-                        <li><strong>Time </strong>:{{$service->time}}</li>
-                        <li><strong>Day </strong>:{{$service->day}}</li>
-                      </ul>
-                    </li>
-                    
-                  </ul>
+                  <div style="margin-bottom: 12px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                    <strong style="font-size: 14px;">{{$service->name}}</strong>
+                    <div style="margin-top: 6px; padding-left: 8px; font-size: 13px;">
+                      <div><strong>Time:</strong> {{$service->time}}</div>
+                      <div><strong>Day:</strong> {{$service->day}}</div>
+                    </div>
+                  </div>
                 @endforeach
               @else
-                <p class='text-muted'>No services listed yet</p>
+                <p style="color: #6c757d; font-size: 13px; font-style: italic;">No services listed yet</p>
               @endif
-            <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a> 
-            @if ($parish->events)
-              <ul>
-                @foreach ($parish->events as $p)
-                  <p>This parish has upcoming event(s): <a href="{{route('event.find', $p->id)}}">View</a></p>
-                @endforeach
-              </ul>
-            @else
-                <p>Parish doesn't have any event coming up</p>
-            @endif
-          `);
+              
+              <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" 
+                 target="_blank" 
+                 style="display: inline-block; margin: 8px 0; padding: 6px 12px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">
+                📍 Get Directions
+              </a>
+              
+              @if ($parish->events)
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #dee2e6;">
+                  @foreach ($parish->events as $p)
+                    <p style="font-size: 13px; margin: 4px 0;">
+                      Upcoming event: <a href="{{route('event.find', $p->id)}}" style="color: #007bff;">View</a>
+                    </p>
+                  @endforeach
+                </div>
+              @else
+                <p style="color: #6c757d; font-size: 13px; margin-top: 8px;">No upcoming events</p>
+              @endif
+            </div>
+          `, {
+            maxWidth: 300,
+            minWidth: 200
+          });
           
         parishMarkers.push({ 
           lat: {{ $parish->latitude }},
