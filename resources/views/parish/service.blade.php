@@ -1,18 +1,11 @@
-<!--Header starts here-->
-@include('partials.parish_header')
-<!--Header ends here-->
-<body>
-<div class="d-flex">
-    <!-- Sidebar -->
-    @include('partials.parish_sidebar')
-    <!--SIDEBAR ENDS HERE-->
+<x-client-layout>
+    
 
-    <!-- Main Content -->
     <div class="flex-grow-1">
-        <nav class="navbar navbar-expand-lg header px-3">
+        <!-- <nav class="navbar navbar-expand-lg header px-3">
             <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
             <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
-        </nav>
+        </nav> -->
 
         <div class="container mt-4">
             <!-- Dynamic content goes here -->
@@ -34,8 +27,8 @@
                 <div class="alert alert-warning">{{$err}}</div>
             @endforeach
         @endif
-            <form action="{{route('services.create')}}" method="post" class="p-3">
-                @csrf {{-- I forgot this again. 30pushups--}}
+            <form action="{{route('services.create')}}" method="post" class="p-3" id="serviceForm">
+                @csrf
                 <div class="mb-3">
                     <label for="name">Service Name</label>
                     <input type="text" name="name" id="name" class="form-control" required placeholder="Digging deep, faith clinic" value="{{old('name')}}">
@@ -52,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="day">Day</label>
-                    <select name="day" id="" class="form-select">
+                    <select name="day" id="day" class="form-select">
                         <option value="">Select a day</option>
                         <option value="Sunday">Sunday</option>
                         <option value="Monday">Monday</option>
@@ -69,25 +62,43 @@
 
                 <button type="submit" class="btn btn-success">Create</button>
             </form>
+            <div id="resultDiv"></div>
        </div>
     </div>
-</div>
 
-<script>
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('show');
-    }
+    <script>
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    // let form = querySelector('form');
-    
-    // form.addEventListener('submit', function(e){
-    //     e.preventDefault(e);
+            const name = document.getElementById('name').value;
+            const time = document.getElementById('time').value;
+            const day = document.getElementById('day').value;
 
-    //     alert("Are you sure you want to logout?");
+            const resultDiv = document.getElementById('resultDiv');
 
-    // })
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+            fetch("{{route('services.create')}}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': "{{csrf_token() }}",
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({name: name, time: time, day: day})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success){ 
+                    resultDiv.innerHTML = `<p style='color:green'>${data.message}</p> `;
+                    document.getElementById('serviceForm').reset();
+                } else {
+                    resultDiv.innerHTML = `<p style="color:red">${data.error}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                resultDiv.innerHTML = `<p style="color:red">Something went wrong</p>`;
+            });
+            // console.log(name, time, day); working
+        })
+    </script>
+</x-client-layout>
