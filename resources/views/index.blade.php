@@ -28,7 +28,7 @@
   @include('partials.navbar2')
 
   <!-- HERO SECTION -->
-  <header id="mainHeader" style="background-color: #003399 !important; min-height: 85vh;">
+  <header id="mainHeader" style="background-color: #003399 !important;">
     <div class="container hero-content text-center">
       <h1 class="hero-title">Welcome to RCCG Parish Locator</h1>
       <p class="hero-subtitle">Find a parish near you with ease and convenience</p>
