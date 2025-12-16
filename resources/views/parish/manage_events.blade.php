@@ -1,19 +1,6 @@
-<!--Header starts here-->
-@include('partials.parish_header')
-<!--Header ends here-->
-<body>
-<div class="d-flex">
-    <!-- Sidebar -->
-    @include('partials.parish_sidebar')
-    <!--SIDEBAR ENDS HERE-->
+<x-client-layout>
 
-    <!-- Main Content -->
     <div class="flex-grow-1">
-        <nav class="navbar navbar-expand-lg header px-3">
-            <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
-            <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
-        </nav>
-
         <div class="container mt-4">
             <!-- Dynamic content goes here -->
             <h2 class="mb-3">Dashboard</h2>
@@ -44,7 +31,8 @@
                         <th>Description</th>
                         <th>Event date</th>
                         <th>Location</th>
-                        <th>Action</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +49,13 @@
                         <td>
                             <a href="{{route('events.edit', $e->id)}}">Edit</a>
                         </td>
+                        <td>
+                            <form action="{{route('event.remove', $e->id)}}" method='post'>
+                                @csrf
+                                @method('delete')
+                                <button style='background-color: red'>Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     <?php $serialNo++?>
                     @endforeach
@@ -68,26 +63,4 @@
             </table>
         </div>
     </div>
-</div>
-
-<script>
-
-    //what is this doing here?
-
-    // function toggleSidebar() {
-    //     const sidebar = document.getElementById('sidebar');
-    //     sidebar.classList.toggle('show');
-    // }
-
-    // let form = querySelector('form');
-    
-    // form.addEventListener('submit', function(e){
-    //     e.preventDefault(e);
-
-    //     alert("Are you sure you want to logout?");
-
-    // })
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</x-client-layout>

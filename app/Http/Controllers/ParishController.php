@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Events\ParishRegistered;
 use App\Models\Parish;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -172,5 +173,18 @@ class ParishController extends Controller
             return redirect()->back()->with("error", "Search request does not found, try again later");
         }
         
+    }
+
+    //a methood to dlete event 
+    public function delete($id) {
+        // dd('hujhjhjh');
+        $eve = Event::findOrFail($id);
+
+        $s = $eve->delete();
+        if($s) {
+            return redirect()->back()->with('success', 'event deleted successfully');
+        }else {
+            return redirect()->back()->with('error', 'Error! try again later');
+        }
     }
 }
