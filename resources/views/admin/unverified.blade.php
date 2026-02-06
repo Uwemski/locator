@@ -58,7 +58,6 @@
                                     </td>
                                 </tr>
 
-                                
                                 <?php $serialNo++ ?>
                             @endforeach
                         </tbody>
@@ -67,11 +66,7 @@
                 
             </div>
         </div>
-    {{-- <div class="container">
-        <div class="row mt-4">
-            
-        </div>
-    </div> --}}
+    
     </div>
 </x-admin-layout>
 

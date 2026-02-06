@@ -39,18 +39,18 @@
                     <?php
                         $serialNo= 1;    
                     ?>
-                    @foreach ($events as $e)
-                    <tr>
-                        <td>{{$serialNo}}</td>
-                        <td>{{$e->title}}</td>
-                        <td>{{$e->description}}</td>
-                        <td>{{$e->event_date}}</td>
-                        <td>{{$e->location ?? "Church premises"}}</td>
+                    @foreach ($events as $event)
+                    <tr id='event-{{$event->id}}'>
+                        <td class="">{{$serialNo}}</td>
+                        <td class="event-title">{{$event->title}}</td>
+                        <td class="event-description">{{$event->description}}</td>
+                        <td class="event-date">{{$event->event_date}}</td>
+                        <td class="event-location">{{$event->location ?? "Church premises"}}</td>
                         <td>
-                            <a href="{{route('events.edit', $e->id)}}">Edit</a>
+                             <button onclick="editEvent({{$event->id}})">Edit</button>
                         </td>
                         <td>
-                            <form action="{{route('event.remove', $e->id)}}" method='post'>
+                            <form action="{{route('event.remove', $event->id)}}" method='post'>
                                 @csrf
                                 @method('delete')
                                 <button style='background-color: red'>Delete</button>
@@ -62,5 +62,83 @@
                 </tbody>
             </table>
         </div>
+
+        <div id="editEventContainer" style='display:none;'>
+            <h3>Edit Event</h3>
+
+            <form action="" method="POST" id="editForm">
+                @csrf
+                <input type="hidden" id="eventId">
+                <input type="text" id="editName" required>
+                <input type="text" id="editDescription" required>
+                <input type="text" id="editDate" required>
+                <input type="text" id="editLocation">
+
+                <button type="submit">Update</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+
+        <div id="resultDiv"></div>
     </div>
+
+    <script>
+        function editEvent(eventId) {
+            //change display
+            document.getElementById('editEventContainer').style.display = 'block';
+
+            //get record
+            fetch(`parish/event/${eventId}/edit`, {
+                method: 'GET',
+                'X-CSRF-TOKEN': "{{csrf_token()}}",
+                'Accept': 'application/json',
+                'content-type': 'application/json'
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('eventId').value = data.id
+                document.getElementById('editName').value = data.title
+                document.getElementById('editDescription').value = data.description
+                document.getElementById('editDate').value = data.event_date
+                document.getElementById('editLocation').value = data.location
+                console.log(data)
+            })
+            .catch(error => {
+                console.log(`${data.error}`)
+            })
+        }
+
+        function cancelEdit() {
+            document.getElementById('editEventContainer').style.display = 'none'
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const id= document.getElementById('eventId').value
+            const name= document.getElementById('editName').value
+            const description= document.getElementById('editDescription').value
+            const date = document.getElementById('editDate').value
+
+            fetch('url', {
+                method: "PUT",
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            })
+            .then(res => res.json() )
+            .then(data => {
+                document.getElementById('resultDiv').innerHTML = `<p>${data.message}</p>`
+                
+                document.querySelector('#event-${eventId} .event-title').textContent = data.data.title
+                document.querySelector('#event-${eventId} .event-description').textContent = data.data.description
+                document.querySelector('#event-${eventId} .event-date').textContent = data.data.event_date
+                document.querySelector('#event-${eventId} .event-location').textContent = data.data.location
+
+                document.getElementById('editEventContainer').style.display = "none"
+            })
+            .catch(err => {
+                document.getElementById('resultDiv').innerHTML = `<p style='color:red'>Error Updating</p>`
+            })
+        })
+    </script>
 </x-client-layout>
+

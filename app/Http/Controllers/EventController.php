@@ -39,8 +39,7 @@ class EventController extends Controller
                 //return redirect()->back()->with('error', 'event not created successfully');
                 return response()->json([
                     'success' => false,
-                    'message' => 'Error, please try again later',
-                    'data' => $event
+                    'error' => 'Error, please try again later',
                 ]);
             }
         }else{ 
@@ -90,7 +89,8 @@ class EventController extends Controller
         if(Auth::guard('parish')->id() !== $event->parish_id ){
             abort(404);  
         }else{
-            return view('parish.update_event', compact('event'));
+            // return view('parish.update_event', compact('event'));
+            return response()->json($event);
         }
     }
 
@@ -118,7 +118,12 @@ class EventController extends Controller
                 $event->update($data);
                 //save
                 $event->save();
-                return redirect()->back()->with("success", "Event record updated successfully");
+                // return redirect()->back()->with("success", "Event record updated successfully");
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Record updated uccessfully',
+                    'data' => $event
+                ]);
             }else{
                 return redirect()->back()->with("Illegal access", "You don't have authorization to perform thuis action");
             }

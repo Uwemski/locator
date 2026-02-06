@@ -63,9 +63,11 @@ Route::middleware(['auth:parish'])->group(function() {
         return view('parish.parish_dashboard');
     })->name('parish_dashboard');
 
-    Route::get('/parish/update_profile', function(){
-        return view('parish.update_profile');
-    })->name('update_profile');
+    // Route::get('/parish/update_profile', function(){
+    //     return view('parish.update_profile');
+    // })->name('update_profile');
+
+    Route::get('/parish/update_profile/index', [ParishController::class, 'updateProfileIndex'])->name('update_profile_index');
     
     Route::get('/parish/manage_location', function(){
         return view('parish.manage_location');

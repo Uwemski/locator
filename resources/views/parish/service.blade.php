@@ -2,11 +2,6 @@
     
 
     <div class="flex-grow-1">
-        <!-- <nav class="navbar navbar-expand-lg header px-3">
-            <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
-            <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
-        </nav> -->
-
         <div class="container mt-4">
             <!-- Dynamic content goes here -->
             <h2 class="mb-3">Dashboard</h2>

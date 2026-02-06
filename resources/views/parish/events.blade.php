@@ -97,7 +97,7 @@
         })
         .catch(error => {
             messageDiv.innerHTML = `<p class='alert alert-warning'>Something went wrong, try again later!</p>`
-            console.log(error);
+            // console.log(error);
         })
     })
     

@@ -156,22 +156,20 @@ class AdminController extends Controller
     }
 
     //a method to update
-    public function update(Request $request, $id){
+    public function update(Request $request, Parish $parish){
         $data = $request->validate([
             'status' => 'required|in:pending,verified,suspended',
         ]);
 
-        //dd($data);
-        //find the parish
-        $parish = Parish::find($id);
-
         //update
-        $parish->status = $data['status'];
+        $parish->update($data);
         $parish->admin_id = Auth::guard('admin')->id();
 
-        $parish->save();
-
-        return redirect()->back()->with("success", "Status updated successfully");
+        // return redirect()->back()->with("success", "Status updated successfully");
+        return response()->json([
+            'status' => true,
+            'message' => 'updated successfully'
+        ]);
     }
 
     //a method to show activeUsers

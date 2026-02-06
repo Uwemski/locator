@@ -38,6 +38,7 @@ class ServicesController extends Controller
                 ]);
             }else{
                 return response()->json([
+                    'success' => false,
                     'error' => 'Something went wrong',
                 ]);
                 //return redirect()->back()->with('error', 'Unable to create, Please try again!');

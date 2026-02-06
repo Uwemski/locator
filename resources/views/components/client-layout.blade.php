@@ -54,7 +54,7 @@
         <h4 class="mb-4">RCCG Parish</h4>
         <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link {{request()->routeIs('update_profile') ? 'bg-warning text-dark' : '.bg-green-custom'}}" href="{{route('update_profile')}}">Edit Profile</a></li>
+            <li class="nav-item"><a class="nav-link {{request()->routeIs('update_profile_index') ? 'bg-warning text-dark' : '.bg-green-custom'}}" href="{{route('update_profile_index')}}">Edit Profile</a></li>
             <li class="nav-item {{request()->routeIs('manage_location') ? 'bg-warning text-dark': '.bg-green-custom'}}"><a class="nav-link" href="{{route('manage_location')}}">Manage Location</a></li>
             <li class="nav-item"><a class="nav-link" href="{{route('service.create.index')}}">Service Schedule</a></li>
             <li class="nav-item"><a class="nav-link" href="{{route('service.show')}}">Manage services</a></li>
@@ -91,14 +91,7 @@
         sidebar.classList.toggle('show');
     }
 
-    let form = querySelector('form');
-    
-    form.addEventListener('submit', function(e){
-        e.preventDefault(e);
 
-        alert("Are you sure you want to logout?");
-
-    })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

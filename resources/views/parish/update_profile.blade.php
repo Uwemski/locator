@@ -1,21 +1,8 @@
 <!--Header starts here-->
+<x-client-layout>
 
-@include('partials.parish_header')
-<!--Header ends here-->
-    <body>
-        <div class="d-flex">
-            <!-- Sidebar -->
-            @include('partials.parish_sidebar')
-            <!--SIDEBAR ENDS HERE-->
 
-            <!-- Main Content -->
-            <div class="flex-grow-1">
-                <nav class="navbar navbar-expand-lg header px-3">
-                    <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
-                    <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
-                </nav>
-
-                <div class="container mt-4">
+    <div class="container mt-4">
                     <!-- Dynamic content goes here -->
                     <h2 class="mb-3">Dashboard</h2>
                     <p>This is your parish dashboard. You can manage your profile, services, location and more.</p>
@@ -39,28 +26,35 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="address">Address</label>
-                            <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{old('address')}}">
+                            <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{$parish->address}}">
+                           @error('address')
+                            <small style='color: red'>{{$message}}</small>
+                           @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{$parish->address}}">
                            @error('address')
                             <small style='color: red'>{{$message}}</small>
                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="">Pastor's Name</label>
-                            <input type="text" name="pastor_name" id="p-name" class="form-control" required placeholder="Pastor in charge?" value="{{old('pastor_name')}}">
+                            <input type="text" name="pastor_name" id="p-name" class="form-control" required placeholder="Pastor in charge?" value="{{$parish->pastor_name}}">
                             @error("pastor_name")
                                 <small style="color:red">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="contact">Contact Number</label>
-                            <input type="text" name="contact_no" id="contact" class="form-control" placeholder="Contact number" value="{{old('contact_no')}}">
+                            <input type="text" name="contact_no" id="contact" class="form-control" placeholder="Contact number" value="{{$parish->contact_no}}">
                             @error("contact_no")
                                 <small style="color: red">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="wewbsite">Website</label>
-                            <input type="text" name="website" id="website" class="form-control" placeholder="website address(optional)" value="{{old('website')}}">
+                            <input type="text" name="website" id="website" class="form-control" placeholder="website address(optional)" value="{{$parish->website}}">
                             @error("website")
                                 <small style="color: red">{{$message}}</small>
                             @enderror
@@ -71,17 +65,8 @@
                         
                     </form>
                 </div>
-            </div>
-        </div>
 
-        <!-- Leaflet JS -->
-            {{-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> --}}
-            <script>
-                function toggleSidebar() {
-                    const sidebar = document.getElementById('sidebar');
-                    sidebar.classList.toggle('show');
-                }
-
+        <script>
                 let form = querySelector('form');
                 
                 form.addEventListener('submit', function(e){
@@ -101,13 +86,7 @@
                         form.submit();
                     }
                 })
+
+                
             </script>
-            
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
-
-
-
-
-
+</x-client-layout>
