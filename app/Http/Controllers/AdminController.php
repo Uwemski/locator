@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminLoginRequest;
+use App\Http\Requests\RegisterAdminRequest;
 use App\Models\User;
 use App\Models\Parish;
 use App\Models\Service;
@@ -17,26 +19,55 @@ use Illuminate\View\View;
 class AdminController extends Controller
 {
     //nearest parish 
+    // public function getNearest(Request $request)
+    // {
+    //     $userLat = $request->query('lat');
+    //     $userLng = $request->query('lng');
+
+    //     $nearest = Parish::where('status', 'verified')
+    //         ->get()
+    //         ->map(function ($parish) use ($userLat, $userLng) {
+    //             $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
+    //             return $parish;
+    //         })
+    //         ->sortBy('distance')
+    //         ->first();
+
+    //     return response()->json([
+    //         'name' => $nearest->name,
+    //         'lat' => $nearest->latitude,
+    //         'lng' => $nearest->longitude
+    //     ]);
+    // }
+
+
     public function getNearest(Request $request)
-    {
-        $userLat = $request->query('lat');
-        $userLng = $request->query('lng');
+        {
+            $userLat = (float) $request->query('lat');
+            $userLng = (float) $request->query('lng');
 
-        $nearest = Parish::where('status', 'verified')
-            ->get()
-            ->map(function ($parish) use ($userLat, $userLng) {
-                $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
-                return $parish;
-            })
-            ->sortBy('distance')
-            ->first();
+            $nearest = Parish::where('status', 'verified')
+                ->selectRaw("
+                    *,
+                    (6371 * 2 * ASIN(SQRT(
+                        POW(SIN(RADIANS(latitude  - ?) / 2), 2) +
+                        COS(RADIANS(?)) *
+                        COS(RADIANS(latitude)) *
+                        POW(SIN(RADIANS(longitude - ?) / 2), 2)
+                    ))) AS distance_km
+                ", [$userLat, $userLat, $userLng])
+                ->orderBy('distance_km')
+                ->first();
 
-        return response()->json([
-            'name' => $nearest->name,
-            'lat' => $nearest->latitude,
-            'lng' => $nearest->longitude
-        ]);
-    }
+            return response()->json([
+                'name'        => $nearest->name,
+                'lat'         => $nearest->latitude,
+                'lng'         => $nearest->longitude,
+                'distance_km' => round($nearest->distance_km, 2)
+            ]);
+        }
+
+
     //a public function to count total number of parishes and users
     //I created seperate methods for both but later realised you can do something like below.note:they are being used on the same page
     public function numberOfParishesUsers(){
@@ -76,19 +107,9 @@ class AdminController extends Controller
 
 
     // Admin login function
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
-        $data = $request->validate([
-            'email' => 'required|min:3|email',
-            'password' => 'required|min:3',
-        ]);
-
-        //strip tags for bad input
-        $data['email'] = strip_tags($data['email']);
-        $data['password'] = strip_tags($data['password']);
-
-        //dd($data);
-        
+        $data = $request->validated();
         
         if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'] ])) {
             //auth()->login($data);
@@ -99,19 +120,9 @@ class AdminController extends Controller
     }
 
     //function for admin to register
-    public function register(Request $request){
+    public function register(RegisterAdminRequest $request){
         //validate
-        $incomingData = $request->validate([
-            'name'=> 'required|min:3',
-            'email'=> 'required|min:3|email|unique:admin,email',
-            'password'=> 'required|min:4|max:255|confirmed',
-            'role'=> 'required'
-        ]);
-
-        //still stripping, just in a shorter way
-        foreach($incomingData as $key => $value){
-            $incomingData[$key] = strip_tags($value);
-        }
+        $incomingData = $request->validated();
 
         // hash password & unset confirmPassword
         $incomingData['password'] = bcrypt($incomingData['password']);
@@ -139,7 +150,7 @@ class AdminController extends Controller
     public function destroy($id){
         $user = User::find($id);
 
-        $user->delete();
+        $user->deleteQuietly();
 
         return redirect()->back()->with('deleted_success', 'User deleted successfully.');
     }

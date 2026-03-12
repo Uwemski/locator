@@ -13,9 +13,10 @@ use App\Http\Controllers\ResetPasswordController;
 //     return view('welcome');
 // });
 
-Route::get("/", function(){
-    return view('index');
-})->name("homepage");
+
+Route::get("/", function() {
+    return view('index2');
+})->name('home');
 
 Route::get('/about', function(){
     return view('about');

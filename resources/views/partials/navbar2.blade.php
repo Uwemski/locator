@@ -1,6 +1,6 @@
   <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{route('homepage')}}">
+      <a class="navbar-brand" href="{{route('home')}}">
         <img src="{{asset('img/logo_resized2.png')}}" alt="RCCG Logo" class="img-fluid" style="height: 50px;" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a class=" nav-special nav-link {{ request()->is('home') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('homepage') }}">
+            <a class=" nav-special nav-link {{ request()->is('home') ? 'bg-warning text-dark' : 'text-white' }}" href="{{ route('home') }}">
               Home
             </a>
           </li>

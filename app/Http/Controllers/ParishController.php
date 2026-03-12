@@ -58,7 +58,9 @@ class ParishController extends Controller
                 $data['image'] = $path;
             }
             $m = Parish::create($data);
-            event(new ParishRegistered($m));
+            
+            //use professional services
+            // event(new ParishRegistered($m));
 
             return redirect()->route('login')->with('success', 'Parish registered successfully. Please log in.');
         }catch(QueryException $e){
