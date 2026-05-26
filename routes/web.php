@@ -182,6 +182,17 @@ Route::get('/locations/lgas/{state}', [LocationController::class, 'getLgas']);
 //routes to reset password
 Route::get('/forget-password', [ResetPasswordController::class, 'index'])->name('auth.forget-password.index');
 
+// routes/web.php (temporary)
+Route::get('/debug-json', function () {
+    $response = \Illuminate\Support\Facades\Http::get(
+        "https://temikeezy.github.io/nigeria-geojson-data/data/full.json"
+    );
+    return response()->json(collect($response->json())->take(2)); // show first 2 items
+});
+
+
+
+
 Route::post('/forget-password', [ResetPasswordController::class, 'forgetPassword'])->name('auth.forget-password');
 Route::get('/reset-password', [ResetPasswordController::class, 'resetPasswordIndex'])->name('auth.reset-password.index');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('auth.reset-password');

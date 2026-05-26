@@ -12,27 +12,51 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
         body {
             font-family: 'DM Sans', sans-serif;
+            margin: 0;
         }
 
+        /* Map */
         #map {
-            height: 420px;
+            height: 280px;
+            width: 100%;
+            border-radius: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            #map { height: 340px; }
+        }
+
+        @media (min-width: 1024px) {
+            #map { height: 400px; }
         }
 
         .leaflet-container {
-            border-radius: 1.5rem;
+            border-radius: 1rem;
         }
 
+        /* Form inputs */
         .form-input {
-            @apply w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 outline-none transition-all duration-200;
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-input:focus {
@@ -40,142 +64,352 @@
             box-shadow: 0 0 0 4px rgba(26,107,60,0.08);
         }
 
-        .card-hover {
-            transition: all .25s ease;
+        /* Registration section layout */
+        .reg-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
-        .card-hover:hover {
-            transform: translateY(-3px);
+        @media (min-width: 1024px) {
+            .reg-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                padding: 0 2rem;
+            }
         }
+
+        /* Cards */
+        .reg-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(26,107,60,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        @media (min-width: 640px) {
+            .card-header { padding: 2rem; }
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .card-body { padding: 2rem; }
+        }
+
+        /* Coord grid */
+        .coord-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* State + City grid */
+        .state-city-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 480px) {
+            .state-city-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1a6b3c, #2d9d63);
+            opacity: 0.97;
+        }
+
+        .hero-inner {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3rem 1.25rem 3.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-inner { padding: 4rem 1.5rem 5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-inner { padding: 5rem 2rem 6rem; }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin: 0 0 1rem;
+        }
+
+        .hero-eyebrow {
+            color: #f5c842;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-sub {
+            color: rgba(255,255,255,0.82);
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 0 1.75rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn-primary-hero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: #fff;
+            color: #1a6b3c;
+            font-weight: 600;
+            padding: 0.75rem 1.75rem;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-primary-hero:hover { background: #f0fdf4; }
+
+        .btn-outline-hero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            padding: 0.75rem 1.75rem;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-outline-hero:hover { background: rgba(255,255,255,0.1); }
+
+        /* Locate button */
+        .btn-locate {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 9999px;
+            background: #1a6b3c;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        @media (min-width: 480px) {
+            .btn-locate { width: auto; }
+        }
+
+        .btn-locate:hover { background: #155c33; }
+
+        /* Submit button */
+        .btn-submit {
+            width: 100%;
+            border-radius: 1rem;
+            background: linear-gradient(90deg, #1a6b3c, #2d9d63);
+            color: #fff;
+            font-weight: 600;
+            padding: 1rem;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            box-shadow: 0 8px 24px rgba(26,107,60,0.15);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.93;
+            transform: translateY(-1px);
+        }
+
+        /* Alert boxes */
+        .alert-error {
+            margin-bottom: 1.25rem;
+            border-radius: 1rem;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
+            padding: 1rem 1.25rem;
+        }
+
+        .alert-warning {
+            margin-bottom: 1.25rem;
+            border-radius: 1rem;
+            border: 1px solid #fef08a;
+            background: #fefce8;
+            padding: 1rem 1.25rem;
+            color: #854d0e;
+        }
+
+        /* Photo note */
+        .photo-note {
+            border-radius: 1rem;
+            background: #f0fdf4;
+            border: 1px solid rgba(26,107,60,0.1);
+            padding: 1rem 1.25rem;
+        }
+
+        /* Label */
+        .field-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Section padding */
+        .reg-section {
+            padding: 3rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .reg-section { padding: 4rem 0; }
+        }
+
+        /* Readonly coord inputs */
+        .coord-input {
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+            outline: none;
+        }
+
+        /* Form spacing */
+        .form-stack { display: flex; flex-direction: column; gap: 1.1rem; }
     </style>
 </head>
 
 <body class="bg-brand-green-pale text-gray-800 antialiased">
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden">
+    <section class="hero">
 
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-green to-brand-green-mid opacity-95"></div>
+        <div class="hero-bg"></div>
 
-        <div class="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="hero-inner">
+            <div style="max-width: 680px;">
 
-            <div class="max-w-3xl">
+                <p class="hero-eyebrow">RCCG Parish Registration</p>
 
-                <p class="text-brand-gold uppercase tracking-[0.25em] text-xs sm:text-sm font-semibold mb-5">
-                    RCCG Parish Registration
-                </p>
-
-                <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                <h1>
                     Add Your Parish
-                    <span class="text-brand-gold">To The Locator</span>
+                    <span style="color: #f5c842;">To The Locator</span>
                 </h1>
 
-                <p class="mt-6 text-white/80 text-base sm:text-lg leading-relaxed max-w-2xl">
+                <p class="hero-sub">
                     Help members and visitors discover your parish easily across Nigeria.
                     Pin your exact church location and provide accurate worship details.
                 </p>
 
-                <div class="flex flex-wrap gap-4 mt-8">
-                    <a
-                        href="#registration-form"
-                        class="inline-flex items-center justify-center rounded-full bg-white text-brand-green font-semibold px-7 py-3 hover:bg-brand-green-pale transition-all duration-200"
-                    >
-                        Register Parish
-                    </a>
-
-                    <a
-                        href="/"
-                        class="inline-flex items-center justify-center rounded-full border border-white/20 text-white px-7 py-3 hover:bg-white/10 transition-all duration-200"
-                    >
-                        Back Home
-                    </a>
+                <div class="hero-actions">
+                    <a href="#registration-form" class="btn-primary-hero">Register Parish</a>
+                    <a href="/" class="btn-outline-hero">Back Home</a>
                 </div>
 
             </div>
-
         </div>
 
     </section>
 
     {{-- MAP + FORM --}}
-    <section id="registration-form" class="py-16 sm:py-20 px-5">
+    <section id="registration-form" class="reg-section">
 
-        <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-10 items-start">
+        <div class="reg-grid">
 
             {{-- MAP CARD --}}
-            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-green/10 overflow-hidden">
+            <div class="reg-card">
 
-                <div class="p-6 sm:p-8 border-b border-gray-100">
-
-                    <div class="flex items-start justify-between gap-4">
+                <div class="card-header">
+                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
 
                         <div>
-                            <p class="text-brand-green font-semibold text-sm uppercase tracking-widest mb-2">
+                            <p style="color: #1a6b3c; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 0.4rem;">
                                 Location Picker
                             </p>
-
-                            <h2 class="font-display text-3xl font-bold text-gray-900">
+                            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight: 700; color: #111827; margin: 0;">
                                 Select Parish Location
                             </h2>
                         </div>
 
-                        <div class="w-14 h-14 rounded-2xl bg-brand-green-light flex items-center justify-center text-2xl">
+                        <div style="flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 0.75rem; background: #f0fdf4; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
                             📍
                         </div>
 
                     </div>
 
-                    <p class="text-gray-500 mt-4 leading-relaxed">
+                    <p style="color: #6b7280; margin: 0.9rem 0 0; line-height: 1.65; font-size: 0.9rem;">
                         Click anywhere on the map or use your current location to automatically
                         fill the parish coordinates.
                     </p>
-
                 </div>
 
-                <div class="p-6 sm:p-8">
+                <div class="card-body">
 
-                    <button
-                        id="auto-locate"
-                        type="button"
-                        class="inline-flex items-center gap-2 rounded-full bg-brand-green text-white font-semibold px-6 py-3 hover:bg-brand-green-mid transition-all duration-200 shadow-lg shadow-brand-green/10"
-                    >
+                    <button id="auto-locate" type="button" class="btn-locate">
                         📍 Use My Location
                     </button>
 
-                    <div id="geo-error" class="text-red-500 text-sm mt-4"></div>
+                    <div id="geo-error" style="color: #dc2626; font-size: 0.875rem; margin-top: 0.75rem;"></div>
 
-                    <div class="mt-6">
+                    <div style="margin-top: 1.25rem;">
                         <div id="map"></div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-
+                    <div class="coord-grid">
                         <div>
-                            <label class="text-sm font-semibold text-gray-700 mb-2 block">
-                                Latitude
-                            </label>
-
-                            <input
-                                type="text"
-                                id="latitude"
-                                readonly
-                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm"
-                            >
+                            <label class="field-label">Latitude</label>
+                            <input type="text" id="latitude" readonly class="coord-input">
                         </div>
-
                         <div>
-                            <label class="text-sm font-semibold text-gray-700 mb-2 block">
-                                Longitude
-                            </label>
-
-                            <input
-                                type="text"
-                                id="longitude"
-                                readonly
-                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm"
-                            >
+                            <label class="field-label">Longitude</label>
+                            <input type="text" id="longitude" readonly class="coord-input">
                         </div>
-
                     </div>
 
                 </div>
@@ -183,187 +417,152 @@
             </div>
 
             {{-- FORM CARD --}}
-            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-green/10 overflow-hidden">
+            <div class="reg-card">
 
-                <div class="p-6 sm:p-8 border-b border-gray-100">
-
-                    <p class="text-brand-green font-semibold text-sm uppercase tracking-widest mb-2">
+                <div class="card-header">
+                    <p style="color: #1a6b3c; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 0.4rem;">
                         Parish Information
                     </p>
-
-                    <h2 class="font-display text-3xl font-bold text-gray-900">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight: 700; color: #111827; margin: 0;">
                         Create Parish Account
                     </h2>
-
-                    <p class="text-gray-500 mt-4 leading-relaxed">
+                    <p style="color: #6b7280; margin: 0.9rem 0 0; line-height: 1.65; font-size: 0.9rem;">
                         Enter accurate church information so members can locate your parish easily.
                     </p>
-
                 </div>
 
-                <div class="p-6 sm:p-8">
+                <div class="card-body">
 
                     @if(session('error'))
-                        <div class="mb-6 rounded-2xl border border-yellow-200 bg-yellow-50 px-5 py-4 text-yellow-700">
-                            {{ session('error') }}
-                        </div>
+                        <div class="alert-warning">{{ session('error') }}</div>
                     @endif
 
                     @if ($errors->any())
-                        <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4">
-                            <ul class="space-y-2 text-sm text-red-600">
+                        <div class="alert-error">
+                            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.35rem;">
                                 @foreach ($errors->all() as $error)
-                                    <li>• {{ $error }}</li>
+                                    <li style="font-size: 0.875rem; color: #b91c1c;">• {{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     @endif
 
-                    <form method="POST" action="/parish_reg" enctype="multipart/form-data" class="space-y-5">
+                    <form method="POST" action="/parish_reg" enctype="multipart/form-data" class="form-stack">
 
                         @csrf
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Parish Name
-                            </label>
-
+                            <label class="field-label">Parish Name</label>
                             <input
                                 type="text"
                                 name="name"
                                 value="{{ old('name') }}"
                                 placeholder="Enter parish name"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                class="form-input"
                             >
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Email Address
-                            </label>
-
+                            <label class="field-label">Email Address</label>
                             <input
                                 type="email"
                                 name="email"
                                 value="{{ old('email') }}"
                                 placeholder="Enter email"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                class="form-input"
                             >
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Password
-                            </label>
-
+                            <label class="field-label">Password</label>
                             <input
                                 type="password"
                                 name="password"
                                 placeholder="Create password"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                class="form-input"
                             >
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Parish Address
-                            </label>
-
+                            <label class="field-label">Parish Address</label>
                             <input
                                 type="text"
                                 name="address"
                                 value="{{ old('address') }}"
                                 placeholder="Enter parish address"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                class="form-input"
                             >
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
+                        <div class="state-city-grid">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                    State
-                                </label>
-
+                                <label class="field-label">State</label>
                                 <select
                                     name="state"
                                     id="state"
-                                    class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                    class="form-input"
+                                    style="cursor: pointer;"
                                 >
                                     <option value="">Select State</option>
+                                    
                                 </select>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                    City / LGA
-                                </label>
-
+                                <label class="field-label">City / LGA</label>
                                 <select
                                     name="city"
                                     id="lga"
-                                    class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                    class="form-input"
+                                    style="cursor: pointer;"
                                 >
                                     <option value="">Select City</option>
                                 </select>
                             </div>
-
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Country
-                            </label>
-
+                            <label class="field-label">Country</label>
                             <input
                                 type="text"
                                 name="country"
                                 value="{{ old('country') }}"
                                 placeholder="Country"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-brand-green"
+                                class="form-input"
                             >
                         </div>
 
                         <input type="hidden" name="latitude" id="latitude-hidden">
                         <input type="hidden" name="longitude" id="longitude-hidden">
 
-                        <div class="rounded-2xl bg-brand-green-pale border border-brand-green/10 p-5">
-
-                            <p class="text-sm text-brand-green leading-relaxed">
-                                Adding a parish image helps members recognize your church faster.
+                        <div class="photo-note">
+                            <p style="font-size: 0.875rem; color: #166534; line-height: 1.6; margin: 0 0 0.9rem;">
+                                Adding a parish image helps members recognise your church faster.
                                 Accepted formats: png, jpg, jpeg, webp (max 10MB).
                             </p>
-
-                            <div class="mt-4">
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Parish Image (Optional)
-                                </label>
-
-                                <input
-                                    type="file"
-                                    name="photo"
-                                    id="file"
-                                    class="w-full rounded-2xl border border-gray-200 px-4 py-3"
-                                >
-                            </div>
-
+                            <label class="field-label">Parish Image (Optional)</label>
+                            <input
+                                type="file"
+                                name="photo"
+                                id="file"
+                                accept="image/png,image/jpeg,image/webp"
+                                class="form-input"
+                                style="padding: 0.6rem 1rem;"
+                            >
                         </div>
 
-                        <button
-                            type="submit"
-                            class="w-full rounded-2xl bg-gradient-to-r from-brand-green to-brand-green-mid text-white font-semibold py-4 hover:scale-[1.01] transition-all duration-200 shadow-xl shadow-brand-green/10"
-                        >
+                        <button type="submit" class="btn-submit">
                             Save Parish Location
                         </button>
 
-                        <p class="text-center text-sm text-gray-500">
+                        <p style="text-align: center; font-size: 0.875rem; color: #6b7280; margin: 0;">
                             Already have an account?
-                            <a href="{{ route('login') }}" class="text-brand-green font-semibold hover:underline">
+                            <a href="{{ route('login') }}" style="color: #1a6b3c; font-weight: 600; text-decoration: none;">
                                 Log in
                             </a>
                         </p>
@@ -391,108 +590,76 @@
         let marker;
 
         map.on('click', function(e) {
-
             const { lat, lng } = e.latlng;
-
-            if (marker) {
-                map.removeLayer(marker);
-            }
-
+            if (marker) map.removeLayer(marker);
             marker = L.marker([lat, lng]).addTo(map);
-
             document.getElementById('latitude').value = lat.toFixed(6);
             document.getElementById('longitude').value = lng.toFixed(6);
-
             document.getElementById('latitude-hidden').value = lat.toFixed(6);
             document.getElementById('longitude-hidden').value = lng.toFixed(6);
         });
 
         document.getElementById('auto-locate').addEventListener('click', function () {
-
             if (navigator.geolocation) {
-
                 navigator.geolocation.getCurrentPosition(function(position) {
-
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
-
                     if (marker) map.removeLayer(marker);
-
                     marker = L.marker([lat, lng]).addTo(map);
-
                     map.setView([lat, lng], 15);
-
                     document.getElementById('latitude').value = lat.toFixed(6);
                     document.getElementById('longitude').value = lng.toFixed(6);
-
                     document.getElementById('latitude-hidden').value = lat.toFixed(6);
                     document.getElementById('longitude-hidden').value = lng.toFixed(6);
-
                     document.getElementById('geo-error').textContent = "";
-
                 }, function(error) {
-
-                    alert("Error: " + error.message);
-
-                }, {
-                    enableHighAccuracy: true,
-                    timeout: 10000
-                });
-
+                    document.getElementById('geo-error').textContent = "Error: " + error.message;
+                }, { enableHighAccuracy: true, timeout: 10000 });
             } else {
-
                 document.getElementById('geo-error').textContent =
                     "Geolocation is not supported by this browser.";
             }
         });
 
-        fetch('/locations/states')
-        .then(res => res.json())
-        .then(states => {
+        document.addEventListener('DOMContentLoaded', function () {
+            const stateSelect = document.getElementById('state');
 
-            let stateSelect = document.getElementById('state');
-
-            states.forEach(state => {
-
-                let option = document.createElement('option');
+            fetch('/locations/states')
+            .then(res => res.json())
+            .then(states => {
+                console.log(states);//working at this point
+            
+                states.forEach(state => {
+                const option = document.createElement('option');
 
                 option.value = state;
                 option.textContent = state;
 
                 stateSelect.appendChild(option);
+                });
             });
 
-        })
-        .catch(err => console.log(err));
+            document.getElementById('state').addEventListener('change', function () {
+                const state = this.value;
+                const lgaSelect = document.getElementById('lga');
+                lgaSelect.innerHTML = '<option value="">-- Select LGA --</option>';
 
-        document.getElementById('state').addEventListener('change', function() {
+                if (state) {
+                    fetch(`/locations/lgas/${encodeURIComponent(state)}`)
+                        .then(res => res.json())
+                        .then(lgas => {
+                            lgas.forEach(lga => {
+                                const option = document.createElement('option');
+                                option.value = lga;
+                                option.textContent = lga;
+                                lgaSelect.appendChild(option);
+                            });
+                        })
+                        .catch(err => console.error('LGA fetch error:', err));
+                }
+            });
 
-            let state = this.value;
-
-            let lgaSelect = document.getElementById('lga');
-
-            lgaSelect.innerHTML = '<option value="">-- Select LGA --</option>';
-
-            if (state) {
-
-                fetch(`/locations/lgas/${encodeURIComponent(state)}`)
-                    .then(res => res.json())
-                    .then(lgas => {
-
-                        lgas.forEach(lga => {
-
-                            let option = document.createElement('option');
-
-                            option.value = lga;
-                            option.textContent = lga;
-
-                            lgaSelect.appendChild(option);
-                        });
-
-                    })
-                    .catch(err => console.error(err));
-            }
-        });
+});
     </script>
 
 </body>

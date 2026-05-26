@@ -4,45 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Cache;
 
 class LocationController extends Controller
 {
-    //
-    public function getStates() {
-        $url = "https://temikeezy.github.io/nigeria-geojson-data/data/full.json";
-        $response = Http::get($url);
-        
-        if($response->successful() ) {
-            $data = $response->json();
+    private function fetchData(): array
+    {
+        return Cache::remember('ng_location_data', 86400, function () {
+            $response = Http::get("https://temikeezy.github.io/nigeria-geojson-data/data/full.json");
+            return $response->successful() ? $response->json() : [];
+        });
+    }
 
-            $states = collect($data)->map(function ($item) {
-                return $item['state']; // the state name in the JSON
-            })->unique()->values();
+    public function getStates()
+    {
+        $data = $this->fetchData();
 
-            return response()->json($states);
-        }
+        $states = collect($data)
+            ->pluck('state')       // key is confirmed "state"
+            ->filter()
+            ->sort()
+            ->values();
 
-        return response()->json(["error" => "unable to fetch data"], 500);
+        return response()->json($states);
     }
 
     public function getLgas($state)
     {
-        $url = "https://temikeezy.github.io/nigeria-geojson-data/data/lgas.json";
-        $response = Http::get($url);
+        $data = $this->fetchData();
 
-        if ($response->successful()) {
-            $data = $response->json();
+        $entry = collect($data)->first(function ($item) use ($state) {
+            return strtolower(trim($item['state'])) === strtolower(trim($state));
+        });
 
-            // state key exists in the JSON
-            if (isset($data[$state])) {
-                return response()->json($data[$state]);
-            }
-
-            return response()->json([], 200); // state not found, return empty array
+        if (!$entry) {
+            return response()->json([]);
         }
 
-        return response()->json(["error" => "unable to fetch data"], 500);
-    }
+        // Extract just the LGA names from the nested objects
+        $lgas = collect($entry['lgas'])
+            ->pluck('name')        // each LGA is {"name": "Aba North", "wards": [...]}
+            ->filter()
+            ->sort()
+            ->values();
 
+        return response()->json($lgas);
+    }
 }
