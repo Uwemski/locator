@@ -32,7 +32,7 @@
         <a href="{{route('home') }}"               class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Home</a>
         <!-- Direct link to the Leaflet map page -->
         <a href="{{route('superPower') }}"     class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Find a Parish</a>
-        <a href="{{route('reg_test') }}"       class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Register a Parish</a>
+        <a href="{{route('reg-test') }}"       class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Register a Parish</a>
         <a href="#how"            class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">How It Works</a>
         <a href="#about"          class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">About</a>
         <!-- Primary CTA — goes straight to map page -->

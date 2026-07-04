@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RCCG Parish Locator Nigeria – Find a Parish Near You</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
 
   <!-- Google Fonts: Playfair Display (headings) + DM Sans (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind custom config — brand colour tokens -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <style>
     /* ── Base reset & fonts ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; }
@@ -129,7 +125,14 @@
 </head>
 
 <body class="bg-white text-gray-800">
-
+<div x-data="{ open: false }">
+    <button @click="open = !open" class="bg-blue-500 text-white p-2">
+        Test Alpine
+    </button>
+    <p x-show="open" class="mt-2 text-green-600 font-bold">
+        Success: Alpine.js is active!
+    </p>
+</div>
 <!-- ═══════════════════════════════════════════════════════════
      NAVIGATION BAR
      Transparent over hero → white + shadow on scroll.
@@ -537,7 +540,7 @@
     </ul>
 
     <div class="reveal mt-10">
-      <a href="{{ route('reg_test')}}" class="inline-block bg-white text-brand-green font-bold px-10 py-4 rounded-full text-base hover:bg-brand-green-light transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transform">
+      <a href="{{ route('reg-test')}}" class="inline-block bg-white text-brand-green font-bold px-10 py-4 rounded-full text-base hover:bg-brand-green-light transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transform">
         Register Your Parish →
       </a>
     </div>

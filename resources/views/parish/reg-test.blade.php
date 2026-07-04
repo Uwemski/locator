@@ -447,8 +447,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="/parish_reg" enctype="multipart/form-data" class="form-stack">
-
+                    <form method="POST" action="/parish-reg" enctype="multipart/form-data" class="form-stack">
                         @csrf
 
                         <div>

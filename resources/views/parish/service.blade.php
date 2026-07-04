@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client>
     
 
     <div class="flex-grow-1">
@@ -96,4 +96,4 @@
             // console.log(name, time, day); working
         })
     </script>
-</x-client-layout>
+</x-client>

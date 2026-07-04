@@ -48,14 +48,14 @@ class EventController extends Controller
     }
 
     //for visitors
-    public function visitor_search_event($id){
+    public function visitorSearchEvent($id){
         //find by id
         $parish = Parish::with('events')->find($id);
 
         $event = $parish->events;
         //dd($event);
         if(!empty($event)){
-            return view('user.parish_event', compact('event'));
+            return view('user.parish-event', compact('event'));
         }else{
             return redirect()->back()->with('error', 'error');
         }
@@ -63,7 +63,7 @@ class EventController extends Controller
     }
 
     //for parish
-    public function view_events_for_parish(){
+    public function viewEventsForParish(){
 
         //find by id
         $id = Auth::guard('parish')->id();
@@ -73,7 +73,7 @@ class EventController extends Controller
         if($parish){
             $events = $parish->events;
             if($events->isNotEmpty()){
-                return view('parish.manage_events', compact('events'));
+                return view('parish.manage-events', compact('events'));
             }else{
                 return redirect()->back()->with('empty', 'There are no events for your parish yet');
             }
@@ -120,7 +120,7 @@ class EventController extends Controller
                 $event->save();
                 // return redirect()->back()->with("success", "Event record updated successfully");
                 return response()->json([
-                    'status' => true,
+                    'success'=>true,
                     'message' => 'Record updated uccessfully',
                     'data' => $event
                 ]);

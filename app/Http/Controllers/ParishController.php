@@ -11,6 +11,8 @@ use App\Http\Requests\ParishLoginRequest;
 use App\Http\Requests\ParishUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 
 class ParishController extends Controller
@@ -20,24 +22,16 @@ class ParishController extends Controller
         Auth::guard('parish')->logout();
         session()->invalidate();
         session()->regenerateToken();
-        return redirect('/parish_login');
+        return redirect('/parish-login');
     }
 
 
     // a function to handle login
      public function login(ParishLoginRequest $request){
         $data = $request->validated();
-        // dd($data); form data shows here
         
-        //this woudve been the way if II wasn't using a guard
-        // if(auth()->attempt(['email'=> $data['email'], 'password'=> $data['password']]) ){
-        //     return redirect()->route('userDashboard')->with('LoginSuccess', 'welcome to your dashbaord');
-        // }else{
-        //     return redirect()->back()->with('LoginError', 'Check your credentials and try again');
-        // }
-
         if(Auth::guard('parish')->attempt(['email'=> $data["email"], "password"=> $data["password"]])){
-            return redirect('parish_dashboard');
+            return redirect('parish-dashboard');
         }else{
             return redirect()->back()->with("loginError", "There was an error upon login, please try again");
         }
@@ -73,7 +67,7 @@ class ParishController extends Controller
     }
 
     //a function for parish to update
-    public function update_self(ParishUpdateRequest $request){
+    public function updateSelf(ParishUpdateRequest $request){
         $parish = Auth::guard('parish')->user();
 
         //thank Goodness for form request
@@ -87,7 +81,7 @@ class ParishController extends Controller
     }
 
     //a function to manage location 
-    public function manage_location(ParishUpdateLocationRequest $request){
+    public function manageLocation(ParishUpdateLocationRequest $request){
         $parish = Auth::guard('parish')->user();
         
         //validate
@@ -106,7 +100,7 @@ class ParishController extends Controller
         $parish = Auth::guard('parish')->user();
 
         //send
-        return view('parish.parish_dashboard', compact('parish'));
+        return view('parish.parish-dashboard', compact('parish'));
     }
 
     //a method to search for a parish
@@ -129,7 +123,7 @@ class ParishController extends Controller
                         })->get();
         
         if($parishes->isNotEmpty() ){
-            return view('visitors_search', compact('parishes'));
+            return view('visitors-search', compact('parishes'));
         }else{
             return redirect()->back()->with("error", "Search request does not found, try again later");
         }
@@ -153,6 +147,6 @@ class ParishController extends Controller
         $id = auth('parish')->id();
         
         $parish = Parish::findOrFail($id);
-        return view('parish.update_profile', compact('parish')); 
+        return view('parish.update-profile', compact('parish')); 
     }
 }

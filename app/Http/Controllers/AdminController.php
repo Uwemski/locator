@@ -18,29 +18,6 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    //nearest parish 
-    // public function getNearest(Request $request)
-    // {
-    //     $userLat = $request->query('lat');
-    //     $userLng = $request->query('lng');
-
-    //     $nearest = Parish::where('status', 'verified')
-    //         ->get()
-    //         ->map(function ($parish) use ($userLat, $userLng) {
-    //             $parish->distance = sqrt(pow($parish->latitude - $userLat, 2) + pow($parish->longitude - $userLng, 2));
-    //             return $parish;
-    //         })
-    //         ->sortBy('distance')
-    //         ->first();
-
-    //     return response()->json([
-    //         'name' => $nearest->name,
-    //         'lat' => $nearest->latitude,
-    //         'lng' => $nearest->longitude
-    //     ]);
-    // }
-
-
     public function getNearest(Request $request)
         {
             $userLat = (float) $request->query('lat');
@@ -80,7 +57,7 @@ class AdminController extends Controller
 
             $verifiedParishes = Parish::where('status', 'verified')->count();
 
-            return view('admin.admin_dashboard', compact('parishes', 'users', 'verifiedParishes') );
+            return view('admin.admin-dashboard', compact('parishes', 'users', 'verifiedParishes') );
         }
         //$parishes = Parish::where('status', 'pending')->count();        
     }
@@ -95,14 +72,14 @@ class AdminController extends Controller
     //public function to vew parishes
     public function viewAllParishes(){
         $parishes = Parish::simplePaginate(7);
-        return view('admin.all_parish', compact('parishes'));
+        return view('admin.all-parish', compact('parishes'));
     }
 
     //public function to view users
     public function viewAllUsers(){
         //fetch all from DB
         $users = User::simplePaginate(10);
-        return view('admin.all_users', compact('users'));
+        return view('admin.all-users', compact('users'));
     }
 
 
@@ -143,7 +120,7 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return redirect()->route('admin_login'); 
+        return redirect()->route('admin-login'); 
     }
 
     //a method to delete a user
@@ -157,7 +134,7 @@ class AdminController extends Controller
 
     //what if the deleting fails, How do your users know?
     //a method to delete a parish
-    public function parish_destroy($id){
+    public function parishDestroy($id){
         $parish = Parish::find($id);
 
         $parish->delete();
@@ -167,19 +144,26 @@ class AdminController extends Controller
     }
 
     //a method to update
-    public function update(Request $request, Parish $parish){
+    public function update(Request $request, Parish $parish){    
         $data = $request->validate([
             'status' => 'required|in:pending,verified,suspended',
         ]);
 
-        //update
-        $parish->update($data);
-        $parish->admin_id = Auth::guard('admin')->id();
 
-        // return redirect()->back()->with("success", "Status updated successfully");
+        $data['admin_id']= Auth::guard('admin')->id();
+        // dd($parish);hits here
+        // //update
+        $parish->update($data);
+
+        // return redirect()->back()->with('success', 'status updated successfully');
+        $parish->refresh();
         return response()->json([
-            'status' => true,
-            'message' => 'updated successfully'
+            'success' => true,
+            'message' => 'Parish updated successfully',
+            'parish' => $parish->only([
+                'name' => $parish->name,
+                'status' => $parish->status
+            ]),
         ]);
     }
 
@@ -188,7 +172,7 @@ class AdminController extends Controller
         //get verified parish
         $parishes = Parish::where('status', 'verified')->simplePaginate(5);  
     
-        return view('admin.active_parish', compact('parishes'));
+        return view('admin.active-parish', compact('parishes'));
     }
 
     //a method to show unverified and pending parishes
@@ -206,7 +190,7 @@ class AdminController extends Controller
         if($admin){
             $parishes = Parish::where('status', 'suspended')->latest()->simplePaginate(10);
 
-            return view('admin.suspended_parish', compact('parishes'));
+            return view('admin.suspended-parish', compact('parishes'));
         }
     }
 
@@ -254,13 +238,13 @@ class AdminController extends Controller
 
         //return view
         if($status == 'verified') {
-            return view('admin.active_parish', compact('parishes'));
+            return view('admin.active-parish', compact('parishes'));
         } else if($status == 'pending') {
             return view('admin.unverified', compact('parishes'));
         } else if($status == 'suspended') {
-            return view('admin.suspended_parish', compact('parishes'));
+            return view('admin.suspended-parish', compact('parishes'));
         } else {
-            return view('admin.all_parish', compact('parishes') );
+            return view('admin.all-parish', compact('parishes') );
         }
         // if($parishes->isNotEmpty()){
         //     return view('admin.search', compact('parishes'));

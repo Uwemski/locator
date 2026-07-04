@@ -5,11 +5,15 @@
 
   {{-- ── External stylesheets (unchanged from original) ── --}}
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
   <link rel="stylesheet" href="{{asset('style.css')}}" />
   <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
+
 
   {{-- ── Google Fonts: Syne (display) + Nunito (body) ── --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -393,17 +397,25 @@
       #map                      { height: 300px; }
       .map-page-header h1       { font-size: 1.35rem; }
     }
+
+    /* ── Navbar: transparent → white on scroll ──────────────── */
+    #navbar { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+    #navbar.scrolled {
+      background-color: #fff !important;
+      box-shadow: 0 2px 20px rgba(26,107,60,0.12);
+    }
+    #navbar.scrolled .nav-link { color: #1a6b3c; }
+    #navbar.scrolled .nav-logo-text { color: #1a6b3c; }
+    #navbar.scrolled .nav-cta  { background-color: #1a6b3c; color: #fff; }
   </style>
 </head>
 <body>
 
-  {{-- ══════════════════════════════════════
-       NAVBARS — untouched from original
-       ══════════════════════════════════════ --}}
-  @include('partials.navbar1')
-  @include('partials.navbar2')
 
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 bg-transparent">
 
+  <x-nav.home-nav/>
+</nav>
   {{-- ══════════════════════════════════════
        PAGE HEADER BAND
        ══════════════════════════════════════ --}}

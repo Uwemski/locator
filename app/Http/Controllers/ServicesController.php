@@ -59,7 +59,7 @@ class ServicesController extends Controller
         $services = $parish->services;
 
         //dd($services);
-        return view('parish.manage_service', compact('services'));
+        return view('parish.manage-service', compact('services'));
     }
 
     //a function to delete service
@@ -77,14 +77,14 @@ class ServicesController extends Controller
     }
 
     //a function to get service by id
-    public function find_service_by_parish($id){
+    public function findServiceByParish($id){
         //find by id
         $parish = Parish::with('services')->find($id);
 
         $service = $parish->services;
 
         if(!empty($service)){
-            return view('admin.parish_service', compact('service', 'parish'));
+            return view('admin.parish-service', compact('service', 'parish'));
         }else{
             return redirect()->back()->with('error', 'parish does not have service stored');
         }

@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client>
 
     <div class="flex-grow-1">
         <div class="container mt-4">
@@ -103,4 +103,4 @@
     
     </script>
 
-</x-client-layout>
+</x-client>

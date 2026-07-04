@@ -79,6 +79,6 @@ class ResetPasswordController extends Controller
         $otpRecord->delete();
 
         //redirect back to login
-        return redirect()->route('/parish_login');
+        return redirect()->route('/parish-login');
     }
 }

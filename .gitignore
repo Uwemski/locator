@@ -22,3 +22,4 @@ yarn-error.log
 /.vscode
 /.zed
 resources/views/admin_test
+/resources/views/password.blade.php

@@ -40,41 +40,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $serialNo = 1 ?>
-                    @foreach ($parishes  as $p )
-                        
+                    @foreach ($parishes  as $parish )                        
                         <tr>
-                            <td>{{ $serialNo }}</td>
-                            <td>{{$p->name}}</td>
-                            <td>{{$p->address}}</td>
-                            <td>{{$p->email}}</td>
-                            <td>{{$p->city}}</td>
-                            <td>{{$p->state}}</td>
-                            <td>{{$p->created_at->format('Y-m-d')}}</td>
-                            <td>{{$p->status}}</td>
+                            <td>{{ $loop->iteration  }}</td>
+                            <td>{{$parish->name}}</td>
+                            <td>{{$parish->address}}</td>
+                            <td>{{$parish->email}}</td>
+                            <td>{{$parish->city}}</td>
+                            <td>{{$parish->state}}</td>
+                            <td>{{$parish->created_at->format('Y-m-d')}}</td>
+                            <td>{{$parish->status}}</td>
                             {{-- <td>
-                                <form action="{{route('parish.update', $p->id)}}" method="POST">
+                                <form 
+                                    action="{{route('parish.update', $parish->id)}}" 
+                                    class=""
+                                    method="POST" >
                                     @csrf
                                     @method('PUT')
-                                    <select name="status" class="form-select">
-                                        <option value="pending" {{$p->status == 'pending'? 'selected': ''}}>Pending</option>
-                                        <option value="verified" {{$p->status == 'verified'? 'selected': ''}}>Verify</option>
-                                        <option value="suspended" {{$p->status == 'suspended'? 'selected': ''}}>Suspended</option>
+                                    <select 
+                                        name="status" 
+                                        class="form-select status-select" 
+                                        data-id="{{ $parish->id }}"
+                                        >
+                                            <option value="pending" {{$parish->status == 'pending'? 'selected': ''}}>Pending</option>
+                                            <option value="verified" {{$parish->status == 'verified'? 'selected': ''}}>Verify</option>
+                                            <option value="suspended" {{$parish->status == 'suspended'? 'selected': ''}}>Suspended</option>
                                     </select>
                                     <button type="submit" class="btn btn-warning mt-1">update</button>
                                 </form>
                             </td> --}}
                             <td>
-                                {{-- <form action="{{route('parish.destroy', $p->id)}}" method="POST">
+                                {{-- <form action="{{route('parish.destroy', $parish->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form> --}}
                             </td>
-                        </tr>
-
-                        
-                        <?php $serialNo++ ?>
+                        </tr>                        
                     @endforeach
                 </tbody>
 
@@ -83,5 +85,57 @@
             </table>
         </div>
     </div>
+    <script>
+        async function updateStatus(parishId) {
+            try{
+                const select = document.querySelector(`.status-select[data-id="${parishId}"]`);
+                const status = select.value;
+                const row = select.closest('tr'); // Get the parent row
+
+                const response= await fetch(`/admin/${parishId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({status})
+                })
+
+                const data = await response.json();
+                if(data.success){
+                    console.log(data);
+                    if(data.status == 'verified'){
+                        row.remove()
+                    }else{}
+                    Toastify({
+                        text: "Status updated successfully",
+                        duration: 3000,
+                        gravity:"top",
+                        position:"right",
+                        backgroundColor: "green",
+
+                    }).showToast();
+                }else{
+                    console.error(error)
+                    alert('Error encountered, try again later');
+                    Toastify({
+                        text: "Error encountered,try again",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red"
+                    }).showToast();
+                }
+            }catch(error){
+                console.log('Error:', error);
+
+                Toastify({
+                    text: "Network error",
+                    duration: 3000,
+                    backgroundColor: "red",
+                }).showToast();
+            }
+        }
+    </script>
 </body>
 </html>

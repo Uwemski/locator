@@ -1,17 +1,9 @@
-<!--Header starts here-->
-
-@include('partials.parish_header')
-<!--Header ends here-->
-    <body>
+<x-client>
         <div class="d-flex">
-            <!-- Sidebar -->
-            @include('partials.parish_sidebar')
-            <!--SIDEBAR ENDS HERE-->
 
             <!-- Main Content -->
             <div class="flex-grow-1">
                 <nav class="navbar navbar-expand-lg header px-3">
-                    <button class="btn btn-outline-dark d-md-none" onclick="toggleSidebar()">☰</button>
                     <span class="ms-3 fw-bold">Welcome, Parish Admin</span>
                 </nav>
 
@@ -111,6 +103,4 @@
                 //     }
                 // })
             </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+</x-client>

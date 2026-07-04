@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client>
     <div class="flex-grow-1">
         <div class="container mt-4">
             <!-- Dynamic content goes here -->
@@ -50,7 +50,7 @@
 
                 <div class="mb-3">
                     <label for="">Location (optional)</label>
-                    <input type="text" name="location" id="location" class="form-control" value={{$event->location}}>
+                    <input type="text" name="location" id="location" class="form-control" value="{{$event->location}}">
                     @error('location')
                         <small style="color:red">{{$message}}</small>
                     @enderror
@@ -66,4 +66,4 @@
             </form>
         </div>
     </div>
-</x-client-layout>
+</x-client>

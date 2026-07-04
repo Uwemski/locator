@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client>
 
     <div class="container mt-4">
             <!-- Dynamic content goes here -->
@@ -6,9 +6,7 @@
             <p>This is your parish dashboard. You can manage your profile, services, location and more.</p>
         </div>
 
-        <div class="card p-4 mb-4">
-            <img src="{{asset('storage/'. $parish->photo)}}" alt="churchPhoto" class="img-fluid">
-        </div>
+        <!-- removed the image tag here. connect and use cloudinary -->
 
         <div class="card p-4 mb-4">
             <h4>Parish Details</h4>
@@ -25,5 +23,5 @@
             </p>
         </div>
     </div>
-</x-client-layout>
+</x-client>
 

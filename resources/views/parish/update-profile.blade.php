@@ -1,5 +1,5 @@
 <!--Header starts here-->
-<x-client-layout>
+<x-client>
 
 
     <div class="container mt-4">
@@ -24,13 +24,6 @@
                     <form action="/parish/update_profile" method="post">
                         @csrf
                         @method('PUT')
-                        <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{$parish->address}}">
-                           @error('address')
-                            <small style='color: red'>{{$message}}</small>
-                           @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="address">Address</label>
                             <input type="text" name="address" id="address" class="form-control" required placeholder="Enter your address here" value="{{$parish->address}}">
@@ -89,4 +82,4 @@
 
                 
             </script>
-</x-client-layout>
+</x-client>

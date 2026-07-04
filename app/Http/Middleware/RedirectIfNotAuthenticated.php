@@ -11,11 +11,11 @@ class RedirectIfNotAuthenticated extends Middleware
     {
         if (! $request->expectsJson()) {
             if ($request->is('admin/*')) {
-                return route('admin_login');
+                return route('admin-login');
             }
 
             if ($request->is('parish/*')) {
-                return route('parish_login');
+                return route('parish-login');
             }
 
             return route('userLogin'); //fallback

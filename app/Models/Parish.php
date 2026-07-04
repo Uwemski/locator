@@ -22,6 +22,7 @@ class Parish extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'status',
         'email',
         'password',
         'address',
@@ -30,6 +31,7 @@ class Parish extends Authenticatable
         'state',
         'website',
         'contact_no',
+        'admin_id',
         'country',
         'latitude',
         'longitude'

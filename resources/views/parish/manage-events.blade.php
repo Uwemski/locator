@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client>
 
     <div class="flex-grow-1">
         <div class="container mt-4">
@@ -36,12 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        $serialNo= 1;    
-                    ?>
                     @foreach ($events as $event)
                     <tr id='event-{{$event->id}}'>
-                        <td class="">{{$serialNo}}</td>
+                        <td class="">{{$loop->iteration}}</td>
                         <td class="event-title">{{$event->title}}</td>
                         <td class="event-description">{{$event->description}}</td>
                         <td class="event-date">{{$event->event_date}}</td>
@@ -57,7 +54,6 @@
                             </form>
                         </td>
                     </tr>
-                    <?php $serialNo++?>
                     @endforeach
                 </tbody>
             </table>
@@ -140,5 +136,5 @@
             })
         })
     </script>
-</x-client-layout>
+</x-client>
 
