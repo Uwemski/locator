@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between h-16">
 
       <!-- ── Brand / Logo (text + CSS cross — zero images) ── -->
-      <a href="/" class="flex items-center gap-2.5 no-underline group" aria-label="RCCG Parish Locator home">
+      <a href="{{route('home') }}" class="flex items-center gap-2.5 no-underline group" aria-label="RCCG Parish Locator home">
 
         <!--
           CSS-only cross mark.
@@ -53,8 +53,8 @@
   <!-- ── Mobile dropdown menu ── -->
   <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl">
     <div class="max-w-7xl mx-auto px-5 py-4 flex flex-col gap-1">
-      <a href="/"               class="text-brand-green font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">Home</a>
-      <a href="/parish-map"     class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">Find a Parish</a>
+      <a href="{{route('home') }}"               class="text-brand-green font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">Home</a>
+      <a href="{{route('superPower') }}"     class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">Find a Parish</a>
       <a href="#register"       class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">Register a Parish</a>
       <a href="#how"            class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">How It Works</a>
       <a href="#about"          class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">About</a>

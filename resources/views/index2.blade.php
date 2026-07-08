@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <style>
     /* ── Base reset & fonts ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; }
@@ -125,14 +124,6 @@
 </head>
 
 <body class="bg-white text-gray-800">
-<div x-data="{ open: false }">
-    <button @click="open = !open" class="bg-blue-500 text-white p-2">
-        Test Alpine
-    </button>
-    <p x-show="open" class="mt-2 text-green-600 font-bold">
-        Success: Alpine.js is active!
-    </p>
-</div>
 <!-- ═══════════════════════════════════════════════════════════
      NAVIGATION BAR
      Transparent over hero → white + shadow on scroll.

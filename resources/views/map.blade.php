@@ -407,6 +407,8 @@
     #navbar.scrolled .nav-link { color: #1a6b3c; }
     #navbar.scrolled .nav-logo-text { color: #1a6b3c; }
     #navbar.scrolled .nav-cta  { background-color: #1a6b3c; color: #fff; }
+
+    #navbar a{text-underline: none}
   </style>
 </head>
 <body>
