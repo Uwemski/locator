@@ -41,35 +41,35 @@
                 Dashboard
             </x-nav-link>
  
-            <x-nav-link :href="route('admin.all-users')" :active="request()->routeIs('admin.all-users')" accent="bg-blue-600">
+            <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" accent="bg-blue-600">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 8a7 7 0 0 1 14 0v1H3v-1Z"/>
                 </svg>
                 View Users
             </x-nav-link>
  
-            <x-nav-link :href="route('admin.all-parish')" :active="request()->routeIs('admin.all-parish')" accent="bg-blue-600">
+            <x-nav-link :href="route('admin.parishes.index')" :active="request()->routeIs('admin.parishes.index')" accent="bg-blue-600">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M10 2 3 6v12h14V6l-7-4Zm-1 7h2v6H9V9Z"/>
                 </svg>
                 View Parish
             </x-nav-link>
  
-            <x-nav-link :href="route('admin.active-parish')" :active="request()->routeIs('admin.active-parish')" accent="bg-blue-600">
+            <x-nav-link :href="route('admin.parishes.verified')" :active="request()->routeIs('admin.parishes.verified')" accent="bg-blue-600">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.36-9.84a.75.75 0 0 0-1.2-.9L9 11.46l-1.96-1.96a.75.75 0 1 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.13-.08l3.75-5Z" clip-rule="evenodd"/>
                 </svg>
                 Verified Parish
             </x-nav-link>
  
-            <x-nav-link :href="route('admin.unverified')" :active="request()->routeIs('admin.unverified')" accent="bg-blue-600">
+            <x-nav-link :href="route('admin.parishes.unverified')" :active="request()->routeIs('admin.parishes.unverified')" accent="bg-blue-600">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm0-11a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 7Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
                 </svg>
                 Un-verified Parish
             </x-nav-link>
  
-            <x-nav-link :href="route('admin.suspended')" :active="request()->routeIs('admin.suspended')" accent="bg-blue-600">
+            <x-nav-link :href="route('admin.parishes.suspended')" :active="request()->routeIs('admin.parishes.suspended')" accent="bg-blue-600">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM7 9.5h6a.5.5 0 0 1 0 1H7a.5.5 0 0 1 0-1Z" clip-rule="evenodd"/>
                 </svg>

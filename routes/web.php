@@ -111,24 +111,22 @@ Route::get('/admin/login', function(){
 //Middlewares for admin
 Route::middleware(['auth:admin'])->group(function(){
     
-    Route::get('/admin/viewUsers', [AdminController::class, 'viewAllUsers'])->name('admin.all-users');
-    Route::get('/admin/viewParishes', [AdminController::class, 'viewAllParishes'])->name('admin.all-parish');
-    Route::get('/admin/active', [AdminController::class, 'showActiveParishes'])->name('admin.active-parish');
-    Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.unverified');
+    Route::get('/admin/viewUsers', [AdminController::class, 'viewAllUsers'])->name('admin.users.index');
+    Route::get('/admin/viewParishes', [AdminController::class, 'viewAllParishes'])->name('admin.parishes.index');
+    Route::get('/admin/active', [AdminController::class, 'showActiveParishes'])->name('admin.parishes.verified');
+    Route::get('/admin/unverified', [AdminController::class, 'showUnverifiedParishes'])->name('admin.parishes.unverified');
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
     Route::post('/admin/create/admin', [AdminController::class, 'register']);
     Route::delete('/parishes/{parish}', [AdminController::class, 'parishDestroy'])->name('parish.destroy');
-    Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('parish.update');
+    Route::put('/admin/{parish}', [AdminController::class, 'update'])->name('admin.parish.update');
     Route::get('/admin/create-admin', function(){
         return view('admin.create-admin');
     })->name('admin-create');
     Route::post('/adminLogout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
-    Route::get('admin/suspended-parish', [AdminController::class, 'showSuspendedParish'])->name('admin.suspended');
+    Route::get('admin/suspended-parish', [AdminController::class, 'showSuspendedParish'])->name('admin.parishes.suspended');
     //controller method for number of parishes
     Route::get('/adminDashboard', [AdminController::class, 'numberOfParishesUsers'])->name('adminDashboard');
-    //number of users
-    //Route::get('/adminDashboard', [AdminController::class, 'numberOfUsers'])->name('users.count');
 
     Route::get('/admin/parish/{id}', [ServicesController::class, 'findServiceByParish'])->name('service.find');
 

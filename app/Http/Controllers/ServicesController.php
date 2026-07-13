@@ -84,7 +84,7 @@ class ServicesController extends Controller
         $service = $parish->services;
 
         if(!empty($service)){
-            return view('admin.parish-service', compact('service', 'parish'));
+            return view('admin.parishes.parish-service', compact('service', 'parish'));
         }else{
             return redirect()->back()->with('error', 'parish does not have service stored');
         }

@@ -9,7 +9,7 @@
                                     {{ $parish->name }}
                                 </h3>
 
-                                <span class="
+                                <span class="status-badge
                                     px-3 py-1 rounded-full text-sm
                                     @if($parish->status == 'verified')
                                         bg-green-100 text-green-700
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="mt-5">
-
+                                
                                 <select
                                     class="status-select w-full rounded-lg border-gray-300"
                                     data-id="{{ $parish->id }}"
