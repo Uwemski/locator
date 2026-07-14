@@ -56,7 +56,7 @@ class ParishController extends Controller
             //use professional services
             // event(new ParishRegistered($m));
 
-            return redirect()->route('login')->with('success', 'Parish registered successfully. Please log in.');
+            return redirect()->route('parish.login')->with('success', 'Parish registered successfully. Please log in.');
         }catch(QueryException $e){
             //query exception 23000
             if($e->getCode() == "23000"){
