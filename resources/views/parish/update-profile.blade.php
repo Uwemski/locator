@@ -21,7 +21,7 @@
                             <div class="alert alert-warning">{{$err}}</div>
                         @endforeach
                     @endif
-                    <form action="/parish/update_profile" method="post">
+                    <form action="{{route('parish.update.profile')}}" method="post">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">

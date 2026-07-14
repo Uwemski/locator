@@ -77,7 +77,6 @@ class ParishController extends Controller
         $parish->update($data);
 
         return redirect()->back()->with('success', 'Information updated successfully');
-
     }
 
     //a function to manage location 
