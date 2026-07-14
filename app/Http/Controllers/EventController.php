@@ -10,6 +10,11 @@ class EventController extends Controller
 {
     //
     public function create(Request $request){
+        return view('parish.events');
+    }
+
+    public function store(Request $request)
+    {
         //validate
         $data = $request->validate([
             'title' => 'required|min:4',
@@ -127,6 +132,17 @@ class EventController extends Controller
             }else{
                 return redirect()->back()->with("Illegal access", "You don't have authorization to perform thuis action");
             }
+        }
+    }
+
+    public function delete($id) {
+        $event = Event::findOrFail($id);
+
+        if(Auth::guard('parish')->id() !== $event->parish_id ){
+            abort(404);  
+        }else{
+            $event->delete();
+            return redirect()->back()->with('success', 'Event deleted successfully');
         }
     }
 }

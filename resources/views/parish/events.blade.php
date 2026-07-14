@@ -24,7 +24,7 @@
         @endif
         <div class="p-4 mb-4">
             <div id="messageDiv"></div>
-            <form action="{{route('event.create')}}" method="post" id="eventForm">
+            <form action="{{route('parish.event.store')}}" method="post" id="eventForm">
                 @csrf
                 <div class="mb-3">
                     <label for="title">Event Title</label>
@@ -77,7 +77,7 @@
         const event_date = document.getElementById('event_date').value
         const messageDiv = document.getElementById('messageDiv')
 
-        fetch("{{route('event.create')}}", {
+        fetch("{{route('parish.event.store')}}", {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}",

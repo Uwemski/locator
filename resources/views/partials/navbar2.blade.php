@@ -42,7 +42,7 @@
               Register
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{{ route('reg-test') }}">Register as Parish</a></li>
+              <li><a class="dropdown-item" href="{{ route('parish.register') }}">Register as Parish</a></li>
               <li><a class="dropdown-item" href="{{ route('userReg') }}">Register as User</a></li>
             </ul>
           </li>

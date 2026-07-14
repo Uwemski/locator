@@ -22,7 +22,7 @@
         }
         @endif
       </div>
-      <form action="{{route('parish-login')}}" method="post">
+      <form action="{{route('parish.login.store')}}" method="post">
         <!--Stil reminding myself never to forget the csrf-->
         @csrf
         <div class="mb-3">
@@ -44,7 +44,7 @@
           <p class="text-center"><button class="btn btn-primary">Log in</button></p>
         </div>
         <div class="mb-3">
-          Don't have an account? <a href="{{route('reg-test')}}">Register</a>
+          Don't have an account? <a href="{{route('parish.register')}}">Register</a>
         </div>
       </form>
     </div>

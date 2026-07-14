@@ -22,7 +22,7 @@
                 <div class="alert alert-warning">{{$err}}</div>
             @endforeach
         @endif
-            <form action="{{route('services.create')}}" method="post" class="p-3" id="serviceForm">
+            <form action="{{route('parish.service.create')}}" method="post" class="p-3" id="serviceForm">
                 @csrf
                 <div class="mb-3">
                     <label for="name">Service Name</label>
@@ -71,7 +71,7 @@
 
             const resultDiv = document.getElementById('resultDiv');
 
-            fetch("{{route('services.create')}}", {
+            fetch("{{route('parish.service.create')}}", {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': "{{csrf_token() }}",

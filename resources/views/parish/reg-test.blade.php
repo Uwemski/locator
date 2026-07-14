@@ -447,7 +447,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="/parish-reg" enctype="multipart/form-data" class="form-stack">
+                    <form method="POST" action="{{route('parish.register.store')}}" enctype="multipart/form-data" class="form-stack">
                         @csrf
 
                         <div>
@@ -561,7 +561,7 @@
 
                         <p style="text-align: center; font-size: 0.875rem; color: #6b7280; margin: 0;">
                             Already have an account?
-                            <a href="{{ route('login') }}" style="color: #1a6b3c; font-weight: 600; text-decoration: none;">
+                            <a href="{{ route('parish.login') }}" style="color: #1a6b3c; font-weight: 600; text-decoration: none;">
                                 Log in
                             </a>
                         </p>

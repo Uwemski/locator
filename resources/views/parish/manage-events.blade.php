@@ -47,7 +47,7 @@
                              <button onclick="editEvent({{$event->id}})">Edit</button>
                         </td>
                         <td>
-                            <form action="{{route('event.remove', $event->id)}}" method='post'>
+                            <form action="{{route('parish.event.delete', $event->id)}}" method='post'>
                                 @csrf
                                 @method('delete')
                                 <button style='background-color: red'>Delete</button>
@@ -84,7 +84,7 @@
             document.getElementById('editEventContainer').style.display = 'block';
 
             //get record
-            fetch(`parish/event/${eventId}/edit`, {
+            fetch(`/event/${eventId}/edit`, {
                 method: 'GET',
                 'X-CSRF-TOKEN': "{{csrf_token()}}",
                 'Accept': 'application/json',

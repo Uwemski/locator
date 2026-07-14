@@ -34,7 +34,7 @@
                                     <p><span class="font-semibold">Time:</span> {{ $service->time }}</p>
                                 </div>
 
-                                <form action="{{ route('service.delete', $service->id) }}" method="POST" class="mt-4">
+                                <form action="{{ route('parish.service.delete', $service->id) }}" method="POST" class="mt-4">
                                     @csrf
                                     @method('DELETE')
 
@@ -73,7 +73,7 @@
                                                         <td class="px-8 py-4">{{$service->day}}</td>
                                                         <td class="px-8 py-4">{{$service->time}}</td>
                                                         <td class="px-8 py-4">
-                                                            <form action="{{route('service.delete', $service->id)}}" method="post">
+                                                            <form action="{{route('parish.service.delete', $service->id)}}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button  onclick="verifyDelete()" class="btn btn-danger">Delete</button>

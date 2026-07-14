@@ -31,7 +31,7 @@ class ParishController extends Controller
         $data = $request->validated();
         
         if(Auth::guard('parish')->attempt(['email'=> $data["email"], "password"=> $data["password"]])){
-            return redirect('parish-dashboard');
+            return redirect()->route('parish.dashboard');
         }else{
             return redirect()->back()->with("loginError", "There was an error upon login, please try again");
         }

@@ -531,7 +531,7 @@
     </ul>
 
     <div class="reveal mt-10">
-      <a href="{{ route('reg-test')}}" class="inline-block bg-white text-brand-green font-bold px-10 py-4 rounded-full text-base hover:bg-brand-green-light transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transform">
+      <a href="{{ route('parish.register')}}" class="inline-block bg-white text-brand-green font-bold px-10 py-4 rounded-full text-base hover:bg-brand-green-light transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transform">
         Register Your Parish →
       </a>
     </div>

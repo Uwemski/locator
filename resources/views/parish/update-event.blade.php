@@ -22,7 +22,7 @@
 
         @endif
         <div class="p-4 mb-4">
-            <form action="{{route('events.update', $event->id)}}" method="POST">
+            <form action="{{route('parish.event.update', $event->id)}}" method="POST">
                 @csrf
 
                 @method('PUT')

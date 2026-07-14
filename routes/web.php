@@ -36,18 +36,18 @@ Route::middleware('guest')->group(function(){
         return view("user.userLogin");
     })->name("userLogin");
 
-    Route::get('/reg-test', function(){
+    Route::get('/parish/register', function(){
         return view('parish.reg-test');
-    })->name('reg-test');
+    })->name('parish.register');
 
-    Route::get('/parish-login', function(){
+    Route::get('/parish/login', function(){
         return view('parish.parish-login');
-    })->name('login');
+    })->name('parish.login');
 
     //create
-    Route::post('/parish-reg', [ParishController::class, 'register'])->name('parish-reg');
+    Route::post('/parish/reg', [ParishController::class, 'register'])->name('parish.register.store');
     //login
-    Route::post('/parish-login', [ParishController::class, 'login'])->name('parish-login');
+    Route::post('/parish/login', [ParishController::class, 'login'])->name('parish.login.store');
 });
 
 Route::get("/userReg", function(){
@@ -60,41 +60,50 @@ Route::get("/userReg", function(){
 
 //middleware for parish
 Route::middleware(['auth:parish'])->group(function() {
-    Route::get('/parish-dashboard', function () {
-        return view('parish.parish-dashboard');
-    })->name('parish-dashboard');
-
-    Route::get('/parish/update_profile/index', [ParishController::class, 'updateProfileIndex'])->name('update-profile-index');
+    Route::get('/parish/update_profile/index', [ParishController::class, 'updateProfileIndex'])->name('parish.update-profile.index');
     
     Route::get('/parish/manage-location', function(){
         return view('parish.manage-location');
-    })->name('manage-location');
+    })->name('parish.manage-location');
 
     //update
     Route::put('/parish/manage-location', [ParishController::class, 'manageLocation']);
     Route::put('/parish/update-profile', [ParishController::class,  'updateSelf'])->name('parish.update.profile');
 
     //Route::get('/parish_dashboard', [ParishController::class, 'index'])->name('parish.profile');
-    Route::get('/parish-dashboard', [ParishController::class, 'index'])->name('parish-dashboard');
+    Route::get('/parish-dashboard', [ParishController::class, 'index'])->name('parish.dashboard');
 
-    Route::get('/parish/service', function(){
-        return view('parish.service');
-    } )->name('service.create.index');
-    //create
-    Route::post('/parish/create-service', [ServicesController::class, 'create'])->name('services.create');
-    //view
-    Route::get('/parish/service/show', [ServicesController::class, 'show'])->name('service.show');
-    //delete
-    Route::delete('parish/service/delete/{service}', [ServicesController::class, 'delete'])->name('service.delete');
+    Route::prefix('parish/service')->name('parish.service.')->group(function (){
 
+        Route::get('/', function(){
+            return view('parish.service');
+        })->name('index');
 
-    Route::get('/event', [EventController::class, 'viewEventsForParish'])->name('event.show');
-    Route::post('/events/create', [EventController::class, 'create'])->name('event.create');
-    Route::get('parish/event/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+        //create
+        Route::post('/create', [ServicesController::class, 'create'])->name('create');
+        //view
+        Route::get('/show', [ServicesController::class, 'show'])->name('show');
+        //delete
+        Route::delete('/delete/{service}', [ServicesController::class, 'delete'])->name('delete');
+    });
+    // Route::get('/parish/service', function(){
+    //         return view('parish.service');
+    //     })->name('parish.service.index');
 
-    Route::put('parish/event/{id}/update', [EventController::class, 'update'])->name('events.update');
-    //Route::patch('/event/{id}', [EventController::class, 'update']);
-    Route::delete('parish/event/delete/{event}', [ParishController::class, 'delete'])->name('event.remove');
+    Route::prefix('parish/events')->name('parish.event.')->group(function () {
+        Route::get('/', [EventController::class, 'viewEventsForParish'])->name('show');
+
+        Route::get('/create', function(){
+            return view('parish.events');
+        })->name('index');
+
+        Route::post('/create', [EventController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
+
+        Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
+        //Route::patch('/event/{id}', [EventController::class, 'update']);
+        Route::delete('/{id}/delete', [EventController::class, 'delete'])->name('delete');
+    });
 
     Route::post('/parish/logout', [ParishController::class, 'logout']);
 });
@@ -160,15 +169,10 @@ Route::get('/debug-log', function () {
     }
 });
 
-//routes for events
-Route::get('/events', function(){
-    return view('parish.events');
-})->name('events');
-
 // this is for sitevisitor 
 Route::get('/event/parish/{id}', [EventController::class, 'visitorSearchEvent'])->name('event.find');
 
-//view_events_for_parish
+
 
 //routes for loaction controller
 Route::get('/locations/states', [LocationController::class, 'getStates']);

@@ -26,51 +26,51 @@
         <!-- SIDEBAR -->
         <x-sidebar brand="RCCG Parish" bg="bg-[#4c9636]" accent="bg-[#2e5d20]">
 
-            <x-nav-link href="#" accent="bg-[#2e5d20]">
+            <x-nav-link href="{{ route('parish.dashboard') }}" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M10 2 2 8v10h6v-6h4v6h6V8l-8-6Z"/>
                 </svg>
                 Dashboard
             </x-nav-link>
 
-            <x-nav-link :href="route('update-profile-index')" :active="request()->routeIs('update-profile-index')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.update-profile.index')" :active="request()->routeIs('parish.update-profile.index')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 8a7 7 0 0 1 14 0v1H3v-1Z"/>
                 </svg>
                 Edit Profile
             </x-nav-link>
 
-            <x-nav-link :href="route('manage-location')" :active="request()->routeIs('manage-location')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.manage-location')" :active="request()->routeIs('parish.manage-location')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 18s6-5.33 6-10A6 6 0 0 0 4 8c0 4.67 6 10 6 10Zm0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" clip-rule="evenodd"/>
                 </svg>
                 Manage Location
             </x-nav-link>
 
-            <x-nav-link :href="route('service.create.index')" :active="request()->routeIs('service.create.index')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.service.index')" :active="request()->routeIs('parish.service.index')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm-2 7v7a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V9H4Z" clip-rule="evenodd"/>
                 </svg>
                 Service Schedule
             </x-nav-link>
 
-            <x-nav-link :href="route('service.show')" :active="request()->routeIs('service.show')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.service.show')" :active="request()->routeIs('parish.service.show')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M3 5.5A2.5 2.5 0 0 1 5.5 3h9A2.5 2.5 0 0 1 17 5.5v9a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 3 14.5v-9ZM6 8h8v1.5H6V8Zm0 3h8v1.5H6V11Z" clip-rule="evenodd"/>
                 </svg>
                 Manage Services
             </x-nav-link>
 
-            <x-nav-link :href="route('events')" :active="request()->routeIs('events')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.event.index')" :active="request()->routeIs('parish.event.index')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm-2 7v7a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V9H4Z" clip-rule="evenodd"/>
-                </svg>
-                Events
+                    </svg>
+                    Events
             </x-nav-link>
 
-            <x-nav-link :href="route('event.show')" :active="request()->routeIs('event.show')" accent="bg-[#2e5d20]">
+            <x-nav-link :href="route('parish.event.show')" :active="request()->routeIs('parish.event.show')" accent="bg-[#2e5d20]">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h9A2.5 2.5 0 0 1 17 5.5v9a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 3 14.5v-9Zm3.5 2a.75.75 0 0 0 0 1.5h7a.75.75 0 0 0 0-1.5h-7Z"/>
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm-2 7v7a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V9H4Z" clip-rule="evenodd"/>
                 </svg>
                 Manage Events
             </x-nav-link>

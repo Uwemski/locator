@@ -29,12 +29,12 @@
 
       <!-- ── Desktop navigation links ── -->
       <div class="hidden md:flex items-center gap-6">
-        <a href="{{route('home') }}"               class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Home</a>
+        <a href="{{route('home') }}" class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Home</a>
         <!-- Direct link to the Leaflet map page -->
-        <a href="{{route('superPower') }}"     class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Find a Parish</a>
-        <a href="{{route('reg-test') }}"       class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Register a Parish</a>
-        <a href="#how"            class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">How It Works</a>
-        <a href="#about"          class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">About</a>
+        <a href="{{route('superPower') }}" class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Find a Parish</a>
+        <a href="{{route('parish.register') }}" class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">Register a Parish</a>
+        <a href="#how" class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">How It Works</a>
+        <a href="#about" class="nav-link text-white/85 hover:text-white text-sm font-medium transition-colors">About</a>
         <!-- Primary CTA — goes straight to map page -->
         <a href="{{route('superPower') }}" class="nav-cta ml-1 px-4 py-2 bg-white text-brand-green text-sm font-semibold rounded-full hover:bg-brand-green-light transition-all duration-200 shadow-sm whitespace-nowrap">
           Find a Parish Near Me
