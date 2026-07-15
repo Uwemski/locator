@@ -37,10 +37,10 @@
       <div>
         <h4 class="text-white font-semibold text-sm uppercase tracking-widest mb-5">Quick Links</h4>
         <ul class="space-y-3 text-sm">
-          <li><a href="/"                 class="hover:text-white transition-colors">Home</a></li>
-          <li><a href="/parish-map"       class="hover:text-white transition-colors">Find a Parish</a></li>
-          <li><a href="/register-parish"  class="hover:text-white transition-colors">Register a Parish</a></li>
-          <li><a href="#"                 class="hover:text-white transition-colors">Events</a></li>
+          <li><a href="{{route('home')}}"                 class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="{{route('superPower')}}" class="hover:text-white transition-colors">Find a Parish</a></li>
+          <li><a href="{{route('parish.register')}}"  class="hover:text-white transition-colors">Register a Parish</a></li>
+          <li><a href="{{route('events')}}"                 class="hover:text-white transition-colors">Events</a></li>
           <li><a href="#about"            class="hover:text-white transition-colors">About</a></li>
         </ul>
       </div>
@@ -79,7 +79,7 @@
     </div>
 
     <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-600">
-      <p>&copy; 2025 RCCG Parish Locator Nigeria. All rights reserved. Developed by Uwem Paul Frank</p>
+      <p>&copy; 2026 RCCG Parish Locator Nigeria. All rights reserved. Developed by Uwem Paul Frank</p>
       <p class="italic text-gray-500">"Jesus Christ is the same yesterday and today and forever-Heb 13:8"</p>
     </div>
   </div>

@@ -58,7 +58,7 @@ class EventController extends Controller
         $parish = Parish::with('events')->find($id);
 
         $event = $parish->events;
-        //dd($event);
+        // dd($parish);
         if(!empty($event)){
             return view('user.parish-event', compact('event'));
         }else{

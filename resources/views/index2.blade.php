@@ -221,7 +221,7 @@
       You could also add ?geolocate=1 as a query param and
       auto-trigger the geolocation on page load.
     -->
-    <a href="/parish-map" class="mt-4 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white text-sm font-medium px-5 py-3 rounded-full transition-all duration-200 group">
+    <a href="{{route('superPower')}}" class="mt-4 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white text-sm font-medium px-5 py-3 rounded-full transition-all duration-200 group">
       <!-- GPS target — inline SVG, no icon font -->
       <svg class="w-4 h-4 group-hover:animate-shimmer" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
@@ -376,7 +376,7 @@
               Wed 6:00 PM (Bible Study)
             </p>
           </div>
-          <a href="/parish-map" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
+          <a href="{{route('superPower')}}" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
             View on Map →
           </a>
         </div>
@@ -407,7 +407,7 @@
               Tue 6:30 PM (Prayer Night)
             </p>
           </div>
-          <a href="/parish-map" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
+          <a href="{{route('superPower')}}" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
             View on Map →
           </a>
         </div>
@@ -438,7 +438,7 @@
               Fri 5:30 PM (Midweek)
             </p>
           </div>
-          <a href="/parish-map" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
+          <a href="{{route('superPower')}}" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
             View on Map →
           </a>
         </div>
@@ -469,7 +469,7 @@
               Thu 6:00 PM (Bible Study)
             </p>
           </div>
-          <a href="/parish-map" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
+          <a href="{{route('superPower')}}" class="block text-center bg-brand-green-pale text-brand-green font-semibold text-sm py-2.5 rounded-xl hover:bg-brand-green hover:text-white transition-all duration-200">
             View on Map →
           </a>
         </div>
@@ -479,7 +479,7 @@
 
     <!-- View all → full map page -->
     <div class="text-center mt-12 reveal">
-      <a href="/parish-map" class="inline-flex items-center gap-2 border-2 border-brand-green text-brand-green font-semibold px-8 py-3 rounded-full hover:bg-brand-green hover:text-white transition-all duration-200">
+      <a href="{{route('superPower')}}" class="inline-flex items-center gap-2 border-2 border-brand-green text-brand-green font-semibold px-8 py-3 rounded-full hover:bg-brand-green hover:text-white transition-all duration-200">
         View All Parishes on the Map
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>

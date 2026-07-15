@@ -29,7 +29,7 @@
                 <h1>Error 404: Page not found</h1>
             </div>
             <div class="col-md-9">
-                <a href="/home" class="btn btn-primary mb-5">Home</a>
+                <a href="{{route('home') }}" class="btn btn-primary mb-5">Home</a>
             </div>
             
 
