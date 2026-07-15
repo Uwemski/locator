@@ -59,7 +59,7 @@
       <a href="#how"            class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">How It Works</a>
       <a href="#about"          class="text-gray-700 font-medium py-2 px-3 rounded-lg hover:bg-brand-green-pale transition-colors">About</a>
       <!-- CTA in mobile menu → map page -->
-      <a href="/parish-map" class="mt-3 text-center bg-brand-green text-white font-semibold py-3 px-5 rounded-full hover:bg-brand-green-mid transition-colors shadow">
+      <a href="{{route('superPower') }}" class="mt-3 text-center bg-brand-green text-white font-semibold py-3 px-5 rounded-full hover:bg-brand-green-mid transition-colors shadow">
         📍 Find a Parish Near Me
       </a>
     </div>
