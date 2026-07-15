@@ -40,7 +40,6 @@
           <li><a href="{{route('home')}}"                 class="hover:text-white transition-colors">Home</a></li>
           <li><a href="{{route('superPower')}}" class="hover:text-white transition-colors">Find a Parish</a></li>
           <li><a href="{{route('parish.register')}}"  class="hover:text-white transition-colors">Register a Parish</a></li>
-          <li><a href="{{route('events')}}"                 class="hover:text-white transition-colors">Events</a></li>
           <li><a href="#about"            class="hover:text-white transition-colors">About</a></li>
         </ul>
       </div>
