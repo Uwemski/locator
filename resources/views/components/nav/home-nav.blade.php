@@ -15,10 +15,9 @@
           Two <span> elements absolutely positioned inside
           a relative container — no SVG, no icon font, no image.
         -->
-        <span class="relative inline-flex items-center justify-center w-9 h-9 bg-white/15 rounded-lg border border-white/25 flex-shrink-0 group-[.scrolled]:bg-brand-green-pale group-[.scrolled]:border-brand-green-light transition-colors" aria-hidden="true">
-          <span class="css-cross-v bg-white w-0.5 h-5" style="margin-top:-3px"></span>
-          <span class="css-cross-h bg-white h-0.5 w-4" style="margin-top:-6px"></span>
-        </span>
+        <img src="{{asset('img/rccg-logo-2.png')}}"
+          alt="RCCG Logo"
+          class="w-12 h-12 object-contain flex-shrink-0"/>
 
         <!-- RCCG text stacked above "Parish Locator" -->
         <span class="flex flex-col leading-none nav-logo-text text-white transition-colors">

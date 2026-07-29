@@ -117,6 +117,7 @@ class ParishController extends Controller
         $parishes = Parish::where("status", "verified")
                         ->where(function($query) use ($data){
                             $query->where("name", "like", "%{$data['name']}%")
+                            ->orWhere("address", "like", "%{$data['name']}%")
                             ->orWhere("city", "like", "%{$data['name']}%")
                             ->orWhere("state", "like", "%{$data['name']}%");
                         })->get();
