@@ -1,106 +1,58 @@
-<!-- resources/views/parish/map.blade.php -->
+<!-- resources/views/visitors-search.blade.php -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Parish Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-  <link rel="stylesheet" href="{{asset('style.css')}}" />
-  <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
-
-  <style>
-    body{
-      padding: .5rem;
-    }
-
-    #map { height: 500px; width: 100%; }
-    #nearest-parish { margin-top: 1em; font-weight: bold; }
-  </style>
+  <title>Search Results</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen">
 
   {{-- SOCIAL NAVBAR--}}
   @include('partials.navbar1')
   <!-- MAIN NAVBAR -->
-  @include('partials.navbar2') 
-  
-  <div class="col-md-6">
-      @if(session('error'))
-        <div class="alert alert-warning">{{session('error')}}</div>
-      @endif
-  </div>
+  @include('partials.navbar2')
 
-  <h2>Parishes Map</h2>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
 
-  <button id='nearest-btn' class='btn btn-success'>📍 Show Nearest Parish</button>
+    @if(session('error'))
+      <div class="mb-4 rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 text-sm sm:text-base">
+        {{ session('error') }}
+      </div>
+    @endif
 
-  <div id="map"></div>
+    <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+      Search Results ({{ $parishes->count() }})
+    </h2>
 
-  <div id="nearest-parish"></div> <!-- FIXED: Correct ID -->
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map('map').setView([9.0820, 8.6753], 6); //Abuja coords to center Nigeira
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-      }).addTo(map);
-
-      const parishMarkers = [];
-
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       @foreach ($parishes as $parish)
-        const marker = L.marker([{{ $parish->latitude }}, {{ $parish->longitude }}])
-          .addTo(map)
-          .bindPopup(`
-            <b>{{ $parish->name }}</b><br>
-            {{ $parish->address ?? '' }}<br>
-            <a href="https://www.google.com/maps/dir/?api=1&destination={{$parish->latitude}},{{$parish->longitude}}" target="_blank">📍 Get Directions</a>
-          `);
-        parishMarkers.push({ 
-          lat: {{ $parish->latitude }},
-          lng: {{ $parish->longitude }},
-          name: "{{ $parish->name }}",
-          marker: marker
-        });
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="font-semibold text-gray-900 text-lg">{{ $parish->name }}</h3>
+
+            @if($parish->address)
+              <p class="text-sm text-gray-600 mt-1">{{ $parish->address }}</p>
+            @endif
+
+            <p class="text-sm text-gray-500 mt-1">
+              {{ $parish->city }}{{ $parish->city && $parish->state ? ',' : '' }} {{ $parish->state }}
+            </p>
+          </div>
+
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination={{ $parish->latitude }},{{ $parish->longitude }}"
+            target="_blank"
+            class="mt-4 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 transition"
+          >
+            📍 Get Directions
+          </a>
+        </div>
       @endforeach
+    </div>
 
-      document.getElementById('nearest-btn').addEventListener('click', function () {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showNearestParish, handleError);
-        } else {
-          alert("Geolocation is not supported by your browser.");
-        }
-      });
-
-      function showNearestParish(position) {
-        const userLat = position.coords.latitude;
-        const userLng = position.coords.longitude;
-
-        fetch(`/nearest-parish?lat=${userLat}&lng=${userLng}`)
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById('nearest-parish').innerHTML = `
-              <strong>Nearest Parish:</strong> ${data.name}<br>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=${data.lat},${data.lng}" target="_blank">Get Directions</a>
-            `;
-
-            // Optional: Add a special marker for nearest
-            L.circleMarker([data.lat, data.lng], {
-              radius: 10,
-              color: 'red',
-              fillColor: '#f03',
-              fillOpacity: 0.5
-            }).addTo(map).bindPopup(`<b>${data.name}</b><br>Nearest to you`).openPopup();
-          });
-      }
-
-      function handleError(error) {
-        alert("Error getting location: " + error.message);
-      }
-    });
-  </script>
+  </div>
 
 </body>
 </html>
