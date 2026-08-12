@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-
-
 class ParishController extends Controller
 {
     //a function to logout 
@@ -47,9 +45,14 @@ class ParishController extends Controller
         try{
             //create a record
             if($request->hasFile('photo')){
-                $path= $request->file('photo')->store('uploads', 'public');
-            
-                $data['image'] = $path;
+                //use cloudinary
+                $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+                $result = $cloudinary->uploadApi()->upload(
+                    $request->file('photo')->getRealPath,
+                    ['folder' => 'parish']
+                );
+
+                $data['photo'] = $result['secure_url'];
             }
             $m = Parish::create($data);
             
