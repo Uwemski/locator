@@ -73,7 +73,6 @@ class ParishController extends Controller
     public function updateSelf(ParishUpdateRequest $request){
         $parish = Auth::guard('parish')->user();
 
-        //thank Goodness for form request
         $data = $request->validated();
 
         //update goes here
@@ -98,10 +97,8 @@ class ParishController extends Controller
 
     //public function for parish to view
     public function index(){
-        //fetch
         $parish = Auth::guard('parish')->user();
 
-        //send
         return view('parish.parish-dashboard', compact('parish'));
     }
 

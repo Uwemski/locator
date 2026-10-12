@@ -17,9 +17,6 @@ class ServicesController extends Controller
             'day' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
         ]);
 
-        // //strip-tags
-        // $data['name'] = strip_tags($data['name']);
-        // //still stripping
         foreach($data as $key => $value){
             $data[$key] = strip_tags($value);
         }
@@ -27,10 +24,9 @@ class ServicesController extends Controller
         $data['parish_id'] = Auth::guard('parish')->id();
 
         //dd($data);
-        if(!empty($data['parish_id']) ){//hope this works, if it doesn't we still move
+        if(!empty($data['parish_id']) ){
             $service = Service::create($data);
             if($service){
-                //return redirect()->back()->with('success', 'Service created successfully');
                 return response()->json([
                     'success' => true,
                     'message' => 'Service created successfully',
@@ -41,7 +37,6 @@ class ServicesController extends Controller
                     'success' => false,
                     'error' => 'Something went wrong',
                 ]);
-                //return redirect()->back()->with('error', 'Unable to create, Please try again!');
             }
         }else{
             return redirect()->back()->with('error', 'Unauthorized!,Login to enable access');
