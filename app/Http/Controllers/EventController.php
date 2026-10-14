@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Parish;
+use App\Http\Requests\StoreEventRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,22 +14,13 @@ class EventController extends Controller
         return view('parish.events');
     }
 
-    public function store(Request $request)
+    public function store(StoreEventRequest $request)
     {
         //validate
-        $data = $request->validate([
-            'title' => 'required|min:4',
-            'description' => 'required|min:5',
-            'event_date' => 'required',
-        ]);
+        $data = $request->validated();
 
         //authenticate 
         $data['parish_id'] = Auth::guard('parish')->id();
-
-        //strip tags
-        foreach($data as $key => $value){
-            $data['key'] = strip_tags($value);
-        }
 
         //create if parish_id is present   
         if(!empty($data['parish_id'])){
@@ -39,13 +31,13 @@ class EventController extends Controller
                     'success' => true,
                     'message' => 'Event created successfully',
                     'data' => $event,
-                ]);
+                ], 201);
             }else{
                 //return redirect()->back()->with('error', 'event not created successfully');
                 return response()->json([
                     'success' => false,
                     'error' => 'Error, please try again later',
-                ]);
+                ], 422);
             }
         }else{ 
             return redirect()->back()->with('error', 'parish Id missing, You are a criminal!!');
@@ -135,7 +127,7 @@ class EventController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         $event = Event::findOrFail($id);
 
         if(Auth::guard('parish')->id() !== $event->parish_id ){

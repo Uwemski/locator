@@ -5,7 +5,7 @@ use App\Events\ParishRegistered;
 use App\Models\Parish;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Http\Requests\RegisterParishRequest;
+use App\Http\Requests\StoreParishRequest;
 use App\Http\Requests\ParishUpdateLocationRequest;
 use App\Http\Requests\ParishLoginRequest;
 use App\Http\Requests\ParishUpdateRequest;
@@ -37,7 +37,7 @@ class ParishController extends Controller
 
 
     //a function to handle registration
-    public function register(RegisterParishRequest $request){
+    public function store(StoreParishRequest $request){
         //created a form request to make my controller cleaner
         $data = $request->validated();
 
@@ -55,9 +55,6 @@ class ParishController extends Controller
                 $data['photo'] = $result['secure_url'];
             }
             $m = Parish::create($data);
-            
-            //use professional services
-            // event(new ParishRegistered($m));
 
             return redirect()->route('parish.login')->with('success', 'Parish registered successfully. Please log in.');
         }catch(QueryException $e){
@@ -75,7 +72,6 @@ class ParishController extends Controller
 
         $data = $request->validated();
 
-        //update goes here
         $parish->update($data);
 
         return redirect()->back()->with('success', 'Information updated successfully');

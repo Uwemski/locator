@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Parish;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; //I'm not sure if I'll use this, make we dey see
@@ -35,5 +36,9 @@ class Service extends Authenticatable
         'created_at',
         'uploaded_at'
     ];
+
+    public function parish(){
+        return $this->belongsTo(Parish::class, 'parish_id');
+    }
 
 }

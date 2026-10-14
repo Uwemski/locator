@@ -34,7 +34,7 @@
                                     <p><span class="font-semibold">Time:</span> {{ $service->time }}</p>
                                 </div>
 
-                                <form action="{{ route('parish.service.delete', $service->id) }}" method="POST" class="mt-4">
+                                <form action="{{ route('service.destroy', $service->id) }}" method="POST" class="mt-4">
                                     @csrf
                                     @method('DELETE')
 
@@ -54,32 +54,32 @@
                     <div class="hidden md:block overflow-x-auto rounded-lg shadow-md">
                         <!-- Put the table here -->
                         <table border='1' class='table table-striped'>
-                                            <thead>
-                                                <tr>
-                                                    <th>S/N</th>
-                                                    {{--<th>Parish name</th>--}}
-                                                    <th class="px-8 py-4"> Service Name</th>
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                {{--<th>Parish name</th>--}}
+                                    <th class="px-8 py-4"> Service Name</th>
                                                     <th class="px-8 py-4">Day</th>
-                                                    <th class="px-8 py-4">Time</th>
-                                                    <th class="px-8 py-4">Action</th>
-                                                </tr>
-                                            </thead>
+                                    <th class="px-8 py-4">Time</th>
+                                    <th class="px-8 py-4">Action</th>
+                                </tr>
+                            </thead>
 
-                                            <tbody>
-                                                @foreach ($services as $service)
-                                                    <tr>
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td class="px-8 py-4">{{$service->name}}</td>
-                                                        <td class="px-8 py-4">{{$service->day}}</td>
-                                                        <td class="px-8 py-4">{{$service->time}}</td>
-                                                        <td class="px-8 py-4">
-                                                            <form action="{{route('parish.service.delete', $service->id)}}" method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button  onclick="verifyDelete()" class="btn btn-danger">Delete</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                            <tbody>
+                                @foreach ($services as $service)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td class="px-8 py-4">{{$service->name}}</td>
+                                        <td class="px-8 py-4">{{$service->day}}</td>
+                                        <td class="px-8 py-4">{{$service->time}}</td>
+                                        <td class="px-8 py-4">
+                                            <form action="{{route('service.destroy', $service->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button  onclick="verifyDelete()" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParishController;
-use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ResetPasswordController;
@@ -45,7 +45,7 @@ Route::middleware('guest')->group(function(){
     })->name('parish.login');
 
     //create
-    Route::post('/parish/reg', [ParishController::class, 'register'])->name('parish.register.store');
+    Route::post('/parish', [ParishController::class, 'store'])->name('parish.store');
     //login
     Route::post('/parish/login', [ParishController::class, 'login'])->name('parish.login.store');
 });
@@ -80,29 +80,29 @@ Route::middleware(['auth:parish'])->group(function() {
         })->name('index');
 
         //create
-        Route::post('/create', [ServicesController::class, 'create'])->name('create');
+        Route::post('/create', [ServiceController::class, 'create'])->name('create');
         //view
-        Route::get('/show', [ServicesController::class, 'show'])->name('show');
+        Route::get('/show', [ServiceController::class, 'show'])->name('show');
         //delete
-        Route::delete('/delete/{service}', [ServicesController::class, 'delete'])->name('delete');
+        Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('service.destroy');
     });
     // Route::get('/parish/service', function(){
     //         return view('parish.service');
     //     })->name('parish.service.index');
 
-    Route::prefix('parish/events')->name('parish.event.')->group(function () {
+    Route::prefix('parish')->name('parish.event.')->group(function () {
         Route::get('/', [EventController::class, 'viewEventsForParish'])->name('show');
 
         Route::get('/create', function(){
             return view('parish.events');
         })->name('index');
 
-        Route::post('/create', [EventController::class, 'store'])->name('store');
-        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
+        Route::post('/events', [EventController::class, 'store'])->name('event.store');
+        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
 
-        Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
+        Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
         //Route::patch('/event/{id}', [EventController::class, 'update']);
-        Route::delete('/{id}/delete', [EventController::class, 'delete'])->name('delete');
+        Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('event.destroy');
     });
 
     Route::post('/parish/logout', [ParishController::class, 'logout']);
@@ -133,7 +133,7 @@ Route::middleware(['auth:admin'])->group(function(){
     //controller method for number of parishes
     Route::get('/adminDashboard', [AdminController::class, 'numberOfParishesUsers'])->name('adminDashboard');
 
-    Route::get('/admin/parish/{id}', [ServicesController::class, 'findServiceByParish'])->name('service.find');
+    Route::get('/admin/parish/{id}', [ServiceController::class, 'findServiceByParish'])->name('service.find');
 
 });
 

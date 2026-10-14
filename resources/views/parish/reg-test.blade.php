@@ -447,7 +447,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{route('parish.register.store')}}" enctype="multipart/form-data" class="form-stack">
+                    <form method="POST" action="{{route('parish.store')}}" enctype="multipart/form-data" class="form-stack">
                         @csrf
 
                         <div>
