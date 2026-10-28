@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Scout\Searchable;
 
 class Parish extends Authenticatable
 {
     //
-     use HasFactory, Notifiable;
+     use HasFactory, Notifiable, searchable;
 
     protected $table ="parish";
     /**
